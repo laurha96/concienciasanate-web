@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Dev: Backend",
+			"type": "shell",
+			"command": "cd \"backend\" && npm run dev",
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Dev: Frontend",
+			"type": "shell",
+			"command": "cd \"frontend\" && npm run dev",
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

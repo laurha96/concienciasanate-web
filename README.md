@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Conciencia Sánate
 
-## Getting Started
+Monorepo simple con dos apps separadas:
 
-First, run the development server:
+- `frontend/`: Next.js (App Router) + TS + Tailwind + shadcn/ui + React Query.
+- `backend/`: Express + TS + Supabase (service role) + JWT.
+
+> Objetivo: el frontend **no** accede directamente a la base de datos; todo pasa por el backend vía REST.
+
+## Requisitos
+
+- Node.js (recomendado 18+)
+
+## Variables de entorno
+
+### Backend
+
+1) Copia el ejemplo:
+
+- `backend/.env.example` → `backend/.env`
+
+2) Completa:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `JWT_SECRET` (mínimo 32 caracteres)
+
+Opcional:
+
+- `PORT` (por defecto `5000`)
+- `CORS_ORIGIN` (por defecto `http://localhost:3000`)
+
+### Frontend
+
+1) Copia el ejemplo:
+
+- `frontend/.env.example` → `frontend/.env.local`
+
+2) Asegúrate de que apunte al backend:
+
+- `NEXT_PUBLIC_API_URL=http://localhost:5000`
+
+## Desarrollo local
+
+En dos terminales:
+
+### 1) Backend
 
 ```bash
+cd backend
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Healthcheck:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `GET http://localhost:5000/health`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2) Frontend
 
-## Learn More
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Abre:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `http://localhost:3000`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Autenticación
 
-## Deploy on Vercel
+- Login/registro pegan al backend y guardan el `token` en `localStorage`.
+- Rutas privadas (`/dashboard`, `/perfil`) validan el token llamando a `GET /api/users/profile`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Endpoints principales (backend)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `POST /api/auth/login` → `{ token, user }`
+- `POST /api/auth/register` → `{ token, user }`
+- `GET /api/users/profile` (Bearer) → `{ profile }`
+- `PUT /api/users/profile` (Bearer) → `{ profile }`
+- `GET /api/users/preferences` (Bearer) → `{ preferences }`
+- `PUT /api/users/preferences` (Bearer) → `{ preferences }`
+- `GET /api/resources` → `{ resources }`
+
+## Deploy (alto nivel)
+
+- Backend: Railway (o similar). Define las variables de `backend/.env.example`.
+- Frontend: Cloudflare Pages o Vercel. Define `NEXT_PUBLIC_API_URL` apuntando al dominio del backend.
