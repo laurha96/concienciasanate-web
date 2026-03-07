@@ -1,6 +1,8 @@
 name = "conciencia-sanate"
+main = ".open-next/worker.js"
 compatibility_date = "2026-03-07"
-compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+compatibility_flags = ["nodejs_compat"]
 
-# Cloudflare Pages reads this to understand the output folder.
-pages_build_output_dir = ".open-next/assets"
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
