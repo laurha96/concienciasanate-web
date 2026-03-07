@@ -84,6 +84,21 @@ async function debugCheckNextStaticAssets({ projectRoot, assetsDir }) {
   }
 }
 
+async function debugCheckPublicAssets({ assetsDir }) {
+  const checks = [
+    "favicon.ico",
+    path.join("icons", "icon.png"),
+    path.join("icons", "apple-icon.png"),
+    path.join("logos", "logo-mark.png"),
+  ];
+
+  console.log("ℹ️ Debug public/ assets en output:");
+  for (const rel of checks) {
+    const ok = await exists(path.join(assetsDir, rel));
+    console.log(`- ${rel}: ${ok ? "OK" : "MISSING"}`);
+  }
+}
+
 async function main() {
   const workerEntry = path.join(openNextDir, "worker.js");
   if (!(await exists(workerEntry))) {
@@ -115,6 +130,7 @@ async function main() {
   await copyDirMerge(publicDir, assetsDir);
 
   await debugCheckNextStaticAssets({ projectRoot, assetsDir });
+  await debugCheckPublicAssets({ assetsDir });
 
   await copyDir(path.join(openNextDir, "cloudflare"), path.join(assetsDir, "cloudflare"));
   await copyDir(path.join(openNextDir, "middleware"), path.join(assetsDir, "middleware"));
