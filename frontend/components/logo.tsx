@@ -7,6 +7,7 @@ type LogoProps = {
   className?: string;
   markClassName?: string;
   nameClassName?: string;
+  subtitleClassName?: string;
   showName?: boolean;
 };
 
@@ -14,6 +15,7 @@ export function Logo({
   className,
   markClassName,
   nameClassName,
+  subtitleClassName,
   showName = true,
 }: LogoProps) {
   return (
@@ -45,7 +47,14 @@ export function Logo({
           >
             Conciencia Sánate
           </div>
-          <div className="text-xs text-muted-foreground">bienestar emocional</div>
+          <div
+            className={cn(
+              "text-xs text-muted-foreground",
+              subtitleClassName
+            )}
+          >
+            bienestar emocional
+          </div>
         </div>
       ) : null}
     </div>
