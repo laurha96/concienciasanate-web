@@ -4,6 +4,7 @@ import path from "node:path";
 const projectRoot = path.resolve(process.cwd());
 const openNextDir = path.join(projectRoot, ".open-next");
 const assetsDir = path.join(openNextDir, "assets");
+const nextStaticDir = path.join(projectRoot, ".next", "static");
 
 async function exists(filePath) {
   try {
@@ -39,6 +40,11 @@ async function main() {
   // copiamos también sus módulos al mismo directorio para que el bundler de
   // Pages pueda resolverlos.
   await fs.copyFile(workerEntry, path.join(assetsDir, "_worker.js"));
+
+  // En algunos despliegues, los assets de Next pueden no quedar completos en
+  // `.open-next/assets/_next/static`. Para evitar 404 en `/_next/static/...`,
+  // sincronizamos explícitamente desde `.next/static`.
+  await copyDir(nextStaticDir, path.join(assetsDir, "_next", "static"));
 
   await copyDir(path.join(openNextDir, "cloudflare"), path.join(assetsDir, "cloudflare"));
   await copyDir(path.join(openNextDir, "middleware"), path.join(assetsDir, "middleware"));
