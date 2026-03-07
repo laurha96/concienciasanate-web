@@ -3,8 +3,8 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
 import { Providers } from "@/app/providers";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
 
 const metadataBase = new URL(
@@ -26,19 +26,19 @@ export const metadata: Metadata = {
   title: "Conciencia Sánate",
   description: "Bienestar emocional con calma, claridad y contención.",
   icons: {
-    icon: [{ url: "/icon.png" }],
-    apple: [{ url: "/apple-icon.png" }],
+    icon: [{ url: "/icons/icon.png" }],
+    apple: [{ url: "/icons/apple-icon.png" }],
   },
   openGraph: {
     title: "Conciencia Sánate",
     description: "Bienestar emocional con calma, claridad y contención.",
-    images: [{ url: "/opengraph-image.png" }],
+    images: [{ url: "/social/opengraph-image.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Conciencia Sánate",
     description: "Bienestar emocional con calma, claridad y contención.",
-    images: ["/twitter-image.png"],
+    images: ["/social/twitter-image.png"],
   },
 };
 

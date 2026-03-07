@@ -8,10 +8,12 @@ const BG_WARM = "#FAF8F3";
 
 const root = path.resolve(process.cwd());
 
-const inputMarkWhite = path.join(root, "public", "brand", "logo-mark-white.png");
+const inputMarkWhite = path.join(root, "public", "logos", "logo-mark-white.png");
 
-const outPublicBrand = path.join(root, "public", "brand");
 const outPublic = path.join(root, "public");
+const outPublicIcons = path.join(root, "public", "icons");
+const outPublicSocial = path.join(root, "public", "social");
+const outPublicLogos = path.join(root, "public", "logos");
 
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true });
@@ -54,32 +56,34 @@ async function writeBuffer(filePath, buffer) {
 }
 
 async function main() {
-  await ensureDir(outPublicBrand);
   await ensureDir(outPublic);
+  await ensureDir(outPublicIcons);
+  await ensureDir(outPublicSocial);
+  await ensureDir(outPublicLogos);
 
   // 1) Export mark verde (transparente) para UI.
   const mark256 = await tintedMarkPng(256);
   const mark512 = await tintedMarkPng(512);
-  await writeBuffer(path.join(outPublicBrand, "logo-mark.png"), mark256);
-  await writeBuffer(path.join(outPublicBrand, "logo-mark@2x.png"), mark512);
+  await writeBuffer(path.join(outPublicLogos, "logo-mark.png"), mark256);
+  await writeBuffer(path.join(outPublicLogos, "logo-mark@2x.png"), mark512);
 
   // 2) Static icons (Cloudflare Pages friendly).
   // icon.png recomendado (512) + apple-icon (180). Usamos fondo cálido para buena legibilidad.
   await compositeOnBackground({
     canvasSize: 512,
     markSize: 340,
-    outPath: path.join(outPublic, "icon.png"),
+    outPath: path.join(outPublicIcons, "icon.png"),
   });
 
   await compositeOnBackground({
     canvasSize: 180,
     markSize: 128,
-    outPath: path.join(outPublic, "apple-icon.png"),
+    outPath: path.join(outPublicIcons, "apple-icon.png"),
   });
 
   // 3) OpenGraph/Twitter (opcionales pero útiles). Diseño minimalista: fondo cálido + mark centrado.
-  const ogOut = path.join(outPublic, "opengraph-image.png");
-  const twOut = path.join(outPublic, "twitter-image.png");
+  const ogOut = path.join(outPublicSocial, "opengraph-image.png");
+  const twOut = path.join(outPublicSocial, "twitter-image.png");
 
   const ogCanvas = await sharp(Buffer.from(svgBackgroundRect(BG_WARM)))
     .resize(1200, 630)
@@ -128,15 +132,15 @@ async function main() {
   // 5) Mantener `public/icon.svg` consistente: lo apuntamos a la versión png (solo como conveniencia).
   const iconSvg = `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\">` +
-    `<image href=\"/brand/logo-mark.png\" x=\"0\" y=\"0\" width=\"64\" height=\"64\" />` +
+    `<image href=\"/logos/logo-mark.png\" x=\"0\" y=\"0\" width=\"64\" height=\"64\" />` +
     `</svg>\n`;
   await writeBuffer(path.join(root, "public", "icon.svg"), Buffer.from(iconSvg));
 
   console.log("✅ Iconos generados:");
   console.log("- public/favicon.ico");
-  console.log("- public/icon.png, public/apple-icon.png");
-  console.log("- public/opengraph-image.png, public/twitter-image.png");
-  console.log("- public/brand/logo-mark.png");
+  console.log("- public/icons/icon.png, public/icons/apple-icon.png");
+  console.log("- public/social/opengraph-image.png, public/social/twitter-image.png");
+  console.log("- public/logos/logo-mark.png");
 }
 
 main().catch((err) => {
