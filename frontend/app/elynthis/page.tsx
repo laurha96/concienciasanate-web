@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Elynthis",
   description:
-    "Elynthis: el producto principal dentro del ecosistema de Conciencia Sánate. Una experiencia wellness-tech premium.",
+    "Elynthis es el software clínico de Conciencia Sánate para profesionales: pacientes, agenda, consultas, seguimiento y documentación con orden y cuidado.",
 };
 
 export default function ElynthisPage() {
@@ -17,22 +17,24 @@ export default function ElynthisPage() {
       <div className="space-y-6">
         <SectionHeading
           eyebrow="Elynthis"
-          title="Un acompañamiento wellness-tech, limpio y humano"
-          description="Elynthis es el núcleo del ecosistema: una experiencia diseñada para ayudarte a crear hábitos de bienestar emocional con estructura suave y seguimiento discreto."
+          title="Software clínico para una práctica clara y humana"
+          description="Elynthis es la plataforma tecnológica del ecosistema Conciencia Sánate para profesionales de la salud. Unifica pacientes, historias clínicas, agenda, consultas, seguimiento terapéutico y documentación clínica con orden, claridad y cuidado."
         />
 
         <div className="grid gap-6 rounded-[40px] border border-border/60 bg-card p-10 shadow-sm lg:grid-cols-[1fr_auto] lg:items-center">
           <div className="space-y-2">
             <div className="text-sm font-medium">Para quién es</div>
             <p className="text-sm leading-7 text-muted-foreground">
-              Para personas que quieren avanzar con claridad: sin saturación, sin
-              culpa y sin interfaces densas. Ideal si buscas un sistema simple y
-              sereno para sostener tu bienestar.
+              Para psicólogos, terapeutas y profesionales de la salud que quieren
+              trabajar con una base clínica ordenada, sin fricción y con una
+              experiencia moderna. Diseñado para sostener el cuidado con
+              estructura suave: lo importante a mano, lo administrativo bajo
+              control.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button size="lg" className="rounded-2xl" asChild>
-              <Link href="/registro">Solicitar acceso</Link>
+              <Link href="/contactenos">Solicitar demo</Link>
             </Button>
             <Button
               size="lg"
@@ -40,7 +42,7 @@ export default function ElynthisPage() {
               className="rounded-2xl"
               asChild
             >
-              <Link href="/dashboard">Ver dashboard</Link>
+              <Link href="/registro">Crear cuenta profesional</Link>
             </Button>
           </div>
         </div>
@@ -48,19 +50,19 @@ export default function ElynthisPage() {
         <FeatureCards
           items={[
             {
-              title: "Beneficios",
+              title: "Historia clínica y documentación",
               description:
-                "Más calma, mejor claridad emocional y hábitos sostenibles en el tiempo.",
+                "Registra y consulta información clínica de forma simple y consistente, con documentación lista cuando la necesitas.",
             },
             {
-              title: "Cómo funciona",
+              title: "Agenda, pacientes y consultas",
               description:
-                "Módulos simples, recursos guiados y seguimiento discreto en tu dashboard.",
+                "Organiza tu día a día en un solo lugar: pacientes, agenda y consultas con una experiencia clara y rápida.",
             },
             {
-              title: "Experiencia",
+              title: "Seguimiento terapéutico",
               description:
-                "UI premium, suave y minimalista: diseñada para sentirse segura.",
+                "Acompaña los procesos con continuidad: notas, seguimiento y orden clínico con un enfoque humano. Próximamente: RIPS y más herramientas clínicas.",
             },
           ]}
         />

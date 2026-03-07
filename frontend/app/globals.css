@@ -5,6 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Paleta wellness (Tailwind tokens -> CSS vars de marca) */
+  --color-green-primary: var(--green-primary);
+  --color-green-soft: var(--green-soft);
+  --color-green-light: var(--green-light);
+  --color-background-main: var(--background-main);
+  --color-background-soft: var(--background-soft);
+  --color-soft-beige: var(--soft-beige);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-soft: var(--border-soft);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-brand-sans);
@@ -50,39 +61,62 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  /* Paleta base (cálida, clínica-humana; verde suave como primario) */
-  --background: oklch(0.985 0.012 95);
-  --foreground: oklch(0.23 0.012 265);
-  --card: oklch(0.995 0.006 95);
-  --card-foreground: oklch(0.23 0.012 265);
-  --popover: oklch(0.995 0.006 95);
-  --popover-foreground: oklch(0.23 0.012 265);
-  --primary: oklch(0.53 0.075 155);
-  --primary-foreground: oklch(0.985 0.012 95);
-  --secondary: oklch(0.945 0.025 155);
-  --secondary-foreground: oklch(0.23 0.012 265);
-  --muted: oklch(0.96 0.016 95);
-  --muted-foreground: oklch(0.49 0.02 265);
-  --accent: oklch(0.94 0.03 155);
-  --accent-foreground: oklch(0.23 0.012 265);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.008 95);
-  --input: oklch(0.92 0.008 95);
-  --ring: oklch(0.58 0.07 155);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Design system solicitado (marca) */
+  --green-primary: #7FBF3F;
+  --green-soft: #A8D672;
+  --green-light: #E8F4D8;
+
+  --background-main: #FAF8F3;
+  --background-soft: #F7F3EA;
+  --soft-beige: #F2EDE3;
+
+  --text-primary: #2E2E2E;
+  --text-secondary: #6B6B6B;
+
+  --border-soft: #EAE7DF;
+
+  /* Tokens shadcn/ui (mapeados a la paleta) */
+  --radius: 1rem;
+
+  --background: var(--background-main);
+  --foreground: var(--text-primary);
+  --card: #ffffff;
+  --card-foreground: var(--text-primary);
+  --popover: #ffffff;
+  --popover-foreground: var(--text-primary);
+
+  --primary: var(--green-primary);
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--background-soft);
+  --secondary-foreground: var(--text-primary);
+
+  --muted: var(--soft-beige);
+  --muted-foreground: var(--text-secondary);
+
+  --accent: var(--green-light);
+  --accent-foreground: var(--text-primary);
+
+  --destructive: #ef4444;
+  --border: var(--border-soft);
+  --input: var(--border-soft);
+  --ring: var(--green-soft);
+
+  /* Charts/Sidebar (no críticos en landing) */
+  --chart-1: var(--green-primary);
+  --chart-2: var(--green-soft);
+  --chart-3: var(--text-secondary);
+  --chart-4: var(--green-light);
+  --chart-5: var(--soft-beige);
+
+  --sidebar: var(--background-main);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--green-primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--background-soft);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-soft);
+  --sidebar-ring: var(--green-soft);
 }
 
 .dark {

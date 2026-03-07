@@ -7,6 +7,10 @@ import { safeGetClientEnv } from "@/lib/env";
 import { apiGetMyProfile } from "@/services/api";
 import { clearAuth, getAccessToken } from "@/services/auth-store";
 
+function hasStatus(value: unknown): value is { status?: number } {
+  return typeof value === "object" && value !== null && "status" in value;
+}
+
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -28,8 +32,8 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
     apiGetMyProfile()
       .then(() => setReady(true))
-      .catch((err: any) => {
-        if (err?.status === 401) {
+      .catch((err: unknown) => {
+        if (hasStatus(err) && err.status === 401) {
           clearAuth();
         }
         router.replace(target);

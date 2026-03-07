@@ -10,7 +10,7 @@ export function FeatureCards({
       {items.map((it) => (
         <Card
           key={it.title}
-          className="rounded-3xl border-border/60 shadow-sm transition-transform hover:-translate-y-0.5"
+          className="rounded-3xl border-border/70 shadow-sm transition-[box-shadow,border-color] hover:border-green-soft/60 hover:shadow-md"
         >
           <CardHeader>
             <CardTitle className="text-base tracking-tight">{it.title}</CardTitle>

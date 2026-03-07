@@ -4,7 +4,7 @@ import { Logo } from "@/components/logo";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/60">
+    <footer className="border-t border-border/70 bg-background-soft">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:px-8 md:grid-cols-2">
         <div className="space-y-3">
           <Logo />
@@ -18,25 +18,25 @@ export function Footer() {
           <div className="space-y-2">
             <div className="font-medium">Plataforma</div>
             <div className="space-y-1 text-muted-foreground">
-              <Link className="block hover:text-foreground" href="/">
+              <Link className="block transition-colors hover:text-foreground" href="/">
                 Inicio
               </Link>
-              <Link className="block hover:text-foreground" href="/sobre">
+              <Link className="block transition-colors hover:text-foreground" href="/sobre">
                 Sobre
               </Link>
-              <Link className="block hover:text-foreground" href="/servicios">
+              <Link className="block transition-colors hover:text-foreground" href="/servicios">
                 Servicios
               </Link>
-              <Link className="block hover:text-foreground" href="/planes">
+              <Link className="block transition-colors hover:text-foreground" href="/planes">
                 Planes
               </Link>
-              <Link className="block hover:text-foreground" href="/contactenos">
+              <Link className="block transition-colors hover:text-foreground" href="/contactenos">
                 Contáctenos
               </Link>
-              <Link className="block hover:text-foreground" href="/blog">
+              <Link className="block transition-colors hover:text-foreground" href="/blog">
                 Blog
               </Link>
-              <Link className="block hover:text-foreground" href="/elynthis">
+              <Link className="block transition-colors hover:text-foreground" href="/elynthis">
                 Elynthis
               </Link>
             </div>
@@ -44,20 +44,20 @@ export function Footer() {
           <div className="space-y-2">
             <div className="font-medium">Acceso</div>
             <div className="space-y-1 text-muted-foreground">
-              <Link className="block hover:text-foreground" href="/login">
+              <Link className="block transition-colors hover:text-foreground" href="/login">
                 Login
               </Link>
-              <Link className="block hover:text-foreground" href="/registro">
+              <Link className="block transition-colors hover:text-foreground" href="/registro">
                 Registro
               </Link>
-              <Link className="block hover:text-foreground" href="/dashboard">
+              <Link className="block transition-colors hover:text-foreground" href="/dashboard">
                 Dashboard
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="md:col-span-2 flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="md:col-span-2 flex flex-col gap-2 border-t border-border/70 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>© {new Date().getFullYear()} Conciencia Sánate</div>
           <div className="flex gap-4">
             <span>Privacidad</span>

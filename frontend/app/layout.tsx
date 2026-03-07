@@ -7,6 +7,10 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 
+const metadataBase = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.concienciasanate.org"
+);
+
 const inter = Inter({
   variable: "--font-brand-sans",
   subsets: ["latin"],
@@ -18,12 +22,24 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Conciencia Sánate",
-    template: "%s · Conciencia Sánate",
+  metadataBase,
+  title: "Conciencia Sánate",
+  description: "Bienestar emocional con calma, claridad y contención.",
+  icons: {
+    icon: [{ url: "/favicon.ico" }],
+    apple: [{ url: "/apple-icon.png" }],
   },
-  description:
-    "Bienestar emocional y autocuidado con psicología basada en evidencia. Un ecosistema humano, sereno y profesional.",
+  openGraph: {
+    title: "Conciencia Sánate",
+    description: "Bienestar emocional con calma, claridad y contención.",
+    images: [{ url: "/opengraph-image.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Conciencia Sánate",
+    description: "Bienestar emocional con calma, claridad y contención.",
+    images: ["/twitter-image.png"],
+  },
 };
 
 export default function RootLayout({

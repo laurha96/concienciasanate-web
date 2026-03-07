@@ -13,7 +13,7 @@ export default function HomePage() {
     <div>
       <HeroSection />
 
-      <section className="py-12 sm:py-16">
+      <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Qué es"
@@ -51,7 +51,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section className="bg-background-soft py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-start">
             <div className="space-y-6">
@@ -98,11 +98,13 @@ export default function HomePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm text-muted-foreground">
-                <div className="rounded-2xl bg-muted p-4">
+                <div className="rounded-3xl border border-border/70 bg-accent p-4">
                   Rutas de práctica emocional
                 </div>
-                <div className="rounded-2xl bg-muted p-4">Recursos guiados</div>
-                <div className="rounded-2xl bg-muted p-4">
+                <div className="rounded-3xl border border-border/70 bg-accent p-4">
+                  Recursos guiados
+                </div>
+                <div className="rounded-3xl border border-border/70 bg-accent p-4">
                   Un dashboard limpio y sereno
                 </div>
                 <div className="pt-2 text-xs">
@@ -114,7 +116,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Pilares"
@@ -145,7 +147,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section className="bg-background-soft py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Testimonios"
