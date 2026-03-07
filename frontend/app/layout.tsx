@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   title: "Conciencia Sánate",
   description: "Bienestar emocional con calma, claridad y contención.",
   icons: {
-    icon: [{ url: "/favicon.ico" }],
+    icon: [{ url: "/icon.png" }],
     apple: [{ url: "/apple-icon.png" }],
   },
   openGraph: {

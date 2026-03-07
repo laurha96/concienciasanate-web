@@ -11,7 +11,7 @@ const root = path.resolve(process.cwd());
 const inputMarkWhite = path.join(root, "public", "brand", "logo-mark-white.png");
 
 const outPublicBrand = path.join(root, "public", "brand");
-const outApp = path.join(root, "app");
+const outPublic = path.join(root, "public");
 
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true });
@@ -55,7 +55,7 @@ async function writeBuffer(filePath, buffer) {
 
 async function main() {
   await ensureDir(outPublicBrand);
-  await ensureDir(outApp);
+  await ensureDir(outPublic);
 
   // 1) Export mark verde (transparente) para UI.
   const mark256 = await tintedMarkPng(256);
@@ -63,23 +63,23 @@ async function main() {
   await writeBuffer(path.join(outPublicBrand, "logo-mark.png"), mark256);
   await writeBuffer(path.join(outPublicBrand, "logo-mark@2x.png"), mark512);
 
-  // 2) Next App Router icons.
+  // 2) Static icons (Cloudflare Pages friendly).
   // icon.png recomendado (512) + apple-icon (180). Usamos fondo cálido para buena legibilidad.
   await compositeOnBackground({
     canvasSize: 512,
     markSize: 340,
-    outPath: path.join(outApp, "icon.png"),
+    outPath: path.join(outPublic, "icon.png"),
   });
 
   await compositeOnBackground({
     canvasSize: 180,
     markSize: 128,
-    outPath: path.join(outApp, "apple-icon.png"),
+    outPath: path.join(outPublic, "apple-icon.png"),
   });
 
   // 3) OpenGraph/Twitter (opcionales pero útiles). Diseño minimalista: fondo cálido + mark centrado.
-  const ogOut = path.join(outApp, "opengraph-image.png");
-  const twOut = path.join(outApp, "twitter-image.png");
+  const ogOut = path.join(outPublic, "opengraph-image.png");
+  const twOut = path.join(outPublic, "twitter-image.png");
 
   const ogCanvas = await sharp(Buffer.from(svgBackgroundRect(BG_WARM)))
     .resize(1200, 630)
@@ -122,8 +122,7 @@ async function main() {
 
   const ico = await pngToIco(faviconPngs);
 
-  // Escribimos en app/ y public/ para cubrir tanto App Router como request directo /favicon.ico.
-  await writeBuffer(path.join(outApp, "favicon.ico"), ico);
+  // Escribimos en public/ para request directo /favicon.ico.
   await writeBuffer(path.join(root, "public", "favicon.ico"), ico);
 
   // 5) Mantener `public/icon.svg` consistente: lo apuntamos a la versión png (solo como conveniencia).
@@ -134,9 +133,10 @@ async function main() {
   await writeBuffer(path.join(root, "public", "icon.svg"), Buffer.from(iconSvg));
 
   console.log("✅ Iconos generados:");
-  console.log("- app/favicon.ico, app/icon.png, app/apple-icon.png");
-  console.log("- app/opengraph-image.png, app/twitter-image.png");
-  console.log("- public/favicon.ico, public/brand/logo-mark.png");
+  console.log("- public/favicon.ico");
+  console.log("- public/icon.png, public/apple-icon.png");
+  console.log("- public/opengraph-image.png, public/twitter-image.png");
+  console.log("- public/brand/logo-mark.png");
 }
 
 main().catch((err) => {
