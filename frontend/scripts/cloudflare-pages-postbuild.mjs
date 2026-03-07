@@ -5,6 +5,7 @@ const projectRoot = path.resolve(process.cwd());
 const openNextDir = path.join(projectRoot, ".open-next");
 const assetsDir = path.join(openNextDir, "assets");
 const nextStaticDir = path.join(projectRoot, ".next", "static");
+const publicDir = path.join(projectRoot, "public");
 
 async function exists(filePath) {
   try {
@@ -19,6 +20,12 @@ async function copyDir(src, dest) {
   if (!(await exists(src))) return;
   await fs.rm(dest, { recursive: true, force: true });
   await fs.cp(src, dest, { recursive: true });
+}
+
+async function copyDirMerge(src, dest) {
+  if (!(await exists(src))) return;
+  await fs.mkdir(dest, { recursive: true });
+  await fs.cp(src, dest, { recursive: true, force: true });
 }
 
 async function listFilesRecursive(rootDir) {
@@ -101,6 +108,11 @@ async function main() {
   // `.open-next/assets/_next/static`. Para evitar 404 en `/_next/static/...`,
   // sincronizamos explícitamente desde `.next/static`.
   await copyDir(nextStaticDir, path.join(assetsDir, "_next", "static"));
+
+  // Cloudflare Pages sirve assets estáticos desde el directorio de output.
+  // Para evitar 404 en `/favicon.ico`, `/icons/*`, `/logos/*`, etc, copiamos
+  // explícitamente `public/` al root del output (merge, sin borrar lo generado).
+  await copyDirMerge(publicDir, assetsDir);
 
   await debugCheckNextStaticAssets({ projectRoot, assetsDir });
 
