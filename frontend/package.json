@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pages:build": "opennextjs-cloudflare build && node scripts/cloudflare-pages-postbuild.mjs",
+    "build:cloudflare": "npm run pages:build",
     "lint": "eslint",
     "generate:icons": "node scripts/generate-brand-icons.mjs",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

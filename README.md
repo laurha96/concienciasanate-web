@@ -87,3 +87,16 @@ Abre:
 
 - Backend: Railway (o similar). Define las variables de `backend/.env.example`.
 - Frontend: Cloudflare Pages o Vercel. Define `NEXT_PUBLIC_API_URL` apuntando al dominio del backend.
+
+### Cloudflare Pages (OpenNext, recomendado para Next.js 16)
+
+Configuración en Cloudflare Pages:
+
+- **Root directory**: `frontend`
+- **Build command**: `npm ci && npm run pages:build`
+- **Build output directory**: `.open-next/assets`
+
+Notas:
+
+- Esto usa `@opennextjs/cloudflare` (OpenNext adapter) en lugar de `@cloudflare/next-on-pages`.
+- El script `pages:build` genera `.open-next/` y coloca el worker como `.open-next/assets/_worker.js`.
