@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:next": "next build",
     "pages:build": "opennextjs-cloudflare build && node scripts/cloudflare-pages-postbuild.mjs",
     "build:cloudflare": "npm run pages:build",
     "lint": "eslint",
