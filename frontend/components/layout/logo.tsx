@@ -22,7 +22,7 @@ export function Logo({
     <div className={cn("flex items-center gap-3", className)}>
       <div
         className={cn(
-          "grid h-11 w-11 place-items-center rounded-3xl border border-border/70 bg-card shadow-sm",
+          "grid h-12 w-12 place-items-center",
           markClassName
         )}
         aria-hidden="true"
@@ -30,9 +30,10 @@ export function Logo({
         <Image
           src="/logos/logo-mark.png"
           alt=""
-          width={34}
-          height={34}
-          className="h-8 w-8"
+          width={40}
+          height={40}
+          className="h-9 w-9"
+          unoptimized
           priority
         />
       </div>

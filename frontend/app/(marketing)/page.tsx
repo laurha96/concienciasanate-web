@@ -57,26 +57,26 @@ export default function HomePage() {
             <div className="space-y-6">
               <SectionHeading
                 eyebrow="Producto"
-                title="Descubre Elynthis"
-                description="El corazón del ecosistema: una experiencia wellness-tech para acompañarte con estructura, suavidad y seguimiento."
+                title="Elynthis para profesionales"
+                description="Software clínico para profesionales de la salud: pacientes, agenda, consultas, seguimiento y documentación en un flujo claro y humano."
               />
 
               <FeatureCards
                 items={[
                   {
-                    title: "Guía clara",
+                    title: "Pacientes y agenda",
                     description:
-                      "Orientación práctica para tomar decisiones emocionales con calma.",
+                      "Gestiona pacientes y organiza tu agenda con una experiencia rápida y ordenada.",
                   },
                   {
-                    title: "Herramientas suaves",
+                    title: "Historia clínica",
                     description:
-                      "Ejercicios breves, repetibles y sostenibles para tu día a día.",
+                      "Documentación clínica simple y consistente cuando la necesitas.",
                   },
                   {
-                    title: "Tu progreso",
+                    title: "Seguimiento terapéutico",
                     description:
-                      "Seguimiento discreto que te ayuda a notar cambios reales sin presión.",
+                      "Notas, seguimiento y continuidad del proceso con enfoque humano.",
                   },
                 ]}
               />
@@ -86,7 +86,7 @@ export default function HomePage() {
                   <Link href="/elynthis">Ver Elynthis</Link>
                 </Button>
                 <Button variant="secondary" className="rounded-2xl" asChild>
-                  <Link href="/registro">Solicitar acceso</Link>
+                  <Link href="/contactenos">Solicitar demo</Link>
                 </Button>
               </div>
             </div>
@@ -99,16 +99,16 @@ export default function HomePage() {
               </CardHeader>
               <CardContent className="space-y-3 text-sm text-muted-foreground">
                 <div className="rounded-3xl border border-border/70 bg-accent p-4">
-                  Rutas de práctica emocional
+                  Pacientes, fichas y seguimiento
                 </div>
                 <div className="rounded-3xl border border-border/70 bg-accent p-4">
-                  Recursos guiados
+                  Agenda y consultas
                 </div>
                 <div className="rounded-3xl border border-border/70 bg-accent p-4">
-                  Un dashboard limpio y sereno
+                  Documentación clínica
                 </div>
                 <div className="pt-2 text-xs">
-                  Diseñado para evolucionar como plataforma real.
+                  Diseñado para crecer como suite clínica.
                 </div>
               </CardContent>
             </Card>

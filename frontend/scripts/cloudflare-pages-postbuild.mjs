@@ -14,11 +14,6 @@ async function exists(filePath) {
   }
 }
 
-async function resetDir(dirPath) {
-  await fs.rm(dirPath, { recursive: true, force: true });
-  await fs.mkdir(dirPath, { recursive: true });
-}
-
 async function copyDir(src, dest) {
   if (!(await exists(src))) return;
   await fs.rm(dest, { recursive: true, force: true });
