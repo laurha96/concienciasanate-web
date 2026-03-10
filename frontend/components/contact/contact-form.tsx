@@ -1,0 +1,182 @@
+"use client";
+
+import * as React from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+
+export type ContactReason =
+  | "Consulta general"
+  | "Soporte técnico"
+  | "Profesional de salud"
+  | "Alianza o investigación";
+
+const REASONS: ContactReason[] = [
+  "Consulta general",
+  "Soporte técnico",
+  "Profesional de salud",
+  "Alianza o investigación",
+];
+
+export type ContactFormProps = {
+  toEmail: string;
+  className?: string;
+};
+
+function buildMailtoUrl({
+  toEmail,
+  name,
+  email,
+  reason,
+  message,
+}: {
+  toEmail: string;
+  name: string;
+  email: string;
+  reason: ContactReason;
+  message: string;
+}) {
+  const subject = `[Contacto] ${reason}`;
+  const bodyLines = [
+    `Nombre: ${name}`,
+    `Correo: ${email}`,
+    `Motivo: ${reason}`,
+    "",
+    "Mensaje:",
+    message,
+  ];
+
+  const body = bodyLines.join("\n");
+  const params = new URLSearchParams({
+    subject,
+    body,
+  });
+
+  return `mailto:${toEmail}?${params.toString()}`;
+}
+
+export function ContactForm({ toEmail, className }: ContactFormProps) {
+  const [status, setStatus] = React.useState<
+    "idle" | "opening-mail" | "missing"
+  >("idle");
+
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const reason = String(formData.get("reason") ?? "").trim() as ContactReason;
+    const message = String(formData.get("message") ?? "").trim();
+
+    if (!name || !email || !reason || !message) {
+      setStatus("missing");
+      return;
+    }
+
+    setStatus("opening-mail");
+
+    const mailtoUrl = buildMailtoUrl({
+      toEmail,
+      name,
+      email,
+      reason,
+      message,
+    });
+
+    window.location.href = mailtoUrl;
+
+    window.setTimeout(() => {
+      setStatus("idle");
+    }, 1200);
+  }
+
+  return (
+    <form onSubmit={onSubmit} className={cn("space-y-5", className)}>
+      <div className="grid gap-5 md:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="contact-name">Nombre</Label>
+          <Input
+            id="contact-name"
+            name="name"
+            autoComplete="name"
+            className="rounded-xl border-border/60 focus-visible:border-green-soft/60 focus-visible:ring-green-soft/30"
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="contact-email">Correo electrónico</Label>
+          <Input
+            id="contact-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            className="rounded-xl border-border/60 focus-visible:border-green-soft/60 focus-visible:ring-green-soft/30"
+            required
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="contact-reason">Motivo de contacto</Label>
+        <select
+          id="contact-reason"
+          name="reason"
+          required
+          defaultValue=""
+          className={cn(
+            "h-10 w-full rounded-xl border border-border/60 bg-transparent px-4 text-sm text-foreground shadow-xs transition-[color,box-shadow,border-color] outline-none",
+            "focus-visible:border-green-soft/60 focus-visible:ring-[3px] focus-visible:ring-green-soft/30",
+            "disabled:cursor-not-allowed disabled:opacity-50"
+          )}
+        >
+          <option value="" disabled>
+            Selecciona un motivo
+          </option>
+          {REASONS.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="contact-message">Mensaje</Label>
+        <Textarea
+          id="contact-message"
+          name="message"
+          className="min-h-36 rounded-xl border-border/60 focus-visible:border-green-soft/60 focus-visible:ring-green-soft/30"
+          required
+        />
+      </div>
+
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <Button type="submit" className="w-full sm:w-auto">
+          Enviar mensaje
+        </Button>
+        <p className="text-xs text-muted-foreground">
+          Tu mensaje será revisado por nuestro equipo.
+        </p>
+      </div>
+
+      <p className="sr-only" aria-live="polite">
+        {status === "opening-mail"
+          ? "Abriendo tu aplicación de correo."
+          : status === "missing"
+            ? "Completa todos los campos requeridos."
+            : ""}
+      </p>
+
+      {status === "missing" ? (
+        <p className="text-sm text-muted-foreground">
+          Completa todos los campos para enviar el mensaje.
+        </p>
+      ) : null}
+    </form>
+  );
+}

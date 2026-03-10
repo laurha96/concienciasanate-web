@@ -1,12 +1,10 @@
 export type BlogCategoryKey =
-  | "salud-mental"
-  | "psicologia-comportamiento"
-  | "mente-cuerpo"
-  | "medicina-preventiva"
-  | "habitos-bienestar"
-  | "proposito-desarrollo"
-  | "educacion-salud"
-  | "tecnologia-salud";
+  | "psicologia"
+  | "regulacion-emocional"
+  | "habitos"
+  | "bienestar"
+  | "neurociencia"
+  | "salud-mental";
 
 export type BlogCategory = {
   key: BlogCategoryKey;
@@ -42,8 +40,12 @@ export type BlogArticle = {
   slug: string;
   title: string;
   excerpt: string;
+  content: string;
   category: BlogCategoryKey;
   subcategory: string;
+  tags: string[];
+  date: string; // ISO date
+  author: string;
   type: BlogArticleType;
   series?: BlogSeriesKey;
   readingTimeMin: number;
@@ -58,94 +60,42 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
     label: "Salud mental",
     description:
       "Ansiedad, estrés, estado de ánimo y señales de cuidado, con lenguaje clínico accesible.",
-    subcategories: [
-      "Ansiedad y pánico",
-      "Estrés y burnout",
-      "Estado de ánimo",
-      "Duelo",
-      "Cuándo pedir ayuda",
-    ],
+    subcategories: ["Ansiedad", "Estrés", "Estado de ánimo", "Duelo", "Cuándo pedir ayuda"],
   },
   {
-    key: "psicologia-comportamiento",
-    label: "Psicología y comportamiento",
+    key: "psicologia",
+    label: "Psicología",
     description:
-      "Hábitos, toma de decisiones, regulación emocional y habilidades para la vida cotidiana.",
-    subcategories: [
-      "Regulación emocional",
-      "Ciencia del comportamiento",
-      "Relaciones y comunicación",
-      "Psicología positiva (PERMA)",
-    ],
+      "Procesos psicológicos y habilidades para la vida cotidiana, con enfoque basado en evidencia.",
+    subcategories: ["Procesos cognitivos", "Relaciones", "Psicología positiva", "Psicoeducación"],
   },
   {
-    key: "mente-cuerpo",
-    label: "Mente–cuerpo",
+    key: "regulacion-emocional",
+    label: "Regulación emocional",
     description:
-      "Interacción entre fisiología, estrés, sueño, respiración y bienestar psicológico.",
-    subcategories: [
-      "Sistema nervioso y estrés",
-      "Respiración",
-      "Sueño",
-      "Dolor y somatización",
-      "Mindfulness basado en evidencia",
-    ],
+      "Comprender y modular emociones de forma adaptativa: claridad, práctica y habilidades sostenibles.",
+    subcategories: ["Estrategias", "Habilidades", "Autoconciencia", "Regulación"],
   },
   {
-    key: "medicina-preventiva",
-    label: "Medicina preventiva",
+    key: "habitos",
+    label: "Hábitos",
     description:
-      "Educación en salud física, prevención y decisiones informadas sin alarmismo.",
-    subcategories: [
-      "Prevención cardiometabólica",
-      "Chequeos y tamizajes",
-      "Nutrición práctica",
-      "Actividad física",
-    ],
+      "Ciencia del comportamiento aplicada: diseño de hábitos pequeños, realistas y sostenibles.",
+    subcategories: ["Diseño de hábitos", "Motivación", "Contexto", "Consistencia"],
   },
   {
-    key: "habitos-bienestar",
-    label: "Hábitos y bienestar",
+    key: "bienestar",
+    label: "Bienestar",
     description:
-      "Rutinas realistas, bienestar digital, descanso y diseño de hábitos sostenibles.",
-    subcategories: [
-      "Sueño y descanso",
-      "Bienestar digital",
-      "Rutinas y energía",
-      "Autocuidado sostenible",
-    ],
+      "Bienestar psicológico e integral: propósito, autocuidado y prácticas basadas en evidencia.",
+    subcategories: ["Autocuidado", "Propósito", "Calma", "Bienestar integral"],
   },
   {
-    key: "proposito-desarrollo",
-    label: "Propósito y desarrollo",
+    key: "neurociencia",
+    label: "Neurociencia",
     description:
-      "Valores, sentido, metas realistas y crecimiento personal con enfoque humano.",
-    subcategories: ["Valores", "Sentido y propósito", "Metas", "Identidad y cambio"],
-  },
-  {
-    key: "educacion-salud",
-    label: "Educación en salud",
-    description:
-      "Alfabetización científica: cómo leer evidencia, riesgos, sesgos y decisiones informadas.",
-    subcategories: [
-      "Cómo leer evidencia",
-      "Mitos comunes",
-      "Riesgo vs. certeza",
-      "Guías clínicas (qué son)",
-      "Salud pública",
-    ],
-  },
-  {
-    key: "tecnologia-salud",
-    label: "Tecnología y salud",
-    description:
-      "Salud digital, privacidad, herramientas y tecnología clínica para apoyar la atención.",
-    subcategories: [
-      "Privacidad y datos",
-      "Herramientas digitales",
-      "Historia clínica digital",
-      "Ética y límites",
-    ],
+      "Sistema nervioso, estrés, respiración, sueño y procesos mente–cuerpo desde evidencia.",
+    subcategories: ["Estrés", "Sistema nervioso", "Respiración", "Sueño", "Mente–cuerpo"],
   },
 ];
 
@@ -186,8 +136,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Cómo el estrés afecta al cuerpo y a la mente",
     excerpt:
       "El estrés es una respuesta natural, pero cuando se vuelve crónico puede impactar el sistema nervioso, el sistema inmunológico y el bienestar psicológico. Esta guía explica qué ocurre y por qué importa.",
-    category: "mente-cuerpo",
+    content:
+      "El estrés es una respuesta de adaptación. Cuando se sostiene en el tiempo, puede cambiar cómo dormimos, cómo pensamos y cómo se siente el cuerpo.\n\nEn este artículo revisamos qué se entiende por estrés, por qué se vuelve un problema cuando es crónico y qué señales prácticas pueden ayudarte a identificarlo con claridad.\n\nContenido en construcción: pronto añadiremos ejemplos aplicados y una guía de pasos pequeños.",
+    category: "neurociencia",
     subcategory: "Sistema nervioso y estrés",
+    tags: ["estrés", "sistema nervioso", "salud mental"],
+    date: d("2026-03-10"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     series: "estres-y-ansiedad",
     readingTimeMin: 8,
@@ -204,8 +159,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Regulación emocional: qué es y por qué es importante",
     excerpt:
       "La regulación emocional se refiere a la capacidad de comprender, modular y responder a nuestras emociones de forma adaptativa. Esta habilidad se asocia con mejor salud mental, relaciones más saludables y mayor resiliencia.",
-    category: "psicologia-comportamiento",
+    content:
+      "La regulación emocional no significa ‘no sentir’. Significa notar la emoción, darle un nombre, entender qué la dispara y elegir respuestas más útiles.\n\nAquí explicamos el concepto, por qué importa en salud mental y qué habilidades suelen entrenarse en enfoques basados en evidencia.\n\nContenido en construcción: añadiremos un set breve de prácticas y ejemplos cotidianos.",
+    category: "regulacion-emocional",
     subcategory: "Regulación emocional",
+    tags: ["regulación emocional", "habilidades", "psicología"],
+    date: d("2026-03-09"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     readingTimeMin: 8,
     updatedAt: d("2026-03-09"),
@@ -221,8 +181,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "La conexión entre sueño y salud mental",
     excerpt:
       "El sueño desempeña un papel fundamental en la regulación emocional, la memoria y el funcionamiento cognitivo. La falta de sueño puede aumentar el riesgo de ansiedad, depresión y dificultades en la regulación emocional.",
-    category: "mente-cuerpo",
+    content:
+      "Dormir no es solo ‘descansar’: el sueño participa en memoria, atención y regulación emocional. Cuando hay privación de sueño, es común notar más reactividad emocional y peor tolerancia al estrés.\n\nRevisamos qué dice la evidencia y qué señales te pueden orientar para priorizar el descanso.\n\nContenido en construcción: incluiremos una guía práctica de higiene del sueño.",
+    category: "salud-mental",
     subcategory: "Sueño",
+    tags: ["sueño", "salud mental", "regulación emocional"],
+    date: d("2026-03-08"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     series: "sueño",
     readingTimeMin: 9,
@@ -239,8 +204,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Respiración y sistema nervioso: cómo influye en el bienestar",
     excerpt:
       "Las técnicas de respiración pueden influir directamente en el sistema nervioso autónomo. Ciertas prácticas pueden reducir la activación fisiológica asociada al estrés y favorecer estados de calma.",
-    category: "mente-cuerpo",
+    content:
+      "La respiración es una vía práctica para modular activación fisiológica. Algunas técnicas influyen en el tono vagal y en la experiencia subjetiva de calma.\n\nEste artículo explica el marco general y cómo pensar la respiración como práctica breve y segura.\n\nContenido en construcción: añadiremos protocolos simples y contraindicaciones comunes.",
+    category: "neurociencia",
     subcategory: "Respiración",
+    tags: ["respiración", "sistema nervioso", "estrés"],
+    date: d("2026-03-07"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     series: "regulacion-nerviosa",
     readingTimeMin: 6,
@@ -257,8 +227,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Hábitos pequeños y cambio de comportamiento",
     excerpt:
       "La ciencia del comportamiento muestra que los cambios sostenibles suelen ocurrir a través de pequeñas modificaciones en hábitos cotidianos. Entender cómo se forman hábitos ayuda a crear estrategias más efectivas.",
-    category: "psicologia-comportamiento",
+    content:
+      "Los hábitos no dependen solo de motivación. Se apoyan en señales, contexto y repetición. Pequeños cambios suelen ser más sostenibles que transformaciones drásticas.\n\nEn este artículo revisamos un marco simple para diseñar hábitos realistas.\n\nContenido en construcción: incluiremos plantillas y ejemplos aplicados.",
+    category: "habitos",
     subcategory: "Ciencia del comportamiento",
+    tags: ["hábitos", "ciencia del comportamiento", "cambio"],
+    date: d("2026-03-06"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     series: "habitos-sostenibles",
     readingTimeMin: 8,
@@ -275,8 +250,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Bienestar psicológico: más que la ausencia de enfermedad",
     excerpt:
       "El bienestar psicológico no se limita a la ausencia de síntomas: incluye sentido de vida, crecimiento personal y relaciones. Este enfoque se desarrolló dentro de la psicología positiva.",
-    category: "psicologia-comportamiento",
+    content:
+      "El bienestar psicológico es un concepto multidimensional: propósito, autonomía, crecimiento, relaciones y autoaceptación.\n\nRevisamos qué significa ‘bienestar’ en investigación y por qué es más que ‘no estar mal’.\n\nContenido en construcción: añadiremos ejercicios de reflexión y lectura guiada.",
+    category: "bienestar",
     subcategory: "Psicología positiva (PERMA)",
+    tags: ["bienestar", "psicología positiva", "propósito"],
+    date: d("2026-03-05"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     readingTimeMin: 7,
     updatedAt: d("2026-03-05"),
@@ -293,7 +273,12 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     excerpt:
       "La ansiedad es una respuesta natural ante situaciones percibidas como amenazantes. Comprender su función adaptativa ayuda a reducir el estigma y a desarrollar estrategias más efectivas.",
     category: "salud-mental",
+    content:
+      "La ansiedad cumple una función adaptativa: prepara para actuar ante amenaza. Cuando es intensa o persistente, puede volverse limitante.\n\nEn este artículo revisamos señales comunes, un marco de comprensión y por qué pedir ayuda a tiempo es importante.\n\nContenido en construcción: añadiremos recursos y guías de afrontamiento basadas en evidencia.",
     subcategory: "Ansiedad y pánico",
+    tags: ["ansiedad", "estrés", "salud mental"],
+    date: d("2026-03-04"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     series: "estres-y-ansiedad",
     readingTimeMin: 8,
@@ -310,8 +295,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "La conexión mente-cuerpo en la salud",
     excerpt:
       "La investigación contemporánea muestra que los procesos psicológicos pueden influir en la salud física a través de mecanismos biológicos como el sistema nervioso y el sistema inmunológico.",
-    category: "educacion-salud",
+    content:
+      "El modelo biopsicosocial explica cómo factores psicológicos y sociales interactúan con lo biológico. Esto no implica ‘todo está en tu mente’, sino un marco más completo para entender salud.\n\nRevisamos conceptos clave y cómo aplicarlos con realismo.\n\nContenido en construcción: añadiremos ejemplos y límites clínicos.",
+    category: "neurociencia",
     subcategory: "Guías clínicas (qué son)",
+    tags: ["mente-cuerpo", "biopsicosocial", "estrés"],
+    date: d("2026-03-03"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     readingTimeMin: 8,
     updatedAt: d("2026-03-03"),
@@ -327,8 +317,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Mindfulness y regulación emocional",
     excerpt:
       "Las prácticas de mindfulness han sido estudiadas en psicología y medicina. La evidencia sugiere que pueden contribuir a mejorar atención, regulación emocional y bienestar psicológico.",
-    category: "mente-cuerpo",
+    content:
+      "Mindfulness basado en evidencia se centra en entrenar atención y una relación diferente con la experiencia interna. En investigación, suele evaluarse por estrés, bienestar y regulación emocional.\n\nRevisamos qué es, qué no es y cómo pensar su práctica de forma sobria y útil.\n\nContenido en construcción: añadiremos una práctica guiada breve.",
+    category: "bienestar",
     subcategory: "Mindfulness basado en evidencia",
+    tags: ["mindfulness", "bienestar", "atención"],
+    date: d("2026-03-02"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     readingTimeMin: 8,
     updatedAt: d("2026-03-02"),
@@ -344,8 +339,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Sentido de vida y bienestar psicológico",
     excerpt:
       "Diversas investigaciones sugieren que un mayor sentido de propósito se asocia con mejores indicadores de bienestar y salud general. Qué dice la evidencia y cómo pensarlo con realismo.",
-    category: "proposito-desarrollo",
+    content:
+      "El propósito suele relacionarse con mayor bienestar y con conductas de autocuidado más consistentes. También puede ser un concepto confuso si se entiende como ‘misión perfecta’.\n\nRevisamos qué se ha encontrado en investigación y cómo pensarlo con una mirada humana.\n\nContenido en construcción: añadiremos preguntas de reflexión y lecturas recomendadas.",
+    category: "bienestar",
     subcategory: "Sentido y propósito",
+    tags: ["propósito", "bienestar", "valores"],
+    date: d("2026-03-01"),
+    author: "Equipo Conciencia Sánate",
     type: "Explicador científico",
     readingTimeMin: 7,
     updatedAt: d("2026-03-01"),

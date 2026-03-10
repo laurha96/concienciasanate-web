@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 
 export function CTASection() {
   return (
-    <section className="py-12 sm:py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section className="py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-[40px] border border-border/60 bg-card p-10 shadow-sm">
           <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-primary/10 blur-2xl" />
           <div className="absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-accent/20 blur-2xl" />
@@ -32,7 +32,7 @@ export function CTASection() {
                 className="rounded-2xl"
                 asChild
               >
-                <Link href="/recursos">Explorar recursos</Link>
+                <Link href="/herramientas">Explorar recursos</Link>
               </Button>
             </div>
           </div>

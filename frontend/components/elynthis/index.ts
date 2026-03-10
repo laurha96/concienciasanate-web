@@ -1,0 +1,9 @@
+export { ElynthisHero } from "@/components/elynthis/elynthis-hero";
+export { ProductMockupCard } from "@/components/elynthis/product-mockup-card";
+export { ValueStrip } from "@/components/elynthis/value-strip";
+export { AudienceGrid } from "@/components/elynthis/audience-grid";
+export { ProblemSolutionBlocks } from "@/components/elynthis/problem-solution-blocks";
+export { CoreModulesSection } from "@/components/elynthis/core-modules-section";
+export { WorkflowSteps } from "@/components/elynthis/workflow-steps";
+export { EcosystemIntegrationSection } from "@/components/elynthis/ecosystem-integration-section";
+export { ProductCTASection } from "@/components/elynthis/product-cta-section";

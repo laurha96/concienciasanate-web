@@ -14,17 +14,17 @@ import {
 const nav = [
   { href: "/", label: "Inicio" },
   { href: "/sobre", label: "Sobre" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/planes", label: "Planes" },
-  { href: "/contactenos", label: "Contáctenos" },
   { href: "/blog", label: "Blog" },
+  { href: "/herramientas", label: "Herramientas" },
   { href: "/elynthis", label: "Elynthis" },
+  { href: "/planes", label: "Planes" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="focus:outline-none">
           <Logo
             className="gap-4"

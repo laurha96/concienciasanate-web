@@ -1,12 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { BlogCard, type BlogListItem } from "@/components/cards/blog-card";
-import { EmptyState } from "@/components/shared/empty-state";
-import { FilterChips } from "@/components/shared/filter-chips";
-import { SearchInput } from "@/components/shared/search-input";
-import { SectionHeading } from "@/components/sections/section-heading";
 import {
   BLOG_ARTICLES,
   BLOG_CATEGORIES,
@@ -14,8 +10,20 @@ import {
   formatReadingTime,
   getCategoryLabel,
   getSeriesLabel,
+  type BlogCategoryKey,
   type BlogSeriesKey,
 } from "@/content/blog/catalog";
+
+import { BlogCTASection } from "@/components/blog/blog-cta-section";
+import { BlogFilterChips, type BlogChipOption } from "@/components/blog/blog-filter-chips";
+import { BlogHero } from "@/components/blog/blog-hero";
+import { BlogPostCard, type BlogPostCardItem } from "@/components/blog/blog-post-card";
+import { BlogSearchBar } from "@/components/blog/blog-search-bar";
+import { BlogSectionHeader } from "@/components/blog/blog-section-header";
+import { CategoryCard } from "@/components/blog/category-card";
+import { FeaturedPostCard } from "@/components/blog/featured-post-card";
+import { NoResultsState } from "@/components/blog/no-results-state";
+import { SeriesCard } from "@/components/blog/series-card";
 
 function formatDateLabel(isoDate: string) {
   try {
@@ -29,205 +37,334 @@ function formatDateLabel(isoDate: string) {
   }
 }
 
-const categoryOptions = [
-  "Todos",
-  ...BLOG_CATEGORIES.map((c) => c.label),
+const CATEGORY_ORDER: BlogCategoryKey[] = [
+  "salud-mental",
+  "regulacion-emocional",
+  "habitos",
+  "bienestar",
+  "neurociencia",
+  "psicologia",
 ];
 
-function mapToListItem(article: (typeof BLOG_ARTICLES)[number]): BlogListItem {
+function normalizeQuery(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function useDebouncedValue<T>(value: T, delayMs: number) {
+  const [debounced, setDebounced] = React.useState(value);
+
+  React.useEffect(() => {
+    const t = window.setTimeout(() => setDebounced(value), delayMs);
+    return () => window.clearTimeout(t);
+  }, [delayMs, value]);
+
+  return debounced;
+}
+
+function mapToCardItem(article: (typeof BLOG_ARTICLES)[number]): BlogPostCardItem {
   return {
     id: article.id,
+    slug: article.slug,
     title: article.title,
     excerpt: article.excerpt,
-    category: getCategoryLabel(article.category),
+    categoryLabel: getCategoryLabel(article.category),
     readingTime: formatReadingTime(article.readingTimeMin),
     updatedAtLabel: formatDateLabel(article.updatedAt),
-    reviewedLabel: article.reviewedLabel,
+    editorialLabel: article.reviewedLabel,
   };
 }
 
 export function BlogClient() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const [q, setQ] = React.useState("");
-  const [cat, setCat] = React.useState("Todos");
-  const [series, setSeries] = React.useState("Todas");
+  const [categoryKey, setCategoryKey] = React.useState<BlogCategoryKey | "all">(
+    "all",
+  );
 
-  const seriesInUse = React.useMemo(() => {
-    const used = new Set(BLOG_ARTICLES.map((a) => a.series).filter(Boolean));
-    return BLOG_SERIES.filter((s) => used.has(s.key));
+  React.useEffect(() => {
+    const qParam = searchParams.get("q") ?? "";
+    const catParam = searchParams.get("category") ?? "all";
+    const validCat = BLOG_CATEGORIES.some((c) => c.key === catParam);
+    const nextCat: BlogCategoryKey | "all" = validCat
+      ? (catParam as BlogCategoryKey)
+      : "all";
+
+    setQ((prev) => (prev === qParam ? prev : qParam));
+    setCategoryKey((prev) => (prev === nextCat ? prev : nextCat));
+  }, [searchParams]);
+
+  const qDebounced = useDebouncedValue(q, 250);
+  const categoryDebounced = useDebouncedValue(categoryKey, 0);
+
+  React.useEffect(() => {
+    const next = new URLSearchParams();
+
+    if (qDebounced.trim().length) next.set("q", qDebounced.trim());
+    else next.delete("q");
+
+    if (categoryDebounced !== "all") next.set("category", categoryDebounced);
+    else next.delete("category");
+
+    const nextUrl = next.toString()
+      ? `${pathname}?${next.toString()}`
+      : pathname;
+    router.replace(nextUrl, { scroll: false });
+  }, [categoryDebounced, pathname, qDebounced, router]);
+
+  const categoryCounts = React.useMemo(() => {
+    return BLOG_CATEGORIES.reduce<Record<BlogCategoryKey, number>>((acc, c) => {
+      acc[c.key] = BLOG_ARTICLES.filter((a) => a.category === c.key).length;
+      return acc;
+    }, {} as Record<BlogCategoryKey, number>);
   }, []);
 
-  const seriesOptions = React.useMemo(() => {
-    return ["Todas", ...seriesInUse.map((s) => s.label)];
-  }, [seriesInUse]);
-
-  const featured = React.useMemo(() => {
-    return BLOG_ARTICLES.slice(0, 3).map(mapToListItem);
-  }, []);
-
-  const essentials = React.useMemo(() => {
-    const essentialSlugs = new Set([
-      "como-el-estres-afecta-al-cuerpo-y-a-la-mente",
-      "regulacion-emocional-que-es-y-por-que-importa",
-      "conexion-entre-sueno-y-salud-mental",
-      "respiracion-y-sistema-nervioso",
-      "habitos-pequenos-y-cambio-de-comportamiento",
-      "ansiedad-comprender-una-emocion-adaptativa",
-    ]);
-
-    return BLOG_ARTICLES.filter((a) => essentialSlugs.has(a.slug)).map((a) => ({
-      id: a.id,
-      title: a.title,
-      onSelect: () => {
-        setQ(a.title);
+  const categoryChipOptions = React.useMemo<BlogChipOption[]>(() => {
+    const byKey = BLOG_CATEGORIES.reduce<Record<string, (typeof BLOG_CATEGORIES)[number]>>(
+      (acc, c) => {
+        acc[c.key] = c;
+        return acc;
       },
-    }));
+      {},
+    );
+
+    const ordered = CATEGORY_ORDER.filter((k) => byKey[k])
+      .map((k) => byKey[k])
+      .filter((c) => categoryCounts[c.key] > 0);
+
+    return [
+      { value: "all", label: "Todos", count: BLOG_ARTICLES.length },
+      ...ordered.map((c) => ({
+        value: c.key,
+        label: c.label,
+        count: categoryCounts[c.key],
+      })),
+    ];
+  }, [categoryCounts]);
+
+  const seriesCounts = React.useMemo(() => {
+    return BLOG_SERIES.reduce<Record<BlogSeriesKey, number>>((acc, s) => {
+      acc[s.key] = BLOG_ARTICLES.filter((a) => a.series === s.key).length;
+      return acc;
+    }, {} as Record<BlogSeriesKey, number>);
   }, []);
 
-  const latest = React.useMemo(() => {
+  const seriesCards = React.useMemo(() => {
+    const preferred: BlogSeriesKey[] = [
+      "sueño",
+      "estres-y-ansiedad",
+      "regulacion-nerviosa",
+      "habitos-sostenibles",
+    ];
+
+    const byKey = BLOG_SERIES.reduce<Record<string, (typeof BLOG_SERIES)[number]>>(
+      (acc, s) => {
+        acc[s.key] = s;
+        return acc;
+      },
+      {},
+    );
+
+    return preferred
+      .filter((k) => byKey[k])
+      .map((k) => byKey[k])
+      .map((s) => ({
+        key: s.key,
+        label: s.label,
+        description: s.description,
+        count: seriesCounts[s.key],
+      }))
+      .filter((s) => s.count > 0)
+      .slice(0, 4);
+  }, [seriesCounts]);
+
+  const filteredPosts = React.useMemo(() => {
+    const qNorm = normalizeQuery(q);
+
     return [...BLOG_ARTICLES]
       .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-      .slice(0, 5)
-      .map(mapToListItem);
-  }, []);
+      .filter((a) => {
+        const matchCategory = categoryKey === "all" ? true : a.category === categoryKey;
+        if (!matchCategory) return false;
 
-  const labelToSeriesKey = React.useMemo(() => {
-    return BLOG_SERIES.reduce<Record<string, BlogSeriesKey>>((acc, s) => {
-      acc[s.label] = s.key;
-      return acc;
-    }, {});
-  }, []);
+        if (!qNorm.length) return true;
 
-  const filtered = React.useMemo(() => {
-    const qNorm = q.trim().toLowerCase();
-    const catKey = BLOG_CATEGORIES.find((c) => c.label === cat)?.key;
-    const seriesKey = labelToSeriesKey[series];
+        const seriesLabel = a.series ? getSeriesLabel(a.series) : "";
+        const haystack = `${a.title} ${a.excerpt} ${getCategoryLabel(a.category)} ${a.subcategory} ${seriesLabel} ${a.type}`
+          .toLowerCase();
+        return haystack.includes(qNorm);
+      });
+  }, [categoryKey, q]);
 
-    return BLOG_ARTICLES.filter((a) => {
-      const matchCategory = cat === "Todos" ? true : a.category === catKey;
-      const matchSeries = series === "Todas" ? true : a.series === seriesKey;
-      const matchQuery = qNorm.length
-        ? `${a.title} ${a.excerpt}`.toLowerCase().includes(qNorm)
-        : true;
+  const featured = React.useMemo(() => {
+    return filteredPosts[0] ? mapToCardItem(filteredPosts[0]) : null;
+  }, [filteredPosts]);
 
-      return matchCategory && matchSeries && matchQuery;
-    }).map(mapToListItem);
-  }, [cat, labelToSeriesKey, q, series]);
+  const recent = React.useMemo(() => {
+    const rest = featured
+      ? filteredPosts.filter((a) => a.id !== featured.id)
+      : filteredPosts;
+    return rest.slice(0, 6).map(mapToCardItem);
+  }, [featured, filteredPosts]);
+
+  const categoryCards = React.useMemo(() => {
+    const byKey = BLOG_CATEGORIES.reduce<Record<string, (typeof BLOG_CATEGORIES)[number]>>(
+      (acc, c) => {
+        acc[c.key] = c;
+        return acc;
+      },
+      {},
+    );
+
+    return CATEGORY_ORDER.filter((k) => byKey[k])
+      .map((k) => byKey[k])
+      .map((c) => ({
+        key: c.key,
+        label: c.label,
+        description: c.description,
+        count: categoryCounts[c.key],
+      }))
+      .filter((c) => c.count > 0);
+  }, [categoryCounts]);
+
+  const hasResults = filteredPosts.length > 0;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <SectionHeading
-        eyebrow="Blog"
-        title="Educación en salud basada en evidencia"
-        description="Artículos diseñados para traducir conocimiento científico a un lenguaje claro y aplicable, sin sensacionalismo ni promesas exageradas."
-      />
+    <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+      <BlogHero />
 
-      <section className="mt-10">
-        <div className="grid gap-4 sm:grid-cols-3">
-          {featured.map((item) => (
-            <BlogCard key={item.id} item={item} />
-          ))}
+      <section className="mt-12 rounded-[40px] border border-border/50 bg-background-soft p-6 shadow-sm sm:p-8">
+        <div className="mx-auto max-w-4xl">
+          <BlogSearchBar
+            value={q}
+            onChange={setQ}
+            placeholder="Buscar artículos sobre estrés, sueño, ansiedad, hábitos o bienestar"
+          />
+
+          <BlogFilterChips
+            className="mt-5"
+            label="Categorías"
+            options={categoryChipOptions}
+            value={categoryKey}
+            onChange={(next) => {
+              setCategoryKey(next === "all" ? "all" : (next as BlogCategoryKey));
+            }}
+          />
+
+          <div className="mt-4 text-[11px] text-muted-foreground">
+            {filteredPosts.length} resultado(s)
+          </div>
         </div>
       </section>
 
-      <div className="mt-10 grid gap-4 rounded-[40px] border border-border/60 bg-card p-6 shadow-sm">
-        <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-          <SearchInput value={q} onChange={setQ} placeholder="Buscar artículos…" />
-          <FilterChips options={categoryOptions} value={cat} onChange={setCat} />
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="text-xs font-medium tracking-wide text-muted-foreground">
-            Series
-          </div>
-          <FilterChips
-            options={seriesOptions}
-            value={series}
-            onChange={setSeries}
-          />
-        </div>
-        <div className="text-xs text-muted-foreground">
-          {filtered.length} resultado(s)
-        </div>
-      </div>
-
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
-        <div>
-          {filtered.length === 0 ? (
-            <EmptyState
-              title="No encontramos artículos"
-              description="Prueba con otra categoría, una serie diferente o una búsqueda más amplia."
-              actionLabel="Limpiar"
-              onAction={() => {
-                setQ("");
-                setCat("Todos");
-                setSeries("Todas");
+      <section className="mt-16">
+        <div className="mx-auto max-w-6xl">
+          {featured ? (
+            <FeaturedPostCard
+              post={{
+                slug: featured.slug,
+                title: featured.title,
+                excerpt: featured.excerpt,
+                categoryLabel: featured.categoryLabel,
+                readingTime: featured.readingTime,
+                updatedAtLabel: featured.updatedAtLabel,
+                editorialLabel: featured.editorialLabel,
               }}
             />
-          ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
-              {filtered.map((item) => (
-                <BlogCard key={item.id} item={item} />
-              ))}
-            </div>
-          )}
+          ) : null}
         </div>
+      </section>
 
-        <aside className="space-y-4">
-          <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-sm">
-            <div className="text-sm font-medium">Guías esenciales</div>
-            <div className="mt-3 space-y-2 text-sm">
-              {essentials.map((it) => (
-                <button
-                  key={it.id}
-                  type="button"
-                  onClick={it.onSelect}
-                  className="block w-full rounded-2xl px-3 py-2 text-left text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  {it.title}
-                </button>
-              ))}
-            </div>
-          </div>
+      <section className="mt-20" id="articulos" aria-label="Artículos">
+        <div className="mx-auto max-w-6xl">
+          <BlogSectionHeader
+            title="Artículos recientes"
+            subtitle="Contenido actualizado para comprender mejor la salud, el bienestar y la vida cotidiana."
+          />
 
-          <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-sm">
-            <div className="text-sm font-medium">Series</div>
-            <div className="mt-3 space-y-3">
-              {seriesInUse.map((s) => (
-                <button
-                  key={s.key}
-                  type="button"
-                  onClick={() => setSeries(getSeriesLabel(s.key))}
-                  className="block w-full rounded-2xl border border-border/60 bg-background-soft px-4 py-3 text-left transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-green-soft/70 hover:shadow-sm"
-                >
-                  <div className="text-sm font-medium">{s.label}</div>
-                  <div className="mt-1 text-xs text-muted-foreground">
-                    {s.description}
-                  </div>
-                </button>
-              ))}
-            </div>
+          <div className="mt-8">
+            {!hasResults ? (
+              <NoResultsState
+                onClear={() => {
+                  setQ("");
+                  setCategoryKey("all");
+                }}
+              />
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {recent.map((item) => (
+                  <BlogPostCard key={item.id} item={item} />
+                ))}
+              </div>
+            )}
           </div>
+        </div>
+      </section>
 
-          <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-sm">
-            <div className="text-sm font-medium">Últimas actualizaciones</div>
-            <div className="mt-3 space-y-3">
-              {latest.map((it) => (
-                <div
-                  key={it.id}
-                  className="rounded-2xl border border-border/60 bg-background-soft px-4 py-3"
-                >
-                  <div className="text-sm font-medium text-foreground">
-                    {it.title}
-                  </div>
-                  <div className="mt-1 text-xs text-muted-foreground">
-                    {it.category}
-                    {it.updatedAtLabel ? ` · ${it.updatedAtLabel}` : ""}
-                  </div>
-                </div>
-              ))}
-            </div>
+      <section className="mt-24" aria-label="Explora por categoría">
+        <div className="mx-auto max-w-6xl">
+          <BlogSectionHeader
+            title="Explora por categoría"
+            subtitle="Recorridos claros para navegar temas de salud integral con enfoque editorial."
+          />
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {categoryCards.map((c) => (
+              <CategoryCard
+                key={c.key}
+                item={c}
+                onSelect={(key) => {
+                  setCategoryKey(key as BlogCategoryKey);
+                  document.getElementById("articulos")?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+              />
+            ))}
           </div>
-        </aside>
-      </div>
+        </div>
+      </section>
+
+      <section className="mt-24" id="series" aria-label="Series editoriales">
+        <div className="mx-auto max-w-6xl">
+          <BlogSectionHeader
+            title="Series editoriales"
+            subtitle="Recorridos temáticos para profundizar en áreas clave del bienestar y la salud."
+          />
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {seriesCards.map((s) => (
+              <SeriesCard
+                key={s.key}
+                item={s}
+                onSelect={(key) => {
+                  const seriesLabel = getSeriesLabel(key as BlogSeriesKey);
+                  setQ(seriesLabel);
+                  document.getElementById("articulos")?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-24">
+        <div className="mx-auto max-w-6xl">
+          <BlogCTASection
+            onExploreCategories={() => {
+              document
+                .querySelector('[aria-label="Explora por categoría"]')
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+          />
+        </div>
+      </section>
     </div>
   );
 }
