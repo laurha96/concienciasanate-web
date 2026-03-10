@@ -9,8 +9,9 @@ export function Footer() {
         <div className="space-y-3">
           <Logo />
           <p className="max-w-md text-sm leading-6 text-muted-foreground">
-            Un espacio de bienestar emocional, autocuidado y psicología basada en
-            evidencia. Humano, sereno y profesional.
+            Plataforma digital de salud y bienestar basada en evidencia
+            científica. Educación en salud, herramientas prácticas y tecnología
+            clínica.
           </p>
         </div>
 
@@ -60,8 +61,12 @@ export function Footer() {
         <div className="md:col-span-2 flex flex-col gap-2 border-t border-border/70 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>© {new Date().getFullYear()} Conciencia Sánate</div>
           <div className="flex gap-4">
-            <span>Privacidad</span>
-            <span>Términos</span>
+            <Link className="transition-colors hover:text-foreground" href="#">
+              Privacidad
+            </Link>
+            <Link className="transition-colors hover:text-foreground" href="#">
+              Términos
+            </Link>
           </div>
         </div>
       </div>

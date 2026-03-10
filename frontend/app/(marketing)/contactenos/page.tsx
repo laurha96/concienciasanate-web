@@ -55,10 +55,52 @@ export default function ContactenosPage() {
 
       <div className="mt-10 rounded-[40px] border border-border/60 bg-card p-8 shadow-sm">
         <div className="text-sm font-medium">Importante</div>
-        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Si estás en una situación de emergencia o riesgo, busca ayuda inmediata
-          en tu país (línea de crisis / servicios de urgencia).
-        </p>
+        <div className="mt-2 max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
+          <p>
+            Si estás en una situación de emergencia, riesgo inminente o peligro
+            para ti o para otra persona, busca ayuda inmediata.
+          </p>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium text-foreground">Colombia</div>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>
+                <span className="font-medium text-foreground">123</span>: línea
+                de emergencias (urgencias, policía, ambulancia).
+              </li>
+              <li>
+                <span className="font-medium text-foreground">119</span>:
+                bomberos.
+              </li>
+              <li>
+                <span className="font-medium text-foreground">132</span>: Cruz
+                Roja.
+              </li>
+              <li>
+                <span className="font-medium text-foreground">144</span>:
+                Defensa Civil.
+              </li>
+              <li>
+                <span className="font-medium text-foreground">Línea 106</span>
+                (Bogotá): apoyo emocional y orientación.
+              </li>
+              <li>
+                <span className="font-medium text-foreground">192</span>:
+                orientación en salud (opciones pueden variar según el servicio).
+              </li>
+            </ul>
+            <p className="text-xs leading-5 text-muted-foreground">
+              Los números pueden variar por ciudad u operador. Si no te
+              contestan, intenta nuevamente o acude al servicio de urgencias más
+              cercano.
+            </p>
+          </div>
+
+          <p>
+            Si estás fuera de Colombia, usa la línea de emergencias o crisis de
+            tu país.
+          </p>
+        </div>
       </div>
     </div>
   );

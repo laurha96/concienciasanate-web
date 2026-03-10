@@ -16,8 +16,10 @@ export function CTASection() {
                 Empieza con un paso pequeño, sostenido y real.
               </h3>
               <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-                Explora recursos gratuitos o entra al dashboard para construir tu
-                espacio de bienestar. Sin presión. Con claridad.
+                El bienestar no se construye de forma inmediata. Se construye a
+                través de pequeños momentos de conciencia, cuidado y
+                comprensión. Conciencia Sánate está aquí para acompañarte en ese
+                proceso.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -30,7 +32,7 @@ export function CTASection() {
                 className="rounded-2xl"
                 asChild
               >
-                <Link href="/recursos">Ver recursos</Link>
+                <Link href="/recursos">Explorar recursos</Link>
               </Button>
             </div>
           </div>

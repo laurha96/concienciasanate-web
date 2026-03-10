@@ -15,19 +15,20 @@ export function HeroSection() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="space-y-6">
             <Badge variant="secondary" className="rounded-full px-4 py-2">
-              Psicología basada en evidencia · autocuidado · crecimiento
+              Psicología clínica · medicina preventiva · bienestar basado en evidencia
             </Badge>
             <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-              Bienestar emocional con calma, claridad y contención.
+              Salud y bienestar integral con claridad, calma y evidencia.
             </h1>
             <p className="max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-              Conciencia Sánate es un ecosistema digital para acompañarte a
-              construir hábitos de autocuidado, fortalecer tu salud mental y
-              avanzar con suavidad.
+              Conciencia Sánate es una plataforma digital de salud que integra
+              psicología, medicina preventiva y bienestar integral para ayudarte
+              a comprender tu mente, cuidar tu cuerpo y vivir con mayor
+              conciencia.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button size="lg" className="rounded-2xl" asChild>
-                <Link href="/elynthis">Descubrir Elynthis</Link>
+                <Link href="/dashboard">Explorar plataforma</Link>
               </Button>
               <Button
                 size="lg"
@@ -39,8 +40,7 @@ export function HeroSection() {
               </Button>
             </div>
             <div className="text-xs leading-5 text-muted-foreground">
-              Un enfoque humano, minimalista y profesional. Diseñado para sentirse
-              seguro.
+              Educación en salud, herramientas prácticas y tecnología para el bienestar humano.
             </div>
           </div>
 

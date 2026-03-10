@@ -17,66 +17,150 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Qué es"
-            title="Conciencia Sánate"
-            description="Una plataforma de bienestar emocional que integra educación, herramientas prácticas y un diseño emocionalmente seguro. Todo con una estética limpia, serena y profesional."
+            title="Un ecosistema digital de salud y bienestar."
+            description="Conciencia Sánate es una plataforma que busca acercar el conocimiento científico sobre salud y bienestar a la vida cotidiana."
           />
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            <Card className="rounded-3xl border-border/60 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-base tracking-tight">Contención</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm leading-6 text-muted-foreground">
-                Un espacio que acompaña sin exigencia: claridad, calma y pasos
-                sostenibles.
-              </CardContent>
-            </Card>
-            <Card className="rounded-3xl border-border/60 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-base tracking-tight">Evidencia</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm leading-6 text-muted-foreground">
-                Psicología basada en evidencia, traducida a hábitos simples y
-                aplicables.
-              </CardContent>
-            </Card>
-            <Card className="rounded-3xl border-border/60 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-base tracking-tight">Ritmo humano</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm leading-6 text-muted-foreground">
-                Progreso pequeño y consistente. Menos ruido. Más presencia.
-              </CardContent>
-            </Card>
+          <div className="mt-6 space-y-4 text-sm leading-6 text-muted-foreground sm:text-base">
+            <p>
+              Integra psicología basada en evidencia, medicina preventiva,
+              educación emocional y herramientas prácticas que ayudan a las
+              personas a desarrollar hábitos sostenibles de bienestar.
+            </p>
+            <p>
+              Nuestro objetivo no es ofrecer soluciones rápidas, sino acompañar
+              procesos reales de comprensión, autocuidado y crecimiento
+              personal.
+            </p>
+            <p>
+              El bienestar se construye a través de pequeños cambios sostenidos
+              en el tiempo.
+            </p>
           </div>
         </div>
       </section>
 
       <section className="bg-background-soft py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Modelo"
+            title="Un enfoque integral del bienestar humano."
+            description="La investigación científica moderna muestra que la salud depende de múltiples dimensiones interconectadas. Por eso Conciencia Sánate integra tres pilares fundamentales del bienestar."
+          />
+          <div className="mt-8">
+            <FeatureCards
+              items={[
+                {
+                  title: "MENTE",
+                  description:
+                    "Comprender nuestros pensamientos y emociones permite desarrollar mayor regulación emocional, claridad mental y resiliencia psicológica.",
+                },
+                {
+                  title: "CUERPO",
+                  description:
+                    "La salud física, el descanso, la respiración y el movimiento influyen directamente en nuestro equilibrio emocional y bienestar general.",
+                },
+                {
+                  title: "ESPÍRITU",
+                  description:
+                    "Las personas experimentan mayor bienestar cuando viven en conexión con sus valores, su propósito y una vida con significado.",
+                },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Herramientas"
+            title="Herramientas prácticas para tu salud."
+            description="La ciencia del comportamiento muestra que el bienestar se construye a través de hábitos pequeños y sostenidos. Conciencia Sánate ofrece herramientas simples que ayudan a integrar el bienestar en la vida cotidiana."
+          />
+          <div className="mt-8">
+            <FeatureCards
+              items={[
+                {
+                  title: "Respiración y regulación",
+                  description:
+                    "Prácticas breves para regular el sistema nervioso.",
+                },
+                {
+                  title: "Diario emocional",
+                  description:
+                    "Registro guiado para comprender pensamientos y emociones.",
+                },
+                {
+                  title: "Prácticas de conciencia",
+                  description:
+                    "Ejercicios breves de presencia y autorreflexión.",
+                },
+                {
+                  title: "Planes de bienestar",
+                  description:
+                    "Pequeños pasos para desarrollar hábitos saludables.",
+                },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background-soft py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Educación"
+            title="Conocimiento científico aplicado a la vida diaria."
+            description="Comprender cómo funciona nuestra mente y nuestro cuerpo es una de las herramientas más poderosas para mejorar nuestra calidad de vida. En Conciencia Sánate encontrarás artículos, guías y recursos educativos desarrollados a partir de investigación científica en psicología, medicina y bienestar."
+          />
+          <div className="mt-8">
+            <FeatureCards
+              items={[
+                {
+                  title: "Artículos recientes",
+                  description: "Lecturas claras, serenas y basadas en evidencia.",
+                },
+                {
+                  title: "Guías prácticas",
+                  description: "Pasos aplicables para hábitos y autocuidado.",
+                },
+                {
+                  title: "Contenido educativo",
+                  description:
+                    "Recursos para comprender salud mental, cuerpo y bienestar.",
+                },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-start">
             <div className="space-y-6">
               <SectionHeading
-                eyebrow="Producto"
-                title="Elynthis para profesionales"
-                description="Software clínico para profesionales de la salud: pacientes, agenda, consultas, seguimiento y documentación en un flujo claro y humano."
+                eyebrow="Tecnología clínica"
+                title="Elynthis para profesionales de la salud."
+                description="Elynthis es una plataforma tecnológica diseñada para profesionales de la salud que necesitan gestionar pacientes, consultas y documentación clínica de forma organizada. Permite administrar agendas, historias clínicas y procesos de seguimiento dentro de un entorno digital claro y eficiente."
               />
 
               <FeatureCards
                 items={[
                   {
-                    title: "Pacientes y agenda",
+                    title: "Agenda y consultas",
                     description:
-                      "Gestiona pacientes y organiza tu agenda con una experiencia rápida y ordenada.",
+                      "Organiza tu agenda y tu día clínico de forma clara y consistente.",
                   },
                   {
-                    title: "Historia clínica",
+                    title: "Historias clínicas",
                     description:
-                      "Documentación clínica simple y consistente cuando la necesitas.",
+                      "Documentación organizada y accesible cuando la necesitas.",
                   },
                   {
-                    title: "Seguimiento terapéutico",
+                    title: "Seguimiento",
                     description:
-                      "Notas, seguimiento y continuidad del proceso con enfoque humano.",
+                      "Continuidad del proceso con un flujo humano y eficiente.",
                   },
                 ]}
               />
@@ -94,21 +178,21 @@ export default function HomePage() {
             <Card className="rounded-3xl border-border/60 shadow-sm">
               <CardHeader>
                 <CardTitle className="text-base tracking-tight">
-                  Qué encontrarás
+                  Qué incluye
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm text-muted-foreground">
                 <div className="rounded-3xl border border-border/70 bg-accent p-4">
-                  Pacientes, fichas y seguimiento
+                  Agenda, consultas y seguimiento
                 </div>
                 <div className="rounded-3xl border border-border/70 bg-accent p-4">
-                  Agenda y consultas
+                  Historias clínicas
                 </div>
                 <div className="rounded-3xl border border-border/70 bg-accent p-4">
                   Documentación clínica
                 </div>
                 <div className="pt-2 text-xs">
-                  Diseñado para crecer como suite clínica.
+                  Parte del ecosistema Conciencia Sánate.
                 </div>
               </CardContent>
             </Card>
@@ -116,59 +200,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Pilares"
-            title="Herramientas, recursos y acompañamiento"
-            description="Todo lo que ves aquí está pensado para ser simple, estético y emocionalmente seguro."
-          />
-          <div className="mt-8">
-            <FeatureCards
-              items={[
-                {
-                  title: "Recursos gratuitos",
-                  description:
-                    "Guías, ejercicios y plantillas para empezar con claridad.",
-                },
-                {
-                  title: "Educación emocional",
-                  description:
-                    "Artículos editoriales con un tono sereno y profesional.",
-                },
-                {
-                  title: "Tu espacio",
-                  description:
-                    "Un dashboard privado para sostener hábitos sin saturación.",
-                },
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
       <section className="bg-background-soft py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Testimonios"
-            title="Experiencias (simuladas por ahora)"
-            description="Copys de ejemplo para definir tono, ritmo y estilo. Luego se conectan a Supabase."
+            eyebrow="Experiencias"
+            title="Experiencias de bienestar."
+            description="Las herramientas basadas en evidencia pueden ayudar a las personas a desarrollar mayor claridad emocional, regulación del estrés y bienestar general."
           />
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             <TestimonialCard
-              quote="La experiencia se siente ligera, segura y muy clara. Me ayudó a ordenar mis días sin presión."
-              name="María"
-              role="Profesional"
+              quote="La experiencia se siente ligera y clara. Me ayudó a ordenar mis pensamientos y comprender mejor lo que estaba sintiendo."
+              name="Usuario"
+              role="Testimonio"
             />
             <TestimonialCard
-              quote="Me gustó que todo es minimalista, pero cálido. El lenguaje es respetuoso y humano."
-              name="Andrés"
-              role="Emprendedor"
+              quote="Me gustó que las herramientas son simples pero significativas. No se siente abrumador."
+              name="Usuario"
+              role="Testimonio"
             />
             <TestimonialCard
-              quote="Las herramientas son pequeñas, pero consistentes. Se nota un enfoque basado en evidencia."
-              name="Camila"
-              role="Estudiante"
+              quote="Me ayudó a sostener hábitos pequeños con más calma. La información se siente seria, pero accesible."
+              name="Usuario"
+              role="Testimonio"
             />
           </div>
         </div>

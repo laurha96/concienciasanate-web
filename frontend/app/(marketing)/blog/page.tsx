@@ -5,7 +5,7 @@ import { BlogClient } from "@/app/(marketing)/blog/blog-client";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Artículos editoriales de bienestar emocional. Listo para conectarse a contenido dinámico desde Supabase.",
+    "Educación en salud basada en evidencia: salud mental, medicina preventiva, mente-cuerpo, hábitos y tecnología clínica.",
 };
 
 export default function BlogPage() {
