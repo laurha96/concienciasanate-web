@@ -1,0 +1,1 @@
+export const HOME_DEFAULT_RECENT_ARTICLES_LIMIT = 3;

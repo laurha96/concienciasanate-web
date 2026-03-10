@@ -92,7 +92,7 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
   },
   {
     key: "neurociencia",
-    label: "Neurociencia",
+    label: "Neurociencia aplicada",
     description:
       "Sistema nervioso, estrés, respiración, sueño y procesos mente–cuerpo desde evidencia.",
     subcategories: ["Estrés", "Sistema nervioso", "Respiración", "Sueño", "Mente–cuerpo"],

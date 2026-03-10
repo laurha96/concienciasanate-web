@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Contáctenos",
+  title: "Contacto",
   description:
     "Contacto de Conciencia Sánate. Escríbenos con tu motivo y te responderemos lo antes posible.",
 };
@@ -21,7 +21,7 @@ export default function ContactenosPage() {
             id="contact-hero"
             className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl"
           >
-            Contáctanos
+            Contacto
           </h1>
           <p className="mt-4 max-w-3xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
             Si tienes preguntas sobre Conciencia Sánate, la plataforma Elynthis
@@ -172,43 +172,17 @@ export default function ContactenosPage() {
           </div>
         </section>
 
-        <section aria-labelledby="ecosystem">
-          <h2
-            id="ecosystem"
-            className="text-balance text-2xl font-semibold tracking-tight sm:text-3xl"
-          >
-            Ecosistema
-          </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
-              <div className="text-sm font-semibold tracking-tight">
-                Conciencia Sánate
-              </div>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                Plataforma digital de salud que integra psicología basada en
-                evidencia, medicina preventiva y herramientas de bienestar.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
-              <div className="text-sm font-semibold tracking-tight">Elynthis</div>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                Tecnología clínica para profesionales de la salud.
-              </p>
-            </div>
-          </div>
-        </section>
-
         <section aria-labelledby="final-cta">
           <div className="rounded-2xl border border-border/60 bg-background-soft p-8 text-center shadow-sm">
             <h2
               id="final-cta"
               className="text-balance text-2xl font-semibold tracking-tight sm:text-3xl"
             >
-              Explora la plataforma
+              Empieza por una herramienta
             </h2>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">
-                <Link href="/herramientas">Explorar recursos</Link>
+                <Link href="/herramientas">Explorar herramientas</Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
                 <Link href="/elynthis">Conocer Elynthis</Link>

@@ -7,29 +7,12 @@ import { SectionHeading } from "@/components/sections/section-heading";
 import { ProductMockupCard } from "@/components/elynthis/product-mockup-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BLOG_ARTICLES, BLOG_CATEGORIES } from "@/content/blog/catalog";
+import { fetchHomePageData } from "@/modules/home";
 
 export default function HomePage() {
-  const recentArticles = [...BLOG_ARTICLES]
-    .sort(
-      (a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    )
-    .slice(0, 3)
-    .map((article) => {
-      const categoryLabel =
-        BLOG_CATEGORIES.find((cat) => cat.key === article.category)?.label ??
-        article.category;
-
-      return {
-        id: article.id,
-        title: article.title,
-        excerpt: article.excerpt,
-        category: categoryLabel,
-        reviewedLabel: article.reviewedLabel,
-        href: `/blog/${article.slug}`,
-      };
-    });
+  const {
+    collections: { recentArticles },
+  } = fetchHomePageData();
 
   return (
     <div>

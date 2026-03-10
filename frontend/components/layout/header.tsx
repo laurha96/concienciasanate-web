@@ -18,7 +18,7 @@ const nav = [
   { href: "/herramientas", label: "Herramientas" },
   { href: "/elynthis", label: "Elynthis" },
   { href: "/planes", label: "Planes" },
-  { href: "/contacto", label: "Contacto" },
+  { href: "/contactenos", label: "Contacto" },
 ];
 
 export function Header() {

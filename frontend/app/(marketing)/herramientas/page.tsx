@@ -19,7 +19,7 @@ export default function HerramientasPage() {
           description="Prácticas claras y aplicables: pequeñas acciones que ayudan a regular el sistema nervioso, comprender emociones y sostener hábitos." 
         />
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
           <ToolCard
             title="Respiración consciente"
             description="Microprácticas para regular el sistema nervioso y reducir activación fisiológica."
@@ -34,6 +34,11 @@ export default function HerramientasPage() {
             title="Planes de bienestar"
             description="Diseña hábitos pequeños y sostenibles con una estructura simple, flexible y realista."
             href="/herramientas/planes-bienestar"
+          />
+          <ToolCard
+            title="Prácticas guiadas"
+            description="Prácticas breves y guiadas para entrenar atención, calma y regulación emocional."
+            href="/herramientas/practicas-guiadas"
           />
         </div>
       </div>
