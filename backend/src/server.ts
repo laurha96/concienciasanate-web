@@ -23,7 +23,13 @@ app.use(express.json({ limit: "1mb" }));
 app.use(morgan("tiny"));
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({
+    ok: true,
+    port: env.PORT,
+    supabaseConfigured: Boolean(
+      env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY
+    ),
+  });
 });
 
 app.use("/api", apiRoutes);

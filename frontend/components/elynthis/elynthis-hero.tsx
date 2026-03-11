@@ -38,7 +38,7 @@ export function ElynthisHero() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg">
-                <Link href="/contactenos">Solicitar demo</Link>
+                <Link href="/contacto">Solicitar demo</Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
                 <Link href="/registro">Crear cuenta profesional</Link>

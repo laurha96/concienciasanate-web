@@ -23,6 +23,7 @@ const REASONS: ContactReason[] = [
 
 export type ContactFormProps = {
   toEmail: string;
+  includeReasonDropdown?: boolean;
   className?: string;
 };
 
@@ -31,19 +32,22 @@ function buildMailtoUrl({
   name,
   email,
   reason,
+  subject,
   message,
 }: {
   toEmail: string;
   name: string;
   email: string;
-  reason: ContactReason;
+  reason: ContactReason | null;
+  subject: string;
   message: string;
 }) {
-  const subject = `[Contacto] ${reason}`;
+  const subjectLine = reason ? `[Contacto] ${reason} — ${subject}` : `[Contacto] ${subject}`;
   const bodyLines = [
     `Nombre: ${name}`,
     `Correo: ${email}`,
-    `Motivo: ${reason}`,
+    `Motivo: ${reason ?? "(no especificado)"}`,
+    `Asunto: ${subject}`,
     "",
     "Mensaje:",
     message,
@@ -51,16 +55,20 @@ function buildMailtoUrl({
 
   const body = bodyLines.join("\n");
   const params = new URLSearchParams({
-    subject,
+    subject: subjectLine,
     body,
   });
 
   return `mailto:${toEmail}?${params.toString()}`;
 }
 
-export function ContactForm({ toEmail, className }: ContactFormProps) {
+export function ContactForm({
+  toEmail,
+  includeReasonDropdown = true,
+  className,
+}: ContactFormProps) {
   const [status, setStatus] = React.useState<
-    "idle" | "opening-mail" | "missing"
+    "idle" | "opening-mail" | "missing" | "sent"
   >("idle");
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -69,10 +77,12 @@ export function ContactForm({ toEmail, className }: ContactFormProps) {
     const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
-    const reason = String(formData.get("reason") ?? "").trim() as ContactReason;
+    const subject = String(formData.get("subject") ?? "").trim();
+    const reasonRaw = String(formData.get("reason") ?? "").trim();
+    const reason = reasonRaw ? (reasonRaw as ContactReason) : null;
     const message = String(formData.get("message") ?? "").trim();
 
-    if (!name || !email || !reason || !message) {
+    if (!name || !email || !subject || !message) {
       setStatus("missing");
       return;
     }
@@ -84,13 +94,14 @@ export function ContactForm({ toEmail, className }: ContactFormProps) {
       name,
       email,
       reason,
+      subject,
       message,
     });
 
     window.location.href = mailtoUrl;
 
     window.setTimeout(() => {
-      setStatus("idle");
+      setStatus("sent");
     }, 1200);
   }
 
@@ -121,28 +132,38 @@ export function ContactForm({ toEmail, className }: ContactFormProps) {
         </div>
       </div>
 
+      {includeReasonDropdown ? (
+        <div className="space-y-2">
+          <Label htmlFor="contact-reason">Motivo (opcional)</Label>
+          <select
+            id="contact-reason"
+            name="reason"
+            defaultValue=""
+            className={cn(
+              "h-10 w-full rounded-xl border border-border/60 bg-transparent px-4 text-sm text-foreground shadow-xs transition-[color,box-shadow,border-color] outline-none",
+              "focus-visible:border-green-soft/60 focus-visible:ring-[3px] focus-visible:ring-green-soft/30",
+              "disabled:cursor-not-allowed disabled:opacity-50"
+            )}
+          >
+            <option value="">Sin especificar</option>
+            {REASONS.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
+
       <div className="space-y-2">
-        <Label htmlFor="contact-reason">Motivo de contacto</Label>
-        <select
-          id="contact-reason"
-          name="reason"
+        <Label htmlFor="contact-subject">Asunto</Label>
+        <Input
+          id="contact-subject"
+          name="subject"
+          autoComplete="off"
+          className="rounded-xl border-border/60 focus-visible:border-green-soft/60 focus-visible:ring-green-soft/30"
           required
-          defaultValue=""
-          className={cn(
-            "h-10 w-full rounded-xl border border-border/60 bg-transparent px-4 text-sm text-foreground shadow-xs transition-[color,box-shadow,border-color] outline-none",
-            "focus-visible:border-green-soft/60 focus-visible:ring-[3px] focus-visible:ring-green-soft/30",
-            "disabled:cursor-not-allowed disabled:opacity-50"
-          )}
-        >
-          <option value="" disabled>
-            Selecciona un motivo
-          </option>
-          {REASONS.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        />
       </div>
 
       <div className="space-y-2">
@@ -169,12 +190,20 @@ export function ContactForm({ toEmail, className }: ContactFormProps) {
           ? "Abriendo tu aplicación de correo."
           : status === "missing"
             ? "Completa todos los campos requeridos."
+            : status === "sent"
+              ? "Mensaje listo para enviar."
             : ""}
       </p>
 
       {status === "missing" ? (
         <p className="text-sm text-muted-foreground">
           Completa todos los campos para enviar el mensaje.
+        </p>
+      ) : null}
+
+      {status === "sent" ? (
+        <p className="text-sm text-muted-foreground">
+          Listo: se abrió tu correo con el mensaje preparado.
         </p>
       ) : null}
     </form>

@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Logo } from "@/components/layout/logo";
 
 export function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <footer className="border-t border-border/70 bg-background-soft">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:px-8 md:grid-cols-2">
@@ -25,34 +31,20 @@ export function Footer() {
               <Link className="block transition-colors hover:text-foreground" href="/sobre">
                 Sobre
               </Link>
-              <Link className="block transition-colors hover:text-foreground" href="/servicios">
-                Servicios
-              </Link>
-              <Link className="block transition-colors hover:text-foreground" href="/planes">
-                Planes
-              </Link>
-              <Link className="block transition-colors hover:text-foreground" href="/contactenos">
-                Contáctenos
-              </Link>
               <Link className="block transition-colors hover:text-foreground" href="/blog">
                 Blog
+              </Link>
+              <Link className="block transition-colors hover:text-foreground" href="/herramientas">
+                Herramientas
               </Link>
               <Link className="block transition-colors hover:text-foreground" href="/elynthis">
                 Elynthis
               </Link>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div className="font-medium">Acceso</div>
-            <div className="space-y-1 text-muted-foreground">
-              <Link className="block transition-colors hover:text-foreground" href="/login">
-                Login
+              <Link className="block transition-colors hover:text-foreground" href="/planes">
+                Planes
               </Link>
-              <Link className="block transition-colors hover:text-foreground" href="/registro">
-                Registro
-              </Link>
-              <Link className="block transition-colors hover:text-foreground" href="/dashboard">
-                Dashboard
+              <Link className="block transition-colors hover:text-foreground" href="/contacto">
+                Contacto
               </Link>
             </div>
           </div>

@@ -8,10 +8,13 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
+    "admin:create": "tsx src/scripts/createAdminUser.ts",
+    "admin:bootstrap:dev": "tsx src/scripts/bootstrapSuperAdminDev.ts",
     "lint": "echo \"(opcional)\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.98.0",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^4.21.2",

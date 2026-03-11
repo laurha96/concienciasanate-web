@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Logo } from "@/components/layout/logo";
 import { UserMenu } from "@/components/layout/user-menu";
@@ -18,10 +21,13 @@ const nav = [
   { href: "/herramientas", label: "Herramientas" },
   { href: "/elynthis", label: "Elynthis" },
   { href: "/planes", label: "Planes" },
-  { href: "/contactenos", label: "Contacto" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export function Header() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">

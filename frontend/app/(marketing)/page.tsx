@@ -1,75 +1,59 @@
 import Link from "next/link";
 
-import { ArticleCard } from "@/components/cards/article-card";
-import { FeatureCards } from "@/components/sections/feature-cards";
-import { HeroSection } from "@/components/sections/hero-section";
+import { Hero } from "@/components/healthtech/hero";
+import { EcosystemChart } from "@/components/healthtech/ecosystem-chart";
+import { FeatureGrid } from "@/components/healthtech/feature-grid";
 import { SectionHeading } from "@/components/sections/section-heading";
-import { ProductMockupCard } from "@/components/elynthis/product-mockup-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { fetchHomePageData } from "@/modules/home";
 
 export default function HomePage() {
-  const {
-    collections: { recentArticles },
-  } = fetchHomePageData();
-
   return (
     <div>
-      <HeroSection />
+      <Hero
+        title="Salud digital basada en evidencia"
+        subtitle="Conciencia Sánate integra psicología, bienestar, ciencia del comportamiento y herramientas digitales para apoyar regulación emocional y hábitos sostenibles—con un producto clínico para profesionales: Elynthis."
+        primaryCta={{ label: "Explorar herramientas", href: "/herramientas" }}
+        secondaryCta={{ label: "Conocer Elynthis", href: "/elynthis" }}
+      />
 
-      {/* SECTION 2 — THREE PILLARS */}
-      <section className="bg-background-soft py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title="Un enfoque integral de la salud" />
-          <div className="mt-10">
-            <FeatureCards
-              items={[
-                {
-                  title: "Mente",
-                  description:
-                    "Comprender pensamientos, emociones y patrones psicológicos permite desarrollar mayor claridad mental y resiliencia.",
-                },
-                {
-                  title: "Cuerpo",
-                  description:
-                    "El descanso, la respiración, el movimiento y los hábitos físicos influyen directamente en la salud emocional.",
-                },
-                {
-                  title: "Espíritu",
-                  description:
-                    "La búsqueda de sentido, valores y propósito contribuye al bienestar y la estabilidad psicológica.",
-                },
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 3 — WELLBEING TOOLS */}
-      <section className="py-24">
+      {/* Subtle interactive graphic showing the ecosystem */}
+      <section className="bg-background-soft py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="Herramientas para el bienestar cotidiano"
-            description="Pequeñas prácticas basadas en ciencia que ayudan a regular el sistema nervioso y desarrollar bienestar sostenible."
+            title="Un ecosistema claro"
+            description="Cuatro capas conectadas para aprender, practicar y dar seguimiento."
           />
           <div className="mt-10">
-            <FeatureCards
-              items={[
+            <EcosystemChart
+              nodes={[
                 {
-                  title: "Respiración consciente",
+                  key: "Psychology",
+                  label: "Psicología",
                   description:
-                    "Microprácticas para regular el sistema nervioso.",
+                    "Conceptos clínicos y herramientas de comprensión para tomar decisiones con claridad.",
+                  weight: 28,
                 },
                 {
-                  title: "Diario emocional",
+                  key: "Wellbeing",
+                  label: "Bienestar",
                   description:
-                    "Registra pensamientos y emociones para comprender mejor los procesos internos.",
+                    "Hábitos, estilo de vida y autocuidado con criterios medibles y sostenibles.",
+                  weight: 24,
                 },
                 {
-                  title: "Planes de bienestar",
+                  key: "Tools",
+                  label: "Herramientas",
                   description:
-                    "Desarrolla hábitos pequeños que generan cambios sostenibles.",
+                    "Prácticas breves para respiración, journaling emocional, planes y prácticas guiadas.",
+                  weight: 30,
+                },
+                {
+                  key: "Elynthis",
+                  label: "Elynthis",
+                  description:
+                    "Software clínico para flujo de trabajo, registro y seguimiento profesional.",
+                  weight: 18,
                 },
               ]}
             />
@@ -77,127 +61,130 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 4 — SCIENTIFIC FOUNDATION */}
-      <section className="bg-background-soft py-24">
+      {/* Feature blocks explaining what the platform offers */}
+      <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-            <div className="space-y-6">
-              <SectionHeading
-                title="Basado en investigación científica"
-                description="Conciencia Sánate integra hallazgos de disciplinas que explican cómo se forman hábitos, cómo se regula el estrés y cómo se construye bienestar sostenido."
-              />
-              <div className="text-sm leading-6 text-muted-foreground">
-                Trabajamos con un enfoque que prioriza claridad, lenguaje clínico
-                accesible y prácticas aplicables sin promesas rápidas.
-              </div>
-            </div>
-
-            <Card className="rounded-3xl border-border/60 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-base tracking-tight">
-                  Integra conocimiento de
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm text-muted-foreground">
-                <div>• psicología basada en evidencia</div>
-                <div>• ciencia del comportamiento</div>
-                <div>• regulación emocional</div>
-                <div>• medicina preventiva</div>
-                <div>• intervenciones mente-cuerpo</div>
-              </CardContent>
-            </Card>
+          <SectionHeading
+            title="Qué ofrece la plataforma"
+            description="Bloques modulares, minimalistas y orientados a producto."
+          />
+          <div className="mt-10">
+            <FeatureGrid
+              items={[
+                {
+                  title: "Educación basada en evidencia",
+                  description:
+                    "Contenido con estructura académica: categorías claras y foco en credibilidad.",
+                },
+                {
+                  title: "Herramientas prácticas",
+                  description:
+                    "Acciones cortas para regulación emocional y hábitos con interacción en la misma página.",
+                },
+                {
+                  title: "Ecosistema integrado",
+                  description:
+                    "De entender → practicar → registrar, sin ruido ni promesas rápidas.",
+                },
+                {
+                  title: "Tecnología clínica",
+                  description:
+                    "Elynthis para gestión clínica y seguimiento con un flujo de trabajo claro.",
+                },
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      {/* SECTION 5 — ECOSYSTEM */}
-      <section className="py-24">
+      {/* Interactive cards linking to the tools */}
+      <section className="bg-background-soft py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="Un ecosistema digital de salud"
-            description="Conciencia Sánate integra educación, herramientas de salud y tecnología clínica para cubrir el ciclo completo: entender, practicar y dar seguimiento."
+            title="Acceso rápido a herramientas"
+            description="Selecciona un tipo de práctica y empieza."
+          />
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "Breathing",
+                label: "Respiración",
+                description: "Ritmos simples para calmar y enfocar.",
+              },
+              {
+                title: "Journaling",
+                label: "Diario emocional",
+                description: "Escritura guiada para claridad emocional.",
+              },
+              {
+                title: "Plans",
+                label: "Planes de bienestar",
+                description: "Micro-hábitos con seguimiento simple.",
+              },
+              {
+                title: "Guided",
+                label: "Prácticas guiadas",
+                description: "Rutinas breves para el día a día.",
+              },
+            ].map((item) => (
+              <Card key={item.title} className="rounded-3xl border-border/60 shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-base tracking-tight">{item.label}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm leading-6 text-muted-foreground">{item.description}</p>
+                  <Button variant="secondary" className="w-full rounded-2xl" asChild>
+                    <Link href={`/herramientas?categoria=${encodeURIComponent(item.title)}`}>
+                      Acceder
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Preview of the ecosystem structure */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            title="Estructura del ecosistema"
+            description="Una ruta simple: aprender, practicar, y tecnología clínica cuando aplica."
           />
 
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
             <Card className="rounded-3xl border-border/60 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-base tracking-tight">
-                  Educación
-                </CardTitle>
+                <CardTitle className="text-base tracking-tight">Aprender</CardTitle>
               </CardHeader>
               <CardContent className="text-sm leading-6 text-muted-foreground">
-                Artículos basados en evidencia para comprender salud mental,
-                hábitos y mente–cuerpo.
+                Blog con categorías, filtros y lectura rápida.
               </CardContent>
             </Card>
             <Card className="rounded-3xl border-border/60 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-base tracking-tight">
-                  Herramientas de salud
-                </CardTitle>
+                <CardTitle className="text-base tracking-tight">Practicar</CardTitle>
               </CardHeader>
               <CardContent className="text-sm leading-6 text-muted-foreground">
-                Prácticas breves y guías para apoyar regulación emocional y
-                hábitos sostenibles.
+                Herramientas interactivas: respiración, journaling, planes y prácticas guiadas.
               </CardContent>
             </Card>
             <Card className="rounded-3xl border-border/60 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-base tracking-tight">
-                  Tecnología clínica
-                </CardTitle>
+                <CardTitle className="text-base tracking-tight">Clínico</CardTitle>
               </CardHeader>
               <CardContent className="text-sm leading-6 text-muted-foreground">
-                Elynthis conecta la organización clínica con seguimiento y
-                documentación en un entorno claro.
+                Elynthis para profesionales: flujo, registro y seguimiento.
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
 
-      {/* SECTION 6 — ELYNTHIS */}
-      <section className="bg-background-soft py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div className="space-y-6">
-              <SectionHeading
-                title="Tecnología clínica para profesionales"
-                description="Elynthis es la plataforma clínica del ecosistema Conciencia Sánate."
-              />
-              <p className="text-sm leading-6 text-muted-foreground sm:text-base">
-                Permite gestionar pacientes, agenda, historias clínicas y
-                seguimiento dentro de un entorno digital claro y organizado.
-              </p>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Button className="rounded-2xl" asChild>
-                  <Link href="/elynthis">Conocer Elynthis</Link>
-                </Button>
-                <Button variant="secondary" className="rounded-2xl" asChild>
-                  <Link href="/contactenos">Solicitar demo</Link>
-                </Button>
-              </div>
-            </div>
-
-            <ProductMockupCard className="max-w-xl" />
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7 — ARTICLES */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title="Educación en salud" />
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {recentArticles.map((item) => (
-              <ArticleCard
-                key={item.id}
-                title={item.title}
-                excerpt={item.excerpt}
-                href={item.href}
-              />
-            ))}
+          <div className="mt-10">
+            <Button className="rounded-2xl" asChild>
+              <Link href="/herramientas">Explorar herramientas</Link>
+            </Button>
           </div>
         </div>
       </section>

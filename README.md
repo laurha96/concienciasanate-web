@@ -8,7 +8,6 @@ Monorepo simple con dos apps separadas:
 > Objetivo: el frontend **no** accede directamente a la base de datos; todo pasa por el backend vía REST.
 
 ## Requisitos
-
 - Node.js (recomendado 18+)
 
 ## Variables de entorno
@@ -40,6 +39,8 @@ Opcional:
 
 - `NEXT_PUBLIC_API_URL=http://localhost:5000`
 
+Nota: si cambias `PORT` en `backend/.env` (por ejemplo a `5001`), actualiza este valor para que coincida.
+
 ## Desarrollo local
 
 En dos terminales:
@@ -54,7 +55,7 @@ npm run dev
 
 Healthcheck:
 
-- `GET http://localhost:5000/health`
+- `GET http://localhost:5000/health` → `{ ok, port, supabaseConfigured }`
 
 ### 2) Frontend
 
@@ -67,6 +68,45 @@ npm run dev
 Abre:
 
 - `http://localhost:3000`
+
+## Panel Admin (CMS interno)
+
+- URL: `http://localhost:3000/admin/login`
+- Auth: cookie httpOnly `admin_token` (el cliente no accede al JWT)
+- El frontend usa endpoints internos `/api/admin/*` como proxy hacia el backend.
+
+### Crear el primer usuario `super_admin`
+
+Si la tabla `admin_users` está vacía, necesitas crear el primer usuario para poder iniciar sesión:
+
+```bash
+cd backend
+npm run admin:create -- admin@tu-dominio.com 'UnaClaveMuySegura123' super_admin
+```
+
+Alternativa (solo desarrollo): bootstrap con credenciales por defecto.
+
+```bash
+cd backend
+npm run admin:bootstrap:dev
+```
+
+Credenciales dev (NO usar en producción):
+- Usuario: `laurha96@yahoo.es`
+- Password: `admin123`
+
+Importante: estas credenciales son **solo para** `http://localhost:3000/admin/login`.
+El login de usuarios finales vive en `http://localhost:3000/login` y usa Supabase Auth (registro/login normal), no la tabla `admin_users`.
+
+Roles válidos: `super_admin | editor | admin_professional`.
+
+Requisitos:
+- Variables de entorno del backend configuradas (Supabase URL + Service Role Key, etc.).
+- Migraciones aplicadas en Supabase (incluyendo el esquema admin):
+	- `backend/supabase/migrations/001_init.sql`
+	- `backend/supabase/migrations/002_admin_panel.sql`
+
+Nota: para el backend necesitas `SUPABASE_SERVICE_ROLE_KEY` (service_role, secreta). La publishable/anon key es solo para clientes y no sirve para el bootstrap/admin.
 
 ## Autenticación
 

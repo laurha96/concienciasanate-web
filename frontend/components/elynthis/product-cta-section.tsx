@@ -23,7 +23,7 @@ export function ProductCTASection() {
 
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">
-                <Link href="/contactenos">Solicitar demo</Link>
+                <Link href="/contacto">Solicitar demo</Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
                 <Link href="/registro">Crear cuenta profesional</Link>

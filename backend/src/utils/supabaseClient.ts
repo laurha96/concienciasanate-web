@@ -12,7 +12,7 @@ export function getSupabaseAdminClient(): SupabaseClient {
     env = getSupabaseEnv();
   } catch {
     throw new Error(
-      "Supabase no está configurado. Define SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY en backend/.env"
+      "Supabase no está configurado. Define SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY (service_role, secreta) en backend/.env. La publishable/anon key no sirve para el backend."
     );
   }
 

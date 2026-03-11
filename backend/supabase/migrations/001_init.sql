@@ -14,10 +14,12 @@ create table if not exists public.profiles (
 
 alter table public.profiles enable row level security;
 
+drop policy if exists "profiles_select_own" on public.profiles;
 create policy "profiles_select_own" on public.profiles
   for select
   using (auth.uid() = id);
 
+drop policy if exists "profiles_update_own" on public.profiles;
 create policy "profiles_update_own" on public.profiles
   for update
   using (auth.uid() = id)
@@ -54,12 +56,15 @@ create table if not exists public.user_preferences (
 
 alter table public.user_preferences enable row level security;
 
+drop policy if exists "prefs_select_own" on public.user_preferences;
 create policy "prefs_select_own" on public.user_preferences
   for select using (auth.uid() = user_id);
 
+drop policy if exists "prefs_upsert_own" on public.user_preferences;
 create policy "prefs_upsert_own" on public.user_preferences
   for insert with check (auth.uid() = user_id);
 
+drop policy if exists "prefs_update_own" on public.user_preferences;
 create policy "prefs_update_own" on public.user_preferences
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
@@ -80,9 +85,11 @@ create table if not exists public.resources (
 
 alter table public.resources enable row level security;
 
+drop policy if exists "resources_select_published" on public.resources;
 create policy "resources_select_published" on public.resources
   for select using (published = true);
 
+drop policy if exists "resources_crud_owner" on public.resources;
 create policy "resources_crud_owner" on public.resources
   for all
   using (auth.uid() = created_by)
@@ -106,9 +113,11 @@ create table if not exists public.blog_posts (
 
 alter table public.blog_posts enable row level security;
 
+drop policy if exists "blog_select_published" on public.blog_posts;
 create policy "blog_select_published" on public.blog_posts
   for select using (published = true);
 
+drop policy if exists "blog_crud_owner" on public.blog_posts;
 create policy "blog_crud_owner" on public.blog_posts
   for all
   using (auth.uid() = created_by)
@@ -126,6 +135,7 @@ create table if not exists public.modules (
 
 alter table public.modules enable row level security;
 
+drop policy if exists "modules_select_active" on public.modules;
 create policy "modules_select_active" on public.modules
   for select using (is_active = true);
 
@@ -145,12 +155,15 @@ create table if not exists public.user_modules (
 
 alter table public.user_modules enable row level security;
 
+drop policy if exists "user_modules_select_own" on public.user_modules;
 create policy "user_modules_select_own" on public.user_modules
   for select using (auth.uid() = user_id);
 
+drop policy if exists "user_modules_write_own" on public.user_modules;
 create policy "user_modules_write_own" on public.user_modules
   for insert with check (auth.uid() = user_id);
 
+drop policy if exists "user_modules_update_own" on public.user_modules;
 create policy "user_modules_update_own" on public.user_modules
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
@@ -167,6 +180,7 @@ create table if not exists public.testimonials (
 
 alter table public.testimonials enable row level security;
 
+drop policy if exists "testimonials_select_featured" on public.testimonials;
 create policy "testimonials_select_featured" on public.testimonials
   for select using (is_featured = true);
 
