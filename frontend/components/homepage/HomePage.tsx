@@ -1,67 +1,19 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { BookOpen, Wrench, Brain, Moon, Leaf, Activity } from "lucide-react";
-
-import { Navbar } from "@/components/homepage/Navbar";
-import { HeroSection } from "@/components/homepage/HeroSection";
-import { EcosystemSection } from "@/components/homepage/EcosystemSection";
-import { ElynthisSection } from "@/components/homepage/ElynthisSection";
-import { ScientificSection } from "@/components/homepage/ScientificSection";
-import { ArticlesSection } from "@/components/homepage/ArticlesSection";
-import { FinalCTASection } from "@/components/homepage/FinalCTASection";
-import { Footer } from "@/components/homepage/Footer";
 import OrganicBackground from "@/components/homepage/OrganicBackground";
+import { HOME_SECTIONS } from "@/components/homepage/home-sections";
 
-const sectionMotion = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.25 },
-  transition: { duration: 0.7, ease: "easeOut" },
-} as const;
-
+/**
+ * Home de Conciencia Sánate — narrativa completa en `home-sections.ts`.
+ * Header y Footer: `app/layout.tsx`.
+ */
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen bg-background text-foreground font-sans">
+    <div className="relative isolate -mt-px min-h-screen overflow-x-hidden bg-background text-foreground">
       <OrganicBackground />
-      <Navbar />
-      <motion.div {...sectionMotion}>
-        <HeroSection />
-      </motion.div>
-
-      <motion.div {...sectionMotion}>
-        <EcosystemSection
-          icons={{
-            education: <BookOpen />,
-            tools: <Wrench />,
-            clinical: <Activity />,
-          }}
-        />
-      </motion.div>
-
-      <motion.div {...sectionMotion}>
-        <ElynthisSection />
-      </motion.div>
-
-      <motion.div {...sectionMotion}>
-        <ScientificSection
-          icons={[
-            <Brain key="b" />,
-            <Activity key="a" />,
-            <Moon key="m" />,
-            <Leaf key="l" />,
-          ]}
-        />
-      </motion.div>
-
-      <motion.div {...sectionMotion}>
-        <ArticlesSection />
-      </motion.div>
-
-      <motion.div {...sectionMotion}>
-        <FinalCTASection />
-      </motion.div>
-      <Footer />
+      <div className="relative flex flex-col">
+        {HOME_SECTIONS.map(({ id, Component }) => (
+          <Component key={id} />
+        ))}
+      </div>
     </div>
   );
 }

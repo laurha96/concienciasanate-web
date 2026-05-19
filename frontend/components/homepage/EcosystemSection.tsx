@@ -1,43 +1,67 @@
-import * as React from "react";
+"use client";
 
-import { EcosystemCard } from "@/components/homepage/EcosystemCard";
+import { BookOpen, Leaf, Stethoscope, Wrench } from "lucide-react";
+import { motion } from "framer-motion";
 
-export function EcosystemSection({
-  icons,
-}: {
-  icons: {
-    education: React.ReactNode;
-    tools: React.ReactNode;
-    clinical: React.ReactNode;
-  };
-}) {
+import { FeatureCard } from "@/components/homepage/FeatureCard";
+import { ecosystemCards, ecosystemCopy } from "@/components/homepage/data";
+import { SectionContainer } from "@/components/homepage/SectionContainer";
+import { SectionHeading } from "@/components/homepage/section-heading";
+
+const icons = {
+  education: BookOpen,
+  tools: Wrench,
+  clinical: Stethoscope,
+  wellbeing: Leaf,
+} as const;
+
+const cardMotion = {
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.45, ease: "easeOut" },
+} as const;
+
+export function EcosystemSection() {
   return (
-    <section className="flex justify-center pb-24">
-      <div className="w-full max-w-[1200px] px-5">
-        <h2 className="mb-10 text-[40px] font-semibold text-foreground">
-          Un ecosistema digital de salud
-        </h2>
+    <SectionContainer
+      id="ecosistema"
+      aria-labelledby="ecosystem-heading"
+      className="relative overflow-hidden border-t border-border/40 bg-gradient-to-b from-brand-surface/50 via-brand-background to-brand-muted/25 py-16 sm:py-20 lg:py-24"
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-24 bg-gradient-to-b from-brand-surface/80 to-transparent"
+        aria-hidden
+      />
 
-        <div className="grid gap-6 md:grid-cols-3">
-          <EcosystemCard
-            icon={icons.education}
-            title="Educación"
-            text="Artículos basados en evidencia para comprender salud mental."
-          />
+      <SectionHeading
+        titleId="ecosystem-heading"
+        title={ecosystemCopy.title}
+        description={ecosystemCopy.subtitle}
+        className="mb-10 max-w-3xl sm:mb-12"
+      />
 
-          <EcosystemCard
-            icon={icons.tools}
-            title="Herramientas"
-            text="Prácticas guiadas para regulación emocional y hábitos."
-          />
-
-          <EcosystemCard
-            icon={icons.clinical}
-            title="Tecnología clínica"
-            text="Elynthis conecta profesionales con seguimiento clínico."
-          />
-        </div>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+        {ecosystemCards.map((card, index) => {
+          const Icon = icons[card.key as keyof typeof icons] ?? BookOpen;
+          return (
+            <motion.div
+              key={card.key}
+              {...cardMotion}
+              transition={{
+                ...cardMotion.transition,
+                delay: index * 0.07,
+              }}
+            >
+              <FeatureCard
+                icon={<Icon className="size-6" strokeWidth={1.75} aria-hidden />}
+                title={card.title}
+                description={card.body}
+              />
+            </motion.div>
+          );
+        })}
       </div>
-    </section>
+    </SectionContainer>
   );
 }

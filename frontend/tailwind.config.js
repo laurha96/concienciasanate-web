@@ -15,10 +15,18 @@ module.exports = {
         "green-light": "var(--green-light)",
         "background-main": "var(--background-main)",
         "background-soft": "var(--background-soft)",
+        "soft-beige": "var(--soft-beige)",
         "text-primary": "var(--text-primary)",
         "text-secondary": "var(--text-secondary)",
         "border-subtle": "var(--border-subtle)",
         "card-bg": "var(--card-bg)",
+        "brand-background": "var(--brand-background)",
+        "brand-surface": "var(--brand-surface)",
+        "brand-muted": "var(--brand-muted)",
+        "brand-primary-dark": "var(--brand-primary-dark)",
+        "brand-border": "var(--brand-border)",
+        "brand-text-main": "var(--brand-text-main)",
+        "brand-text-soft": "var(--brand-text-soft)",
       },
       fontFamily: {
         sans: ["var(--font-brand-sans)", "Inter", "ui-sans-serif", "system-ui"],
@@ -30,15 +38,16 @@ module.exports = {
         ],
       },
       boxShadow: {
-        card: "0 8px 24px rgba(0,0,0,0.06)",
-        soft: "0 4px 12px rgba(0,0,0,0.05)",
+        card: "var(--brand-shadow-card)",
+        soft: "var(--brand-shadow-soft)",
+        glow: "var(--brand-shadow-glow)",
       },
       borderRadius: {
         "2xl": "1rem",
         "3xl": "1.5rem",
       },
       backgroundImage: {
-        "gradient-main": "linear-gradient(135deg, var(--background-soft), var(--background-main))",
+        "gradient-main": "var(--gradient-main)",
       },
       keyframes: {
         float: {

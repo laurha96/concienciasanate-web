@@ -15,6 +15,13 @@
   --color-soft-beige: var(--soft-beige);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
+  --color-brand-background: var(--brand-background);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-primary-dark: var(--brand-primary-dark);
+  --color-brand-border: var(--brand-border);
+  --color-brand-text-main: var(--brand-text-main);
+  --color-brand-text-soft: var(--brand-text-soft);
   --color-border-soft: var(--border-soft);
   --color-border-subtle: var(--border-subtle);
   --color-card-bg: var(--card-bg);
@@ -69,31 +76,40 @@
 }
 
 :root {
-  /* Design system solicitado (marca) */
-  --green-primary: #7FBF3F;
-  --green-primary-hover: #6EAA36;
-  --green-secondary: #4E8F2F;
-  --green-soft: #A8CFA0; /* Soft sage */
-  --green-light: #E8F3E3; /* Light sage */
+  /* Paleta Conciencia Sánate (marca 2025) */
+  --green-primary: #76b041;
+  --green-primary-hover: #659a38;
+  --green-secondary: #355e2b;
+  --green-soft: #dce8d4;
+  --green-light: #f4f8f1;
 
-  /* Helpers para gradientes con opacidad (evita hardcodear rgba en componentes) */
-  --brand-primary-rgb: 127 191 63;
-  --brand-accent-rgb: 232 243 227;
+  --brand-primary-rgb: 118 176 65;
+  --brand-accent-rgb: 220 232 212;
 
-  --background-main: #F6FBF4; /* Ultra light background */
-  --background-soft: #E8F3E3; /* Light sage background */
-  --soft-beige: #E8F3E3;
+  --background-main: #f4f8f1;
+  --background-soft: #dce8d4;
+  --soft-beige: #f6f1e8;
 
-  --text-primary: #2E3A32;
-  --text-secondary: #707A72;
+  --text-primary: #222222;
+  --text-secondary: #667065;
 
-  --border-soft: #E9EFEB;
-  --border-subtle: #E9EFEB;
-  --card-bg: #FFFFFF;
+  --border-soft: #e3ebe0;
+  --border-subtle: #eaece8;
+  --card-bg: #ffffff;
 
-  --brand-shadow-card: 0 14px 40px rgba(30, 41, 34, 0.06);
-  --brand-shadow-soft: 0 10px 30px rgba(30, 41, 34, 0.05);
-  --gradient-main: linear-gradient(135deg, #E8F3E3, #F6FBF4);
+  /* Tokens semánticos */
+  --brand-background: var(--background-main);
+  --brand-surface: #ffffff;
+  --brand-primary-dark: var(--green-secondary);
+  --brand-muted: var(--soft-beige);
+  --brand-border: var(--border-soft);
+  --brand-text-main: var(--text-primary);
+  --brand-text-soft: var(--text-secondary);
+
+  --brand-shadow-card: 0 20px 50px rgba(34, 34, 34, 0.06);
+  --brand-shadow-soft: 0 10px 28px rgba(34, 34, 34, 0.04);
+  --brand-shadow-glow: 0 28px 72px rgba(118, 176, 65, 0.14);
+  --gradient-main: linear-gradient(145deg, #f6f1e8 0%, #f4f8f1 42%, #ffffff 100%);
 
   /* Tokens shadcn/ui (mapeados a la paleta) */
   --radius: 1rem;
@@ -181,9 +197,10 @@
     @apply text-foreground;
     font-family: var(--font-sans);
     background:
-      radial-gradient(circle at 20% 30%, #e8f3e3 0%, transparent 60%),
-      radial-gradient(circle at 80% 60%, #d9ead6 0%, transparent 60%),
-      linear-gradient(180deg, #f6fbf4 0%, #ffffff 100%);
+      radial-gradient(circle at 18% 22%, rgb(var(--brand-accent-rgb) / 0.85) 0%, transparent 55%),
+      radial-gradient(circle at 82% 58%, rgb(var(--brand-primary-rgb) / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 100%, #f6f1e8 0%, transparent 45%),
+      linear-gradient(180deg, var(--background-main) 0%, #ffffff 100%);
   }
 
   h1,
@@ -195,11 +212,52 @@
 }
 
 @layer components {
+  .cs-section {
+    @apply relative py-20 sm:py-24;
+  }
+
+  .cs-container {
+    @apply mx-auto max-w-[1240px] px-5 md:px-7 lg:px-10;
+  }
+
+  .cs-display-title {
+    @apply font-display text-[2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-[3.35rem] lg:leading-[1.08];
+  }
+
+  .cs-section-title {
+    @apply font-display text-[1.75rem] font-semibold tracking-[-0.02em] text-foreground sm:text-4xl lg:text-[2.55rem] lg:leading-[1.12];
+  }
+
+  .cs-section-desc {
+    @apply text-base leading-[1.65] text-muted-foreground sm:text-lg sm:leading-relaxed;
+  }
+
+  .cs-badge {
+    @apply inline-flex items-center rounded-full border border-border/70 bg-brand-surface/90 px-3 py-1 text-xs font-medium tracking-wide text-[var(--green-secondary)] backdrop-blur-sm;
+  }
+
+  .cs-glass {
+    @apply rounded-[32px] border border-border/60 bg-brand-surface/75 shadow-card backdrop-blur-md;
+  }
+
+  .cs-card-soft {
+    @apply rounded-[28px] border border-border/70 bg-brand-surface/95 p-7 shadow-card backdrop-blur-sm transition-shadow duration-200 hover:shadow-soft;
+  }
+
+  .cs-card-feature {
+    @apply rounded-[24px] border border-border/60 bg-brand-surface p-6 shadow-card transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-[rgb(var(--brand-primary-rgb)/0.22)] hover:shadow-soft sm:p-7;
+  }
+
+  .cs-card-metric {
+    @apply rounded-[18px] border border-border/60 bg-brand-surface px-3 py-3 shadow-soft;
+  }
+
+  .cs-card-preview {
+    @apply rounded-[32px] border border-border/70 bg-brand-surface/95 p-5 shadow-card backdrop-blur-sm sm:p-6;
+  }
+
   .glass-panel {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    border: 1px solid var(--border-subtle);
+    @apply rounded-[32px] border border-border/60 bg-brand-surface/75 shadow-card backdrop-blur-md;
   }
 }
 

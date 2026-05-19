@@ -1,13 +1,10 @@
-import * as React from "react";
-
 export default function OrganicBackground() {
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-gradient-to-b from-accent/60 to-background" />
-
-      <div className="absolute -left-[100px] -top-[200px] h-[700px] w-[700px] rounded-full bg-primary/10 blur-[120px] opacity-70" />
-      <div className="absolute right-[-150px] top-[200px] h-[600px] w-[600px] rounded-full bg-primary/12 blur-[120px] opacity-60" />
-      <div className="absolute bottom-[-200px] left-[200px] h-[800px] w-[800px] rounded-full bg-primary/10 blur-[140px] opacity-60" />
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-muted/35 via-brand-background to-brand-surface" />
+      <div className="absolute -left-28 -top-40 size-[min(760px,95vw)] rounded-full bg-[rgb(var(--brand-primary-rgb)/0.07)] blur-[110px]" />
+      <div className="absolute -right-36 top-24 size-[min(600px,80vw)] rounded-full bg-[rgb(var(--brand-accent-rgb)/0.65)] blur-[100px]" />
+      <div className="absolute bottom-0 left-1/3 size-[min(680px,85vw)] -translate-x-1/3 rounded-full bg-soft-beige/90 blur-[120px]" />
     </div>
   );
 }

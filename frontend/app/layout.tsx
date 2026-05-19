@@ -25,20 +25,23 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase,
   title: "Conciencia Sánate",
-  description: "Bienestar emocional con calma, claridad y contención.",
+  description:
+    "Plataforma digital de bienestar emocional basada en ciencia. Educación psicológica, herramientas prácticas y tecnología clínica con Elynthis.",
   icons: {
     icon: [{ url: "/icons/icon.png" }],
     apple: [{ url: "/icons/apple-icon.png" }],
   },
   openGraph: {
     title: "Conciencia Sánate",
-    description: "Bienestar emocional con calma, claridad y contención.",
+    description:
+    "Plataforma digital de bienestar emocional basada en ciencia. Educación psicológica, herramientas prácticas y tecnología clínica con Elynthis.",
     images: [{ url: "/social/opengraph-image.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Conciencia Sánate",
-    description: "Bienestar emocional con calma, claridad y contención.",
+    description:
+    "Plataforma digital de bienestar emocional basada en ciencia. Educación psicológica, herramientas prácticas y tecnología clínica con Elynthis.",
     images: ["/social/twitter-image.png"],
   },
 };

@@ -1,128 +1,124 @@
-import * as React from "react";
-
 import { cn } from "@/lib/utils";
-import HeroConnections from "@/components/homepage/HeroConnections";
-import Particles from "@/components/homepage/Particles";
 
-export function HeroNetworkVisual({ className }: { className?: string }) {
+const DEFAULT_TAGS = ["mente", "regulación", "hábitos", "evidencia"] as const;
+
+const TAG_POSITIONS: Record<string, string> = {
+  mente: "left-[8%] top-[22%] sm:left-[10%]",
+  regulación: "right-[10%] top-[14%] sm:right-[14%]",
+  evidencia: "bottom-[28%] left-[34%] sm:left-[38%]",
+  hábitos: "bottom-[10%] right-[8%] sm:right-[10%]",
+};
+
+export function HeroNetworkVisual({
+  className,
+  tags = [...DEFAULT_TAGS],
+}: {
+  className?: string;
+  tags?: string[];
+}) {
   return (
-    <div className={cn("relative h-[350px] w-full", className)}>
-      <div className="absolute inset-0 rounded-[60px] bg-[linear-gradient(90deg,var(--accent),color-mix(in_oklab,var(--accent)_70%,var(--primary)_10%))] blur-xl opacity-70" />
+    <div
+      className={cn("relative mx-auto aspect-[5/4] w-full max-h-[420px] min-h-[280px]", className)}
+      aria-hidden
+    >
+      <div className="absolute inset-4 rounded-[2rem] bg-[rgb(var(--brand-primary-rgb)/0.08)] blur-2xl" />
 
-      <div className="absolute inset-0 overflow-hidden rounded-[60px] border border-border/60 bg-card/35 shadow-card backdrop-blur">
-        <div className="absolute inset-0 opacity-60 [background-image:radial-gradient(circle_at_30%_25%,rgb(var(--brand-accent-rgb)/0.75),transparent_55%),radial-gradient(circle_at_75%_55%,rgb(var(--brand-primary-rgb)/0.14),transparent_60%)]" />
+      <div className="cs-card-preview relative h-full overflow-hidden rounded-[2rem] border-border/50 bg-gradient-to-br from-brand-background via-brand-surface/90 to-brand-muted/40 shadow-[var(--brand-shadow-glow)] backdrop-blur-md sm:rounded-[2.25rem]">
+        <div
+          className="absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_25%_20%,rgb(var(--brand-accent-rgb)/0.9),transparent_50%),radial-gradient(circle_at_80%_70%,rgb(var(--brand-primary-rgb)/0.12),transparent_55%)]"
+        />
 
-        <div className="absolute inset-0 opacity-35">
-          <HeroConnections />
-        </div>
+        <ProgressGraphic />
 
-        <div className="pointer-events-none absolute inset-0 opacity-60">
-          <Particles />
-        </div>
-
-        <div className="absolute inset-0 opacity-45">
-          <NetworkLines />
-        </div>
-        <div className="absolute inset-0 opacity-55">
-          <GlowNodes />
-        </div>
-
-        <NodePill className="absolute left-10 top-28">Mente</NodePill>
-        <NodePill className="absolute right-24 top-16">Regulación</NodePill>
-        <NodePill className="absolute bottom-10 right-10">Hábitos</NodePill>
-
-        <div className="absolute left-[56%] top-[58%] h-20 w-40 -rotate-[5deg] rounded-[22px] border border-border/40 bg-card/20 blur-[0.6px] opacity-25" />
+        <ul className="absolute inset-0">
+          {tags.map((tag) => (
+            <li
+              key={tag}
+              className={cn(
+                "absolute animate-[csFloat_7s_ease-in-out_infinite]",
+                TAG_POSITIONS[tag] ?? "left-1/2 top-1/2 -translate-x-1/2"
+              )}
+              style={{
+                animationDelay:
+                  tag === "regulación"
+                    ? "0.5s"
+                    : tag === "hábitos"
+                      ? "1s"
+                      : tag === "evidencia"
+                        ? "1.5s"
+                        : "0s",
+              }}
+            >
+              <span className="inline-block rounded-full border border-border/50 bg-brand-surface/95 px-4 py-2 text-xs font-medium capitalize tracking-wide text-foreground shadow-soft ring-1 ring-[rgb(var(--brand-primary-rgb)/0.12)] backdrop-blur-sm sm:text-sm">
+                {tag}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
 
-function NodePill({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className={cn(
-        "px-6 py-2 rounded-full bg-card shadow-card ring-2 ring-primary/10 text-[15px] font-medium text-foreground",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-function NetworkLines() {
-  return (
-    <svg
-      className="absolute inset-0 h-full w-full opacity-75"
-      viewBox="0 0 920 520"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="cs-net" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="var(--green-soft)" stopOpacity="0.7" />
-          <stop offset="1" stopColor="var(--primary)" stopOpacity="0.45" />
-        </linearGradient>
-        <linearGradient id="cs-net-2" x1="1" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="var(--primary)" stopOpacity="0.35" />
-          <stop offset="1" stopColor="var(--green-soft)" stopOpacity="0.55" />
-        </linearGradient>
-      </defs>
-      <g fill="none" strokeWidth="2">
-        <path stroke="url(#cs-net)" d="M200 292 C 320 248, 390 312, 490 276 S 650 236, 760 292" />
-        <path stroke="url(#cs-net)" d="M205 328 C 310 372, 410 380, 520 342 S 675 320, 770 362" opacity="0.55" />
-        <path stroke="url(#cs-net-2)" d="M280 210 C 360 260, 420 240, 500 270 S 650 322, 720 255" opacity="0.5" />
-        <path stroke="url(#cs-net-2)" d="M250 380 C 360 345, 420 372, 520 336 S 650 290, 730 330" opacity="0.35" />
-      </g>
-    </svg>
-  );
-}
-
-function GlowNodes() {
-  const nodes = [
-    { cx: 285, cy: 292, r: 7, d: 0 },
-    { cx: 480, cy: 280, r: 8, d: 1 },
-    { cx: 680, cy: 296, r: 7, d: 2 },
-    { cx: 440, cy: 342, r: 6, d: 3 },
-    { cx: 520, cy: 330, r: 6, d: 4 },
-    { cx: 340, cy: 250, r: 6, d: 5 },
-  ];
-
+function ProgressGraphic() {
   return (
     <svg
       className="absolute inset-0 h-full w-full"
-      viewBox="0 0 920 520"
-      preserveAspectRatio="none"
-      aria-hidden="true"
+      viewBox="0 0 480 400"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden
     >
-      {nodes.map((n) => (
-        <g key={`${n.cx}-${n.cy}`}>
+      <defs>
+        <linearGradient id="hero-progress" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="var(--green-soft)" stopOpacity="0.4" />
+          <stop offset="50%" stopColor="var(--green-primary)" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="var(--green-secondary)" stopOpacity="0.5" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M 48 280 C 120 220, 160 300, 220 240 S 340 200, 420 260"
+        fill="none"
+        stroke="url(#hero-progress)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        className="opacity-90"
+      />
+      <path
+        d="M 48 280 C 120 220, 160 300, 220 240 S 340 200, 420 260"
+        fill="none"
+        stroke="var(--green-primary)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeDasharray="6 10"
+        opacity="0.35"
+      />
+      {[
+        { cx: 48, cy: 280 },
+        { cx: 160, cy: 268 },
+        { cx: 220, cy: 240 },
+        { cx: 300, cy: 218 },
+        { cx: 420, cy: 260 },
+      ].map((point, i) => (
+        <g key={`${point.cx}-${point.cy}`}>
           <circle
-            cx={n.cx}
-            cy={n.cy}
-            r={n.r * 2.3}
-            fill="var(--primary)"
-            opacity={0.08}
+            cx={point.cx}
+            cy={point.cy}
+            r={10}
+            fill="var(--green-primary)"
+            opacity={0.1}
           />
           <circle
-            cx={n.cx}
-            cy={n.cy}
-            r={n.r}
-            fill="var(--primary)"
-            opacity={0.22}
+            cx={point.cx}
+            cy={point.cy}
+            r={5}
+            fill="var(--brand-surface)"
+            stroke="var(--green-primary)"
+            strokeWidth="2"
             className="motion-safe:animate-[csGlow_5.5s_ease-in-out_infinite]"
-            style={{ animationDelay: `${n.d * 0.7}s` }}
+            style={{ animationDelay: `${i * 0.45}s` }}
           />
         </g>
       ))}
     </svg>
   );
 }
-
-

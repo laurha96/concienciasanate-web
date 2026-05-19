@@ -11,23 +11,18 @@ type Particle = {
   size: number;
 };
 
+function createParticles(count: number): Particle[] {
+  return Array.from({ length: count }, () => ({
+    leftPct: Math.random() * 100,
+    topPct: Math.random() * 100,
+    duration: 6 + Math.random() * 4,
+    delay: Math.random() * 1.2,
+    size: 6 + Math.random() * 6,
+  }));
+}
+
 export default function Particles({ count = 20 }: { count?: number }) {
-  const [particles, setParticles] = React.useState<Particle[]>([]);
-
-  React.useEffect(() => {
-    setParticles(
-      Array.from({ length: count }, () => {
-        const leftPct = Math.random() * 100;
-        const topPct = Math.random() * 100;
-        const duration = 6 + Math.random() * 4;
-        const delay = Math.random() * 1.2;
-        const size = 6 + Math.random() * 6;
-        return { leftPct, topPct, duration, delay, size };
-      })
-    );
-  }, [count]);
-
-  if (particles.length === 0) return null;
+  const particles = React.useMemo(() => createParticles(count), [count]);
 
   return (
     <>

@@ -1,54 +1,71 @@
-import Link from "next/link";
-
-import { BackgroundDecor } from "@/components/homepage/BackgroundDecor";
+import { BrandCtaLink, DisplayTitle } from "@/components/brand";
+import { heroCopy } from "@/components/homepage/data";
 import { HeroNetworkVisual } from "@/components/homepage/HeroNetworkVisual";
+import { SectionContainer } from "@/components/homepage/SectionContainer";
+import { cn } from "@/lib/utils";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden">
-      <BackgroundDecor />
+    <SectionContainer
+      className="overflow-hidden pb-14 pt-10 sm:pb-20 sm:pt-14 lg:pt-16"
+      id="inicio"
+      aria-labelledby="hero-heading"
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(75vh,680px)] bg-[radial-gradient(ellipse_90%_70%_at_30%_-15%,rgb(var(--brand-primary-rgb)/0.12),transparent_55%),radial-gradient(ellipse_70%_50%_at_90%_20%,rgb(var(--brand-accent-rgb)/0.5),transparent_50%)]"
+        aria-hidden
+      />
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-16">
+        <div className="order-1 max-w-xl lg:order-1 lg:max-w-none">
+          <p
+            className={cn(
+              "mb-5 inline-flex max-w-full flex-wrap items-center gap-x-1.5 gap-y-1 rounded-full",
+              "border border-border/60 bg-brand-surface/80 px-3 py-1.5 text-[11px] font-medium leading-snug",
+              "text-[var(--green-secondary)] shadow-soft backdrop-blur-sm sm:text-xs"
+            )}
+          >
+            {heroCopy.badge}
+          </p>
 
-      <div className="relative flex justify-center pb-28 pt-20">
-        <div className="w-full max-w-[1200px] px-5">
-          <div className="grid items-center gap-16 md:grid-cols-2">
-            <div>
-              <h1 className="text-[44px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground md:text-[56px] lg:text-[64px]">
-                Conciencia Sánate
-              </h1>
+          <DisplayTitle id="hero-heading" className="text-balance">
+            {heroCopy.title}
+          </DisplayTitle>
 
-              <p className="mb-4 mt-6 text-[18px] text-muted-foreground md:text-[20px] lg:text-[22px]">
-                Plataforma digital de bienestar basada en ciencia.
-              </p>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg sm:leading-relaxed">
+            {heroCopy.subtitle}
+          </p>
 
-              <p className="mb-8 text-[16px] leading-[1.6] text-muted-foreground md:text-[18px]">
-                Comprende tu mente. Cuida tu cuerpo. Construye hábitos sostenibles.
-              </p>
-
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <Link
-                  href="/recursos"
-                  className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-[15px] font-medium text-primary-foreground shadow-card transition-transform duration-200 hover:-translate-y-[1px] hover:bg-[var(--green-primary-hover)]"
-                >
-                  Explorar recursos
-                </Link>
-
-                <Link
-                  href="/elynthis"
-                  className="inline-flex items-center justify-center rounded-full border border-border/70 bg-card px-6 py-3 text-[15px] font-medium text-foreground/90 shadow-card transition-transform duration-200 hover:-translate-y-[1px]"
-                >
-                  Conocer Elynthis
-                </Link>
-              </div>
-            </div>
-
-            <HeroNetworkVisual className="mx-auto w-full max-w-[620px]" />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <BrandCtaLink
+              href={heroCopy.ctas.primary.href}
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              {heroCopy.ctas.primary.label}
+            </BrandCtaLink>
+            <BrandCtaLink
+              href={heroCopy.ctas.secondary.href}
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              {heroCopy.ctas.secondary.label}
+            </BrandCtaLink>
           </div>
+
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground/95">
+            {heroCopy.microcopy}
+          </p>
+        </div>
+
+        <div className="order-2 lg:order-2">
+          <HeroNetworkVisual
+            className="mx-auto w-full max-w-[520px] lg:max-w-none"
+            tags={[...heroCopy.visualTags]}
+          />
         </div>
       </div>
-
-      <div className="relative h-14">
-        <div className="absolute inset-x-0 -bottom-20 h-40 rounded-t-[96px] bg-background" />
-      </div>
-    </section>
+    </SectionContainer>
   );
 }

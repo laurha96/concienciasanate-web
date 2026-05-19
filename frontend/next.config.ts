@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      { source: "/auth/login", destination: "/login", permanent: true },
+      { source: "/auth/register", destination: "/registro", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
