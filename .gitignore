@@ -17,9 +17,6 @@ coverage/
 .next/
 out/
 
-# opennext
-.open-next/
-
 # production
 build/
 dist/
@@ -39,12 +36,6 @@ yarn-error.log*
 .env.*
 !.env.example
 !.env.*.example
-
-# cloudflare local vars
-.dev.vars
-
-# wrangler (local state)
-.wrangler/
 
 # vercel
 .vercel

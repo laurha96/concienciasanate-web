@@ -67,7 +67,7 @@ async function main() {
   await writeBuffer(path.join(outPublicLogos, "logo-mark.png"), mark256);
   await writeBuffer(path.join(outPublicLogos, "logo-mark@2x.png"), mark512);
 
-  // 2) Static icons (Cloudflare Pages friendly).
+  // 2) Static icons for public/.
   // icon.png recomendado (512) + apple-icon (180). Usamos fondo cálido para buena legibilidad.
   await compositeOnBackground({
     canvasSize: 512,

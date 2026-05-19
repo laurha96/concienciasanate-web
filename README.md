@@ -126,17 +126,18 @@ Nota: para el backend necesitas `SUPABASE_SERVICE_ROLE_KEY` (service_role, secre
 ## Deploy (alto nivel)
 
 - Backend: Railway (o similar). Define las variables de `backend/.env.example`.
-- Frontend: Cloudflare Pages o Vercel. Define `NEXT_PUBLIC_API_URL` apuntando al dominio del backend.
+- Frontend: Vercel. Define `NEXT_PUBLIC_API_URL` apuntando al dominio del backend.
 
-### Cloudflare Pages (OpenNext, recomendado para Next.js 16)
+### Vercel (Next.js)
 
-Configuración en Cloudflare Pages:
+Configuración en Vercel:
 
 - **Root directory**: `frontend`
-- **Build command**: `npm ci && npm run pages:build`
-- **Build output directory**: `.open-next/assets`
+- **Framework preset**: Next.js
+- **Build command**: `npm run build`
+- **Install command**: `npm ci`
 
-Notas:
+Variables recomendadas:
 
-- Esto usa `@opennextjs/cloudflare` (OpenNext adapter) en lugar de `@cloudflare/next-on-pages`.
-- El script `pages:build` genera `.open-next/` y coloca el worker como `.open-next/assets/_worker.js`.
+- `NEXT_PUBLIC_API_URL` — URL del backend en producción
+- `NEXT_PUBLIC_SITE_URL` — URL pública del sitio (ej. `https://www.concienciasanate.com`)
