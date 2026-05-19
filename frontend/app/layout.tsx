@@ -8,7 +8,7 @@ import { Header } from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
 
 const metadataBase = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.concienciasanate.org"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.concienciasanate.com"
 );
 
 const inter = Inter({

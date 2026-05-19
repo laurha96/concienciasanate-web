@@ -66,7 +66,7 @@ def fetch_snippet(url: str, ctx: ssl.SSLContext) -> str:
 
 
 def main() -> int:
-    base = sys.argv[1] if len(sys.argv) > 1 else "https://www.concienciasanate.org"
+    base = sys.argv[1] if len(sys.argv) > 1 else "https://www.concienciasanate.com"
     page_path = sys.argv[2] if len(sys.argv) > 2 else "/sobre"
 
     ctx = ssl.create_default_context()

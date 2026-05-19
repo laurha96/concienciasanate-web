@@ -27,7 +27,7 @@ export default function ContactoPage() {
 						description="Campos: nombre, email, asunto y mensaje. Motivo opcional."
 					/>
 					<div className="mt-10 rounded-3xl border border-border/60 bg-card p-6 shadow-sm sm:p-8">
-						<ContactForm toEmail="laurarojas@concienciasanate.org" includeReasonDropdown />
+						<ContactForm toEmail="laurarojas@concienciasanate.com" includeReasonDropdown />
 					</div>
 				</div>
 			</section>
