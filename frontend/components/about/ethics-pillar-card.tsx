@@ -34,9 +34,9 @@ export function EthicsPillarCard({
       transition={aboutStaggerDelay(index, 0.06)}
       whileHover={editorial ? { y: -1 } : { y: -2 }}
       className={cn(
-        "group relative h-full overflow-hidden transition-[border-color,box-shadow,transform] duration-300",
+        "group relative h-full overflow-hidden transition-[opacity,transform] duration-300",
         editorial
-          ? "border-b border-border/45 pb-8 sm:pb-10 lg:border-b-0 lg:pb-0"
+          ? "pb-2"
           : cn(
               "rounded-2xl border border-border/50 p-5 shadow-soft sm:p-6",
               "bg-brand-surface/75 backdrop-blur-sm",
@@ -51,12 +51,29 @@ export function EthicsPillarCard({
         aria-hidden
       />
 
-      <div
-        className="mb-4 h-px w-full bg-gradient-to-r from-primary/20 via-border/60 to-transparent"
-        aria-hidden
-      />
+      {!editorial ? (
+        <motion.div
+          className="mb-4 h-px w-full bg-gradient-to-r from-primary/20 via-border/60 to-transparent"
+          aria-hidden
+        />
+      ) : (
+        <motion.div
+          className={aboutEd.hairlineAccent}
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          style={{ transformOrigin: "left" }}
+        />
+      )}
 
-      <div className="relative flex items-start justify-between gap-3">
+      <div
+        className={cn(
+          "relative flex items-start justify-between gap-3",
+          editorial && "mt-6"
+        )}
+      >
         <EthicsClinicalBadge label={pillar.badge} />
         <span
           className={cn(
@@ -72,10 +89,10 @@ export function EthicsPillarCard({
       <h3
         id={`ethics-pillar-${pillar.key}`}
         className={cn(
-          "mt-4 font-semibold tracking-tight text-foreground",
+          "mt-4 tracking-tight text-foreground",
           editorial
-            ? "font-display text-lg sm:text-xl"
-            : "text-base sm:text-lg"
+            ? "font-display text-lg font-medium sm:text-xl"
+            : "text-base font-semibold sm:text-lg"
         )}
       >
         {pillar.title}

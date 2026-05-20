@@ -333,11 +333,23 @@
 
   /* Página Sobre — ritmo editorial (scoped) */
   .about-page {
-    @apply text-foreground;
+    @apply text-foreground antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1;
   }
 
   .about-page ::selection {
     background: rgb(var(--brand-primary-rgb) / 0.18);
+  }
+
+  .about-page h1,
+  .about-page h2,
+  .about-page h3 {
+    text-wrap: balance;
+  }
+
+  .about-page p {
+    text-wrap: pretty;
   }
 }
 

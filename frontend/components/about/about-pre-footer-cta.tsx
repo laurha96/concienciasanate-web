@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { aboutPreFooterCopy } from "@/components/about/about-data";
 import { aboutEd } from "@/components/about/about-editorial-tokens";
 import {
+  AboutAmbientGlow,
   AboutContainer,
   AboutEditorialHeader,
   AboutReveal,
@@ -21,11 +22,19 @@ export function AboutPreFooterCta() {
       id="empezar-claridad"
       tone="depth"
       aria-labelledby="about-prefooter-heading"
-      className="!pb-24 sm:!pb-32"
+      className="overflow-hidden !pb-28 sm:!pb-36"
     >
+      <AboutAmbientGlow position="center" className="top-1/4 opacity-50" />
+
       <AboutContainer size="narrow">
         <AboutReveal>
-          <div className="text-center">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
             <AboutEditorialHeader
               align="center"
               titleId="about-prefooter-heading"
@@ -36,11 +45,11 @@ export function AboutPreFooterCta() {
             />
 
             <motion.div
-              className="mx-auto mt-12 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
+              className="mx-auto mt-14 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: 0.1 }}
+              transition={{ duration: 0.4, delay: 0.12 }}
             >
               <BrandCtaLink
                 href={aboutPreFooterCopy.primaryCta.href}
@@ -69,10 +78,10 @@ export function AboutPreFooterCta() {
               </BrandCtaLink>
             </motion.div>
 
-            <p className={cn(aboutEd.body, "mx-auto mt-10 max-w-sm opacity-80")}>
+            <p className={cn(aboutEd.body, "mx-auto mt-12 max-w-sm opacity-75")}>
               Sin presión. A tu ritmo.
             </p>
-          </div>
+          </motion.div>
         </AboutReveal>
       </AboutContainer>
     </AboutSection>

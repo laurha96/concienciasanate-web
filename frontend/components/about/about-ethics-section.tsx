@@ -40,7 +40,7 @@ export function AboutEthicsSection() {
       aria-labelledby="about-ethics-heading"
       className="overflow-hidden"
     >
-      <AboutAmbientGlow position="center" className="opacity-70" />
+      <AboutAmbientGlow position="center" className="opacity-60" />
 
       <AboutContainer size="wide">
         <AboutReveal>
@@ -53,7 +53,7 @@ export function AboutEthicsSection() {
         </AboutReveal>
 
         <motion.ul
-          className="mt-10 flex list-none flex-wrap gap-2 p-0 sm:mt-12"
+          className="mt-12 flex list-none flex-wrap gap-2 p-0 sm:mt-14"
           aria-label="Criterios clínicos de la sección"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -75,14 +75,14 @@ export function AboutEthicsSection() {
         </motion.ul>
 
         <div
-          className={cn(
-            aboutEd.hairline,
-            "my-16 sm:my-20 lg:my-24"
-          )}
+          className={cn(aboutEd.hairline, "my-20 sm:my-24 lg:my-28")}
           aria-hidden
         />
 
-        <div className="grid gap-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-5">
+        <ul
+          className="grid list-none gap-x-12 gap-y-16 p-0 sm:grid-cols-2 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-20"
+          aria-label="Pilares éticos"
+        >
           {pillars.map((pillar, index) => {
             const Icon = pillarIcons[pillar.key];
             return (
@@ -95,24 +95,19 @@ export function AboutEthicsSection() {
               />
             );
           })}
-        </div>
+        </ul>
 
-        <motion.div
-          className={cn(aboutEd.hairline, "my-16 sm:my-20 lg:my-24")}
+        <div
+          className={cn(aboutEd.hairline, "my-20 sm:my-24 lg:my-28")}
           aria-hidden
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{ transformOrigin: "center" }}
         />
 
         <motion.div
-          className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20"
+          className="grid gap-16 lg:grid-cols-2 lg:gap-24 xl:gap-28"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           <EthicsBoundaryPanel
             variant="do"
@@ -134,22 +129,27 @@ export function AboutEthicsSection() {
           />
         </motion.div>
 
-        <AboutReveal className="mt-16 sm:mt-20 lg:mt-24" delay={0.05}>
+        <AboutReveal className="mt-20 sm:mt-28 lg:mt-32" delay={0.05}>
           <aside
-            className="max-w-2xl"
+            className="max-w-xl"
             aria-labelledby="about-ethics-crisis-heading"
           >
-            <div
-              className="mb-5 h-px w-12 bg-gradient-to-r from-primary/35 to-transparent"
+            <motion.div
+              className={aboutEd.hairlineAccent}
               aria-hidden
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ transformOrigin: "left" }}
             />
             <h3
               id="about-ethics-crisis-heading"
-              className="font-display text-lg font-semibold tracking-tight sm:text-xl"
+              className="mt-8 font-display text-xl font-medium tracking-tight sm:text-2xl"
             >
               {crisisNote.title}
             </h3>
-            <p className={cn(aboutEd.bodyLarge, "mt-4")}>{crisisNote.body}</p>
+            <p className={cn(aboutEd.bodyLarge, "mt-5")}>{crisisNote.body}</p>
           </aside>
         </AboutReveal>
       </AboutContainer>

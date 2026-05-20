@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { mentalHealthManifestoCopy } from "@/components/about/about-data";
 import { aboutEd } from "@/components/about/about-editorial-tokens";
 import {
+  AboutAmbientGlow,
   AboutContainer,
   AboutEditorialHeader,
   AboutReveal,
@@ -18,8 +19,12 @@ export function AboutMentalHealthSection() {
     <AboutSection
       id="salud-mental"
       tone="linen"
+      cinematic
       aria-labelledby="about-manifesto-heading"
+      className="overflow-hidden"
     >
+      <AboutAmbientGlow position="center" className="opacity-40" />
+
       <AboutContainer size="narrow">
         <AboutReveal>
           <AboutEditorialHeader
@@ -32,39 +37,44 @@ export function AboutMentalHealthSection() {
         </AboutReveal>
 
         <ol
-          className="mt-20 space-y-0 list-none p-0 sm:mt-24"
+          className="mt-28 list-none space-y-0 p-0 sm:mt-32"
           aria-label="Manifiesto de salud mental"
         >
           {mentalHealthManifestoCopy.statements.map((statement, index) => (
             <motion.li
               key={statement.key}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={aboutStaggerDelay(index, 0.09)}
-              className="list-none py-12 first:pt-0 sm:py-14"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={aboutStaggerDelay(index, 0.12)}
+              className="list-none py-14 first:pt-0 sm:py-20"
             >
-              <article className="text-center">
-                <span
-                  className="font-mono text-[11px] font-medium tracking-[0.22em] text-primary/65"
-                  aria-hidden
-                >
+              <article className="mx-auto max-w-xl text-center">
+                <span className={aboutEd.indexMarker} aria-hidden>
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-5 font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+                <h3 className="mt-6 font-display text-2xl font-medium tracking-tight text-foreground sm:text-[1.75rem]">
                   {statement.title}
                 </h3>
                 <p
                   className={cn(
                     aboutEd.bodyLarge,
-                    "mx-auto mt-5 max-w-lg text-pretty"
+                    "mx-auto mt-6 max-w-lg text-pretty"
                   )}
                 >
                   {statement.body}
                 </p>
               </article>
               {index < mentalHealthManifestoCopy.statements.length - 1 ? (
-                <div className={cn(aboutEd.hairline, "mt-12 sm:mt-14")} aria-hidden />
+                <motion.div
+                  className={cn(aboutEd.hairline, "mx-auto mt-14 max-w-xs sm:mt-20")}
+                  aria-hidden
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  whileInView={{ scaleX: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, ease: "easeOut" }}
+                  style={{ transformOrigin: "center" }}
+                />
               ) : null}
             </motion.li>
           ))}

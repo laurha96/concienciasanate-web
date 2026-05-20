@@ -62,12 +62,13 @@ export function AboutEcosystemPremium() {
   return (
     <AboutSection
       id="ecosistema"
-      tone="cinematic"
+      tone="veil"
       cinematic
       aria-labelledby="about-ecosystem-heading"
       className="overflow-hidden"
     >
-      <AboutAmbientGlow position="left" />
+      <AboutAmbientGlow position="left" className="opacity-80" />
+
       <AboutContainer size="wide">
         <AboutReveal>
           <AboutEditorialHeader
@@ -79,32 +80,30 @@ export function AboutEcosystemPremium() {
         </AboutReveal>
 
         <motion.div
-          className="mt-20 grid gap-12 lg:mt-28 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-20"
+          className="mt-24 grid gap-16 lg:mt-32 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-24"
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.div
-            className={cn(aboutEd.ghostSurface, "relative overflow-hidden p-6 sm:p-10")}
-          >
+          <div className={cn(aboutEd.openFigure, "relative px-2 sm:px-6")}>
             <motion.div
-              className="pointer-events-none absolute left-1/2 top-1/2 size-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.05] blur-3xl"
-              animate={{ opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+              className="pointer-events-none absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.06] blur-3xl"
+              animate={{ opacity: [0.25, 0.5, 0.25] }}
+              transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
               aria-hidden
             />
 
             <svg
               viewBox="0 0 400 260"
-              className="mx-auto h-[260px] w-full max-w-lg sm:h-[300px]"
+              className="relative mx-auto h-[260px] w-full max-w-xl sm:h-[300px]"
               role="img"
               aria-label="Diagrama del ecosistema Conciencia Sánate"
             >
               <defs>
                 <linearGradient id="eco-line" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stopColor="rgb(118 176 65)" stopOpacity="0.12" />
-                  <stop offset="1" stopColor="rgb(53 94 43)" stopOpacity="0.28" />
+                  <stop offset="0" stopColor="rgb(118 176 65)" stopOpacity="0.1" />
+                  <stop offset="1" stopColor="rgb(53 94 43)" stopOpacity="0.25" />
                 </linearGradient>
               </defs>
 
@@ -122,7 +121,7 @@ export function AboutEcosystemPremium() {
                     y2={b.y}
                     stroke="url(#eco-line)"
                     strokeWidth={isActive ? 1.5 : 1}
-                    strokeOpacity={isActive ? 0.8 : 0.3}
+                    strokeOpacity={isActive ? 0.85 : 0.28}
                     className="transition-all duration-300"
                   />
                 );
@@ -131,17 +130,18 @@ export function AboutEcosystemPremium() {
               <circle
                 cx="200"
                 cy="130"
-                r="34"
+                r="36"
                 fill="rgb(var(--brand-accent-rgb))"
-                opacity="0.4"
+                opacity="0.32"
               />
               <text
                 x="200"
                 y="134"
                 textAnchor="middle"
-                fontSize="10"
+                fontSize="9"
+                letterSpacing="0.14em"
                 fill="currentColor"
-                className="opacity-60"
+                className="uppercase opacity-55"
               >
                 Coherencia
               </text>
@@ -171,8 +171,8 @@ export function AboutEcosystemPremium() {
                     <circle
                       cx={pos.x}
                       cy={pos.y}
-                      r={isActive ? 28 : 24}
-                      fill="rgb(var(--brand-surface))"
+                      r={isActive ? 30 : 26}
+                      fill="rgb(var(--brand-background))"
                       stroke={
                         isActive
                           ? "rgb(118 176 65)"
@@ -183,13 +183,14 @@ export function AboutEcosystemPremium() {
                     />
                     <text
                       x={pos.x}
-                      y={pos.y + 42}
+                      y={pos.y + 44}
                       textAnchor={pos.labelAnchor}
-                      fontSize="11"
+                      fontSize="10"
+                      letterSpacing="0.08em"
                       fill="currentColor"
                       className={cn(
                         "transition-opacity duration-300",
-                        isActive ? "opacity-90" : "opacity-55"
+                        isActive ? "opacity-90" : "opacity-50"
                       )}
                     >
                       {pillar.label}
@@ -199,7 +200,12 @@ export function AboutEcosystemPremium() {
               })}
             </svg>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-x-4 gap-y-2 border-t border-border/40 pt-6">
+            <motion.div
+              className="mt-10 flex flex-wrap justify-center gap-x-3 gap-y-2"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
               {ecosystemCopy.pillars.map((pillar) => {
                 const Icon = pillarIcons[pillar.key];
                 const isActive = pillar.key === activeKey;
@@ -210,10 +216,10 @@ export function AboutEcosystemPremium() {
                     type="button"
                     onClick={() => setActiveKey(pillar.key)}
                     className={cn(
-                      "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs transition-all duration-300",
+                      "inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs transition-all duration-300",
                       isActive
-                        ? "bg-accent/60 text-[var(--green-secondary)]"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "bg-accent/50 text-[var(--green-secondary)]"
+                        : "text-muted-foreground hover:bg-accent/25 hover:text-foreground"
                     )}
                     whileHover={{ y: -1 }}
                     aria-pressed={isActive}
@@ -223,27 +229,27 @@ export function AboutEcosystemPremium() {
                   </motion.button>
                 );
               })}
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           <motion.div
             key={active.key}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="lg:py-4"
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:py-8"
             aria-live="polite"
             aria-atomic="true"
           >
             <p className={aboutEd.eyebrow}>{active.tagline}</p>
-            <h3 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h3 className="mt-5 font-display text-3xl font-medium tracking-tight sm:text-4xl">
               {active.label}
             </h3>
-            <p className={cn(aboutEd.bodyLarge, "mt-6 max-w-md")}>
+            <p className={cn(aboutEd.bodyLarge, "mt-7 max-w-md")}>
               {active.description}
             </p>
-            <p className={cn(aboutEd.body, "mt-8 text-sm opacity-75")}>
-              Selecciona un nodo para explorar cómo se conecta el ecosistema.
+            <p className={cn(aboutEd.body, "mt-10 text-sm opacity-70")}>
+              Explora cada área del ecosistema para ver cómo se conectan.
             </p>
           </motion.div>
         </motion.div>

@@ -16,16 +16,17 @@ export function AboutPageContent() {
     <AboutPageShell>
       <AboutJsonLd />
       <AboutHeroSection />
-      <AboutOrganicDivider variant="curve" />
+      <AboutOrganicDivider variant="curve" fillTone="paper" />
       <AboutClinicalVisionSection />
-      <AboutOrganicDivider variant="fade" />
+      <AboutOrganicDivider variant="breathe" />
       <AboutDifferentialSection />
-      <AboutOrganicDivider variant="wave" flip />
+      <AboutOrganicDivider variant="wave" flip fillTone="paper" />
       <AboutEthicsSection />
       <AboutOrganicDivider variant="fade" />
       <AboutEcosystemPremium />
-      <AboutOrganicDivider variant="curve" flip />
+      <AboutOrganicDivider variant="curve" fillTone="linen" />
       <AboutMentalHealthSection />
+      <AboutOrganicDivider variant="wave" fillTone="depth" />
       <AboutPreFooterCta />
     </AboutPageShell>
   );

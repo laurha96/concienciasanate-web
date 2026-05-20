@@ -53,17 +53,19 @@ export function EthicsBoundaryPanel({
       )}
       aria-labelledby={panelId}
     >
-      <motion.div
-        className={cn(
-          "pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent to-transparent",
-          isDo ? "via-primary/25" : "via-border/80"
-        )}
-        aria-hidden
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      />
+      {!editorial ? (
+        <motion.div
+          className={cn(
+            "pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent to-transparent",
+            isDo ? "via-primary/25" : "via-border/80"
+          )}
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        />
+      ) : null}
 
       <div
         className={cn(
@@ -74,31 +76,49 @@ export function EthicsBoundaryPanel({
       />
 
       <header className="relative">
-        <div className="flex items-center gap-3">
-          <span
-            className={cn(
-              "grid size-10 place-items-center rounded-xl border",
-              isDo
-                ? "border-primary/15 bg-accent/80 text-[var(--green-secondary)]"
-                : "border-border/60 bg-muted/50 text-muted-foreground"
-            )}
-            aria-hidden
-          >
-            <ItemIcon className="size-4" strokeWidth={1.75} />
-          </span>
-          <h3
-            id={panelId}
-            className={cn(
-              "font-semibold tracking-tight",
-              editorial
-                ? "font-display text-2xl sm:text-[1.65rem]"
-                : "text-lg sm:text-xl"
-            )}
-          >
-            {title}
-          </h3>
-        </div>
-        <p className={cn(editorial ? aboutEd.lead : "mt-3 text-sm leading-relaxed text-muted-foreground sm:text-[15px]", !editorial && "mt-3")}>
+        {!editorial ? (
+          <div className="flex items-center gap-3">
+            <span
+              className={cn(
+                "grid size-10 place-items-center rounded-xl border",
+                isDo
+                  ? "border-primary/15 bg-accent/80 text-[var(--green-secondary)]"
+                  : "border-border/60 bg-muted/50 text-muted-foreground"
+              )}
+              aria-hidden
+            >
+              <ItemIcon className="size-4" strokeWidth={1.75} />
+            </span>
+            <h3
+              id={panelId}
+              className="text-lg font-semibold tracking-tight sm:text-xl"
+            >
+              {title}
+            </h3>
+          </div>
+        ) : (
+          <>
+            <ItemIcon
+              className={cn(
+                "size-5",
+                isDo ? "text-[var(--green-secondary)] opacity-80" : "text-muted-foreground/60"
+              )}
+              strokeWidth={1.5}
+              aria-hidden
+            />
+            <h3
+              id={panelId}
+              className="mt-5 font-display text-2xl font-medium tracking-tight sm:text-[1.65rem]"
+            >
+              {title}
+            </h3>
+          </>
+        )}
+        <p
+          className={cn(
+            editorial ? cn(aboutEd.lead, "mt-5") : "mt-3 text-sm leading-relaxed text-muted-foreground sm:text-[15px]"
+          )}
+        >
           {lead}
         </p>
       </header>
