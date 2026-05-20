@@ -330,6 +330,15 @@
   .glass-panel {
     @apply rounded-[32px] border border-border/60 bg-brand-surface/75 shadow-card backdrop-blur-md;
   }
+
+  /* Página Sobre — ritmo editorial (scoped) */
+  .about-page {
+    @apply text-foreground;
+  }
+
+  .about-page ::selection {
+    background: rgb(var(--brand-primary-rgb) / 0.18);
+  }
 }
 
 @layer utilities {
