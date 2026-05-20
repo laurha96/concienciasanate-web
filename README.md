@@ -132,7 +132,7 @@ Implementado en código:
 - **Rate limiting**: login/registro, login admin, contacto y tope general `/api`
 - **JWT separado** para admin (`ADMIN_JWT_SECRET`) vs usuarios (`JWT_SECRET`)
 - **Recursos públicos** solo `published = true`
-- **Middleware** Next.js en `/admin/*` (cookie `admin_token`)
+- **Proxy** Next.js 16 en `/admin/*` (`frontend/proxy.ts`, cookie `admin_token`)
 - **Cabeceras de seguridad** en Vercel (`next.config.ts`)
 - **RLS** en tablas del panel admin (`backend/supabase/migrations/003_admin_rls.sql`)
 
