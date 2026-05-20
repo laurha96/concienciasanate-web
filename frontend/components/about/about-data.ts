@@ -1,269 +1,184 @@
 export const aboutHeroCopy = {
-  eyebrow: "Salud mental · criterio clínico",
+  eyebrow: "Psicología aplicada · salud mental digital",
   title:
-    "Psicología con evidencia para comprender, regular y sostener lo que vives.",
+    "Comprender, regular y sostener procesos psicológicos — con evidencia y límites explícitos.",
   subtitle:
-    "Ofrecemos psicoeducación rigurosa, herramientas de regulación emocional y tecnología clínica pensada para acompañar procesos reales — con claridad, límites explícitos y respeto por tu autonomía.",
+    "Psicoeducación y ejercicios de regulación emocional informados por ciencia clínica. No ofrecemos psicoterapia ni evaluación diagnóstica en línea.",
   microbadges: [
-    "Evidencia aplicada",
+    "Evidencia empírica",
     "Regulación emocional",
-    "Ética digital clínica",
-  ] as const,
-  valueIndicators: [
-    {
-      label: "Fundamento",
-      detail: "TCC, regulación emocional y neurociencia traducida con rigor",
-    },
-    {
-      label: "Método",
-      detail: "Estructura y práctica sostenida, sin estímulos motivacionales",
-    },
-    {
-      label: "Límites",
-      detail: "Sin diagnóstico automático ni promesas de cura o resultado",
-    },
+    "Límites éticos",
   ] as const,
   primaryCta: { label: "Explorar herramientas", href: "/herramientas" },
   secondaryCta: { label: "Conocer Elynthis", href: "/elynthis" },
   ethicsNote:
-    "No sustituimos una evaluación clínica ni una relación terapéutica.",
-  ethicsLink: { label: "Marco ético y límites", href: "#etica-limites" },
+    "Este entorno no reemplaza la consulta con un profesional de salud mental.",
+  ethicsLink: { label: "Alcance y límites", href: "#etica-limites" },
 } as const;
 
-export type ClinicalVisionPillarKey =
-  | "understand"
-  | "regulation"
-  | "science"
-  | "autonomy";
+/** Principios editoriales — marco clínico (no manifiesto motivacional) */
+export type ClinicalEditorialPrincipleKey =
+  | "not-productivity"
+  | "regulation-not-perfection"
+  | "clarity-before-pressure"
+  | "understand-before-change"
+  | "sustainable-process"
+  | "regulation-trained";
 
-export const clinicalVisionCopy = {
+export const clinicalEditorialCopy = {
   eyebrow: "Visión clínica",
-  title: "Cómo acompañamos la experiencia emocional",
+  title: "Un marco para la experiencia emocional",
   lead:
-    "Entendemos el bienestar como un proceso que requiere tiempo, contexto y criterio. No lo reducimos a consejos rápidos ni a mensajes que presionan por sentirse mejor. Trabajamos desde la comprensión, la regulación y la ciencia aplicada con un lenguaje claro y un acompañamiento que devuelve capacidad de decisión.",
-  pillars: [
+    "Entendemos el bienestar psicológico como un proceso situado en el tiempo y el contexto, no como rendimiento afectivo ni ausencia de malestar. Priorizamos comprensión, habilidades de regulación emocional y cambios conductuales graduales que puedan sostenerse en la vida cotidiana.",
+  principles: [
     {
-      key: "understand" as ClinicalVisionPillarKey,
-      title: "Comprender antes de intervenir",
-      body: "Observamos patrones, emociones y circunstancias antes de proponer cambios. Tener un mapa — aunque sea provisional — reduce la desorientación y evita intervenir desde la urgencia o la culpa.",
+      key: "not-productivity" as ClinicalEditorialPrincipleKey,
+      title: "Bienestar psicológico ≠ optimización emocional",
+      body: "La variación del estado de ánimo y la presencia de malestar forman parte de la experiencia humana. No las interpretamos como fracaso personal ni como objetivo de rendimiento.",
     },
     {
-      key: "regulation" as ClinicalVisionPillarKey,
-      title: "Regulación que se puede practicar",
-      body: "Enseñamos habilidades para modular ansiedad, estrés y activación emocional en la vida cotidiana. Regular no es reprimir: es recuperar margen de respuesta cuando el sistema nervioso se adelanta al contexto.",
+      key: "regulation-not-perfection" as ClinicalEditorialPrincipleKey,
+      title: "Regulación emocional ≠ supresión",
+      body: "Se refiere a modular intensidad y duración de las respuestas, no a eliminar emociones desagradables ni a exigir calma permanente.",
     },
     {
-      key: "science" as ClinicalVisionPillarKey,
-      title: "Ciencia al alcance, sin simplismos",
-      body: "Traducimos marcos con respaldo empírico — TCC, regulación emocional, neurociencia aplicada, ciencia del comportamiento — en recursos comprensibles. La profundidad clínica no tiene por qué sonar inaccesible.",
+      key: "clarity-before-pressure" as ClinicalEditorialPrincipleKey,
+      title: "Claridad puede reducir sufrimiento secundario",
+      body: "Parte del malestar se amplía por confusión o falta de lenguaje. Nombrar con precisión ayuda a orientarse; no sustituye intervención clínica cuando esta es necesaria.",
     },
     {
-      key: "autonomy" as ClinicalVisionPillarKey,
-      title: "Autonomía como objetivo clínico",
-      body: "Buscamos que puedas sostener el proceso con criterio propio, no que dependas de la plataforma. Educamos y organizamos; no reemplazamos el vínculo terapéutico ni el juicio de un profesional.",
+      key: "understand-before-change" as ClinicalEditorialPrincipleKey,
+      title: "La comprensión suele preceder al cambio",
+      body: "Formular hipótesis sobre patrones, emociones y contexto facilita decisiones más coherentes que actuar solo desde la urgencia o la autocrítica.",
+    },
+    {
+      key: "sustainable-process" as ClinicalEditorialPrincipleKey,
+      title: "Cambios graduales y repetibles",
+      body: "La adherencia en contextos reales importa más que la intensidad del esfuerzo o los picos de motivación, que suelen ser poco sostenibles.",
+    },
+    {
+      key: "regulation-trained" as ClinicalEditorialPrincipleKey,
+      title: "Habilidades que se practican",
+      body: "Como otras capacidades conductuales: requieren repetición, tiempo y ajuste al entorno. El progreso no es lineal ni equivalente entre personas.",
     },
   ],
-  closingQuote:
-    "Una salud mental sostenible no pide más intensidad: pide más comprensión, más regulación y más honestidad sobre lo que un entorno digital puede — y no puede — ofrecer.",
+  closingLine:
+    "El cuidado de la salud mental es un proceso continuo, sin metas de rendimiento ni plazos universales de mejora.",
+  ethics: {
+    title: "Alcance del servicio",
+    body: "Contenido psicoeducativo y herramientas de autoaprendizaje estructurado. Sin diagnóstico, sin prescripción de tratamiento ni atención de urgencias clínicas en línea.",
+    link: {
+      label: "Información legal y de privacidad",
+      href: "/privacidad",
+    },
+  },
 } as const;
 
-export type ScientificFoundationKey =
-  | "evidence"
+/** @deprecated Usar clinicalEditorialCopy */
+export const clinicalVisionCopy = clinicalEditorialCopy;
+
+/** @deprecated Usar ClinicalPillarKey */
+export type ClinicalVisionPillarKey = ClinicalEditorialPrincipleKey;
+
+export type ClinicalPillarKey =
   | "tcc"
   | "regulation"
   | "neuroscience"
-  | "behavior"
-  | "habits";
+  | "habits"
+  | "psychoeducation"
+  | "clinicalTech";
 
-export type ScientificFoundationArea = {
-  key: ScientificFoundationKey;
+export type ClinicalPillar = {
+  key: ClinicalPillarKey;
   label: string;
   discipline: string;
   body: string;
 };
 
-export const scientificFoundationCopy = {
-  eyebrow: "Base científica",
-  title: "Lo que sostiene cada herramienta",
+export const clinicalPillarsCopy = {
+  eyebrow: "Pilares clínicos",
+  title: "Fundamentos que orientan el diseño",
   description:
-    "Diseñamos contenidos y recursos a partir de marcos con respaldo en investigación clínica. Los presentamos con rigor en el fondo y claridad en la forma — para que puedas usarlos con criterio, no con fe ciega.",
-  areas: [
-    {
-      key: "evidence",
-      label: "Psicología basada en evidencia",
-      discipline: "Marco integrador",
-      body: "Priorizamos modelos y protocolos con soporte empírico, adaptados a psicoeducación y autocuidado estructurado — sin presentarlos como soluciones universales.",
-    },
+    "Los recursos se inspiran en literatura clínica y modelos con respaldo empírico, adaptados a formato psicoeducativo. No equivalen a psicoterapia individual ni a un plan de tratamiento personalizado.",
+  pillars: [
     {
       key: "tcc",
       label: "TCC",
-      discipline: "Terapia cognitivo-conductual",
-      body: "Relacionamos pensamiento, conducta y mantenimiento de dificultades en mapas prácticos. La TCC orienta el diseño; no implica que cada usuario esté en psicoterapia cognitivo-conductual formal.",
+      discipline: "Modelo cognitivo-conductual",
+      body: "Relacionamos pensamientos, conductas y factores de mantenimiento en material educativo. Informa el diseño; no implica que cada persona esté en terapia cognitivo-conductual formal.",
     },
     {
       key: "regulation",
       label: "Regulación emocional",
-      discipline: "Modulación y habilidades",
-      body: "Trabajamos la identificación, nombramiento y modulación de estados emocionales — ansiedad, estrés, activación — con práctica repetida y expectativas realistas.",
+      discipline: "Habilidades de modulación",
+      body: "Identificación, nombramiento y estrategias para modular ansiedad, estrés y activación fisiológica, con expectativas realistas sobre su alcance fuera de terapia.",
     },
     {
       key: "neuroscience",
       label: "Neurociencia aplicada",
-      discipline: "Mente, cuerpo y contexto",
-      body: "Usamos principios de neurociencia para explicar patrones y respuestas del sistema nervioso, sin biologizar el sufrimiento ni prometer recableados rápidos.",
-    },
-    {
-      key: "behavior",
-      label: "Ciencia del comportamiento",
-      discipline: "Conducta y cambio",
-      body: "Analizamos qué mantiene conductas y hábitos en el entorno real. El cambio se apoya en estructura y repetición, no en fuerza de voluntad ni en picos de motivación.",
+      discipline: "Psicoeducación biológica",
+      body: "Explicamos respuestas del sistema nervioso y el papel del contexto sin reducir el sufrimiento a un defecto cerebral ni prometer cambios neurobiológicos rápidos.",
     },
     {
       key: "habits",
-      label: "Hábitos sostenibles",
-      discipline: "Adherencia y ritmo",
-      body: "Favorecemos micro-cambios repetibles y seguimiento ligero. La continuidad importa más que la perfección o la productividad emocional.",
+      label: "Hábitos y conducta",
+      discipline: "Ciencia del comportamiento",
+      body: "Microcambios repetibles y seguimiento ligero, centrados en mantenimiento conductual en el entorno real, no en métricas de productividad personal.",
     },
-  ] satisfies ScientificFoundationArea[],
-  closingLine:
-    "La evidencia orienta el diseño de la plataforma. No reemplaza una evaluación individual ni las decisiones de un profesional de la salud mental.",
+    {
+      key: "psychoeducation",
+      label: "Psicoeducación",
+      discipline: "Traducción clínica",
+      body: "Conceptos ordenados, definiciones precisas y ejemplos aplicables. El rigor conceptual importa tanto como la accesibilidad del lenguaje.",
+    },
+    {
+      key: "clinicalTech",
+      label: "Tecnología clínica",
+      discipline: "Salud digital",
+      body: "Infraestructura para organizar información y continuidad al servicio del criterio profesional. Sin algoritmos diagnósticos ni recomendaciones que sustituyan el juicio clínico.",
+    },
+  ] satisfies ClinicalPillar[],
 } as const;
 
-export type DifferentialBlockKey =
-  | "evidence"
-  | "regulation"
-  | "technology"
-  | "minimalism";
+/** @deprecated Usar clinicalPillarsCopy */
+export type ScientificFoundationKey = ClinicalPillarKey;
+export type ScientificFoundationArea = ClinicalPillar;
+export const scientificFoundationCopy = {
+  eyebrow: clinicalPillarsCopy.eyebrow,
+  title: clinicalPillarsCopy.title,
+  description: clinicalPillarsCopy.description,
+  areas: clinicalPillarsCopy.pillars,
+  closingLine:
+    "La evidencia orienta el diseño educativo. No reemplaza evaluación clínica individual ni decisiones de un profesional habilitado.",
+} as const;
+
+export type DifferentialBlockKey = "evidence" | "clarity" | "ethics" | "tools";
 
 export const differentialCopy = {
-  eyebrow: "Por qué somos distintos",
-  title: "Criterio clínico, no volumen de contenido",
+  eyebrow: "Diferencial",
+  title: "Criterio clínico frente al ruido informativo",
   description:
-    "No competimos por saturar tu atención ni por generar dependencia emocional del producto. Cada decisión — educativa, clínica y tecnológica — responde a cómo las personas comprenden, regulan y sostienen cambios cuando hay estructura, evidencia y límites claros.",
-  closingLine:
-    "Menos estímulo. Más sentido. Un entorno que se comporta como un espacio clínico digital, no como un feed de bienestar.",
+    "Diseñamos para la comprensión y la práctica sostenida, en línea con principios de salud digital responsable — no para maximizar tiempo en pantalla.",
   blocks: [
     {
       key: "evidence" as DifferentialBlockKey,
-      title: "Evidencia, no tendencias",
-      summary:
-        "Integramos marcos validados y los traducimos con precisión y accesibilidad. Ni simplificamos de más ni ocultamos la complejidad que el malestar suele traer.",
-      points: [
-        {
-          label: "TCC",
-          detail:
-            "Modelos cognitivo-conductuales aplicados a educación y autocuidado con estructura progresiva.",
-        },
-        {
-          label: "Regulación emocional",
-          detail:
-            "Habilidades con respaldo en investigación para identificar, nombrar y modular estados emocionales.",
-        },
-        {
-          label: "Neurociencia",
-          detail:
-            "Explicaciones del sistema nervioso y del contexto, sin reducir la experiencia humana a un diagrama.",
-        },
-        {
-          label: "Ciencia del comportamiento",
-          detail:
-            "Conducta y hábitos entendidos en función de su mantenimiento, no como fallo de carácter.",
-        },
-        {
-          label: "Psicoeducación",
-          detail:
-            "Conceptos ordenados, ejemplos clínicos y práctica guiada — sin jerga innecesaria.",
-        },
-      ],
+      title: "Evidencia",
+      body: "Priorizamos modelos y hallazgos con respaldo empírico, presentados con matices. Evitamos simplificar el malestar ni ocultar su complejidad.",
     },
     {
-      key: "regulation" as DifferentialBlockKey,
-      title: "Regulación con método",
-      summary:
-        "Ofrecemos protocolos y ejercicios concretos para habitar emociones difíciles con más seguridad. No confundimos contención con evitación ni calma con ausencia de malestar.",
-      points: [
-        {
-          label: "Herramientas aplicables",
-          detail:
-            "Instrucciones claras, duración breve y encaje en la rutina — no listas interminables de tareas.",
-        },
-        {
-          label: "Ansiedad",
-          detail:
-            "Estrategias para activación, anticipación y rumiación, con lenguaje clínico y sin alarmismo.",
-        },
-        {
-          label: "Estrés",
-          detail:
-            "Recuperación del sistema de alerta cuando las demandas superan los recursos disponibles.",
-        },
-        {
-          label: "Sobrecarga emocional",
-          detail:
-            "Organización y contención cuando sentir parece desbordar la capacidad de actuar.",
-        },
-        {
-          label: "Continuidad",
-          detail:
-            "Repetición con sentido clínico, no exigencia de constancia perfecta ni culpa por pausar.",
-        },
-      ],
+      key: "clarity" as DifferentialBlockKey,
+      title: "Claridad",
+      body: "Jerarquía visual y verbal que reduce carga cognitiva. Facilita leer y decidir con calma, sin estímulos diseñados para reacción impulsiva.",
     },
     {
-      key: "technology" as DifferentialBlockKey,
-      title: "Tecnología al servicio del criterio",
-      summary:
-        "Elynthis ordena procesos clínicos con claridad. La tecnología facilita seguimiento y estructura; no decide por el profesional ni sustituye el vínculo terapéutico.",
-      points: [
-        {
-          label: "Elynthis",
-          detail:
-            "Flujos limpios para pacientes, sesiones y documentación — pensado para la práctica diaria.",
-        },
-        {
-          label: "Criterio profesional",
-          detail:
-            "Sin diagnóstico automatizado ni recomendaciones que reemplacen el juicio clínico.",
-        },
-        {
-          label: "Seguimiento",
-          detail:
-            "Historial y continuidad al servicio del tratamiento, no del engagement vacío.",
-        },
-        {
-          label: "Legibilidad",
-          detail:
-            "Interfaces que reducen fricción cognitiva y permiten leer el proceso de un vistazo.",
-        },
-      ],
+      key: "ethics" as DifferentialBlockKey,
+      title: "Ética",
+      body: "Alcance del servicio explícito: sin diagnóstico automático, sin prometer resultados clínicos ni sustituir la relación terapéutica.",
     },
     {
-      key: "minimalism" as DifferentialBlockKey,
-      title: "Diseño que no añade ruido",
-      summary:
-        "Reducimos carga cognitiva para que puedas concentrarte en lo que importa. Un entorno calmado no es estética vacía: es una decisión clínica sobre cómo la interfaz afecta al sistema nervioso.",
-      points: [
-        {
-          label: "Menos interrupciones",
-          detail:
-            "Sin notificaciones agresivas, gamificación vacía ni presión por consumir más contenido.",
-        },
-        {
-          label: "Ritmo visual",
-          detail:
-            "Espaciado, tipografía y transiciones que invitan a leer con calma, no a reaccionar.",
-        },
-        {
-          label: "Jerarquía clara",
-          detail:
-            "Cada pantalla indica qué hacer a continuación sin competir por tu atención.",
-        },
-        {
-          label: "Seguridad percibida",
-          detail:
-            "Un tono visual y verbal que transmite contención, previsibilidad y respeto.",
-        },
-      ],
+      key: "tools" as DifferentialBlockKey,
+      title: "Herramientas aplicables",
+      body: "Ejercicios breves con instrucciones concretas y duración definida. Complementan el aprendizaje; no constituyen un protocolo de tratamiento completo.",
     },
   ],
 } as const;
@@ -284,7 +199,6 @@ export type EcosystemNode = {
   label: string;
   tagline: string;
   description: string;
-  /** Posición normalizada en el diagrama (0–100) */
   x: number;
   y: number;
   href?: string;
@@ -292,9 +206,9 @@ export type EcosystemNode = {
 
 export const ecosystemCopy = {
   eyebrow: "Ecosistema",
-  title: "Un mismo proceso, varias piezas articuladas",
+  title: "Cómo se articulan los componentes",
   description:
-    "Psicología, educación, regulación, hábitos, tecnología clínica y Elynthis no funcionan como módulos aislados. Se articulan en un circuito: comprender, practicar, sostener y organizar — con los mismos criterios de evidencia y los mismos límites éticos.",
+    "Psicoeducación, regulación emocional, hábitos y tecnología clínica en un flujo coherente: comprender, practicar, sostener y —para profesionales— organizar la práctica.",
   centerLabel: "Coherencia clínica",
   nodes: [
     {
@@ -302,34 +216,34 @@ export const ecosystemCopy = {
       label: "Psicología",
       tagline: "Marco de comprensión",
       description:
-        "Integra modelos con respaldo empírico para entender patrones cognitivos y emocionales antes de intervenir. Orienta qué observar y qué nombrar.",
+        "Modelos con respaldo empírico para observar patrones cognitivos, emocionales y conductuales antes de proponer estrategias. Orienta qué revisar y cómo nombrarlo.",
       x: 50,
       y: 12,
     },
     {
       key: "education",
-      label: "Educación",
-      tagline: "Psicoeducación estructurada",
+      label: "Psicoeducación",
+      tagline: "Contenido estructurado",
       description:
-        "Traduce la ciencia en secuencias claras y progresivas. Prepara el terreno para practicar sin abrumar con información suelta.",
+        "Secuencias progresivas que traducen evidencia en lenguaje accesible. Reduce la dispersión informativa sin sustituir formación clínica del usuario.",
       x: 14,
       y: 36,
     },
     {
       key: "regulation",
       label: "Regulación emocional",
-      tagline: "Práctica situada",
+      tagline: "Práctica entre sesiones",
       description:
-        "Protocolos para modular ansiedad, estrés y activación — utilizables entre sesiones y en autocuidado guiado, con expectativas realistas.",
+        "Ejercicios para modular ansiedad, estrés y activación, utilizables como apoyo al autoaprendizaje o entre sesiones con un profesional, con expectativas acotadas.",
       x: 86,
       y: 36,
     },
     {
       key: "habits",
       label: "Hábitos",
-      tagline: "Continuidad en lo cotidiano",
+      tagline: "Conducta en contexto",
       description:
-        "Micro-rutinas y seguimiento ligero que anclan los cambios en la vida real, sin métricas de rendimiento ni dashboards que exigen rendir.",
+        "Rutinas breves y seguimiento ligero anclados al entorno real. El foco es adherencia y mantenimiento, no rendimiento ni comparación entre usuarios.",
       x: 20,
       y: 74,
     },
@@ -338,16 +252,16 @@ export const ecosystemCopy = {
       label: "Tecnología clínica",
       tagline: "Infraestructura digital",
       description:
-        "Plataforma diseñada para reducir fricción y sostener procesos con ética explícita. La tecnología facilita; no diagnostica ni promete cura.",
+        "Herramientas para reducir fricción administrativa y documentar procesos con transparencia. Facilitan el trabajo profesional; no emiten diagnósticos ni planes de tratamiento.",
       x: 80,
       y: 74,
     },
     {
       key: "elynthis",
       label: "Elynthis",
-      tagline: "Organización de la práctica",
+      tagline: "Práctica profesional",
       description:
-        "Software para estructurar flujos, sesiones y seguimiento profesional. Conecta la práctica clínica con el marco psicológico y la regulación del paciente.",
+        "Software para estructurar pacientes, sesiones y seguimiento en contextos de salud mental. Pensado para profesionales habilitados, no para autodiagnóstico.",
       x: 50,
       y: 88,
       href: "/elynthis",
@@ -369,85 +283,48 @@ export const ecosystemCopy = {
     ["psychology", "elynthis"],
     ["education", "clinicalTechnology"],
   ] as const satisfies readonly [EcosystemNodeKey, EcosystemNodeKey][],
-  panelHint:
-    "Elige un nodo para ver cómo se relaciona con el resto del ecosistema.",
-  elynthisLinkLabel: "Sobre Elynthis",
+  panelHint: "Selecciona un nodo para ver su relación con el resto del ecosistema.",
+  elynthisLinkLabel: "Conocer Elynthis",
 } as const;
 
-export type MentalHealthManifestoKey =
-  | "not-perfection"
-  | "regulate-not-avoid"
-  | "understand-first"
-  | "small-steps"
-  | "clarity-reduces-suffering"
-  | "regulation-trained";
+/** @deprecated Usar ClinicalEditorialPrincipleKey */
+export type MentalHealthManifestoKey = ClinicalEditorialPrincipleKey;
 
+/** @deprecated Fusionado en clinicalEditorialCopy */
 export const mentalHealthManifestoCopy = {
-  eyebrow: "Criterios clínicos",
-  title: "Cómo entendemos la salud mental",
-  lead:
-    "Estas ideas guían el diseño de la educación, las herramientas y la tecnología. No son frases para compartir: son principios de trabajo que priorizan claridad, límites y respeto por la complejidad de lo que una persona puede estar viviendo.",
-  statements: [
-    {
-      key: "not-perfection" as MentalHealthManifestoKey,
-      title: "La salud mental no es estar bien todo el tiempo.",
-      body: "Incluye habitar malestar, ambivalencia y cansancio sin convertirlos en fracaso personal. Buscamos más flexibilidad y sentido, no un estado ideal permanente.",
-    },
-    {
-      key: "regulate-not-avoid" as MentalHealthManifestoKey,
-      title: "Regular no es evitar lo que duele.",
-      body: "Modular intensidad y duración permite seguir funcionando y reflexionando. Las emociones difíciles también aportan información cuando se pueden nombrar sin juicio.",
-    },
-    {
-      key: "understand-first" as MentalHealthManifestoKey,
-      title: "Comprender suele preceder al cambio.",
-      body: "Actuar sin mapa — aunque sea un mapa provisional — suele aumentar la resistencia. Contextualizar y dar sentido orienta mejor que exigir transformación inmediata.",
-    },
-    {
-      key: "small-steps" as MentalHealthManifestoKey,
-      title: "Lo que perdura suele ser gradual.",
-      body: "Los cambios sostenibles son repetibles y compatibles con la vida real. Los picos motivacionales rara vez sostienen lo que el sistema nervioso necesita para aprender algo nuevo.",
-    },
-    {
-      key: "clarity-reduces-suffering" as MentalHealthManifestoKey,
-      title: "La claridad puede aliviar sufrimiento evitable.",
-      body: "Parte del malestar lleva confusión: no saber qué nos pasa, qué necesitamos o qué opciones tenemos. Un lenguaje claro y una estructura honesta pueden reducir esa capa sin negar el dolor.",
-    },
-    {
-      key: "regulation-trained" as MentalHealthManifestoKey,
-      title: "La regulación se entrena, no se exige.",
-      body: "Como otras habilidades clínicas aplicables: con práctica, tiempo y ajuste al contexto — sin atajos, sin garantías universales ni culpa por avanzar despacio.",
-    },
-  ],
-  closingLine:
-    "Cuidar la mente es un proceso continuo. No tiene fecha de entrega ni nota final.",
+  eyebrow: clinicalEditorialCopy.eyebrow,
+  title: clinicalEditorialCopy.title,
+  lead: clinicalEditorialCopy.lead,
+  statements: clinicalEditorialCopy.principles.map((p) => ({
+    key: p.key as MentalHealthManifestoKey,
+    title: p.title,
+    body: p.body,
+  })),
+  closingLine: clinicalEditorialCopy.closingLine,
 } as const;
 
 export const aboutPreFooterCopy = {
-  title: "Cuando quieras dar el siguiente paso",
+  eyebrow: "Explora el ecosistema",
+  title: "Psicoeducación y herramientas con criterio clínico.",
   subtitle:
-    "Puedes explorar herramientas con base clínica o conocer cómo Elynthis apoya el trabajo de profesionales — siempre con transparencia sobre alcance y límites.",
+    "Recursos para comprender y practicar regulación emocional, y tecnología para profesionales de la salud mental.",
   primaryCta: { label: "Explorar herramientas", href: "/herramientas" },
-  secondaryCta: { label: "Crear cuenta", href: "/registro" },
-  tertiaryCta: { label: "Ver Elynthis", href: "/elynthis" },
-  footnote: "Sin prisa. Sin presión. Tú defines el ritmo.",
+  secondaryCta: { label: "Ver Elynthis", href: "/elynthis" },
 } as const;
 
-/** Badge del visual hero */
-export const aboutHeroVisualBadge = "Criterio clínico";
+export const aboutHeroVisualBadge = "Marco clínico";
 
-/** Chips del visual hero — copy alineado al tono clínico */
 export const aboutHeroVisualChips = [
   {
-    title: "Claridad",
-    body: "Nombrar lo que ocurre",
+    title: "Nombrar",
+    body: "Precisión en lo que ocurre",
     className: "left-0 top-[20%] sm:left-2",
     enterX: -14,
     delay: 0.75,
   },
   {
-    title: "Estructura",
-    body: "Ritmo sostenible en el día a día",
+    title: "Practicar",
+    body: "Habilidades repetibles",
     className: "right-0 bottom-[20%] sm:right-2",
     enterX: 14,
     delay: 0.92,

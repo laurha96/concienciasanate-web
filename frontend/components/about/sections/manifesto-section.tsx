@@ -18,7 +18,7 @@ export function AboutManifestoSection() {
 
   return (
     <AboutSectionFrame
-      chapter={aboutStoryChapters.manifesto}
+      chapter={aboutStoryChapters.editorial}
       header={{
         titleId: "about-manifesto-heading",
         eyebrow: mentalHealthManifestoCopy.eyebrow,
@@ -31,7 +31,6 @@ export function AboutManifestoSection() {
       headerClassName="mx-auto max-w-2xl xl:max-w-3xl"
       atmosphere={{ preset: "whisper" }}
       showHeaderHairline={false}
-      cinematic
     >
       <div className={aboutVisual.manifestVeil} aria-hidden />
       <AboutSectionHairline

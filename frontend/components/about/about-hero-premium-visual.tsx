@@ -255,7 +255,7 @@ export function AboutHeroPremiumVisual() {
                 fill="currentColor"
                 className="uppercase opacity-45"
               >
-                Transformar
+                Sostener
               </text>
             </svg>
 

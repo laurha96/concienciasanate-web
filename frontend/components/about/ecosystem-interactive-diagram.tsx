@@ -79,7 +79,7 @@ export function EcosystemInteractiveDiagram() {
   }, []);
 
   return (
-    <div className="grid gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-16 xl:gap-20">
+    <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10">
       {/* Diagrama */}
       <div
         className="relative mx-auto w-full max-w-xl lg:max-w-none"
@@ -99,7 +99,7 @@ export function EcosystemInteractiveDiagram() {
           className={cn(
             aboutCardPremium.shell,
             aboutCardPremium.shellLg,
-            "relative aspect-[5/4] w-full"
+            "relative aspect-[4/3] w-full max-h-[340px] sm:max-h-[380px]"
           )}
         >
           <div className={aboutCardPremium.gradientLight} aria-hidden />
@@ -269,15 +269,13 @@ export function EcosystemInteractiveDiagram() {
             transition={{ duration: 0.45, ease: aboutEase }}
           >
             <p className={aboutEd.eyebrow}>{activeNode.tagline}</p>
-            <h3 className="mt-5 font-display text-[1.85rem] font-medium tracking-tight text-foreground sm:text-[2.15rem]">
-              {activeNode.label}
-            </h3>
-            <p className={cn(aboutEd.bodyLarge, "mt-6 max-w-md leading-[1.82]")}>
+            <h3 className={cn(aboutEd.h3, "mt-2")}>{activeNode.label}</h3>
+            <p className={cn(aboutEd.bodySm, "mt-3 max-w-md")}>
               {activeNode.description}
             </p>
 
             {connectedNodes.length > 0 ? (
-              <div className="mt-8">
+              <div className="mt-5">
                 <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
                   Conecta con
                 </p>
@@ -316,7 +314,7 @@ export function EcosystemInteractiveDiagram() {
               </Link>
             ) : null}
 
-            <p className={cn(aboutEd.body, "mt-10 text-[13px] opacity-65")}>
+            <p className={cn(aboutEd.body, "mt-6 text-[12.5px] opacity-60")}>
               {ecosystemCopy.panelHint}
             </p>
           </motion.div>

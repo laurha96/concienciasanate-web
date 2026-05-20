@@ -12,7 +12,9 @@ import {
 import {
   aboutDividerFillClass,
   aboutEd,
+  aboutHeaderTierClass,
   aboutSectionToneClass,
+  type AboutHeaderTier,
   type AboutSectionTone,
 } from "@/components/about/about-editorial-tokens";
 import { aboutVisual } from "@/components/about/about-visual-tokens";
@@ -66,7 +68,7 @@ export function AboutSection({
       aria-labelledby={ariaLabelledby}
       aria-label={ariaLabelledby ? undefined : ariaLabel}
       className={cn(
-        cinematic ? aboutEd.sectionCinematic : aboutEd.section,
+        cinematic ? aboutEd.sectionHero : aboutEd.section,
         aboutSectionToneClass[tone],
         className
       )}
@@ -170,32 +172,45 @@ export function AboutEditorialHeader({
   titleId,
   description,
   align = "left",
-  size = "default",
+  tier = "section",
   className,
   titleClassName,
   animated = true,
   chapter,
+  /** @deprecated Usar tier="hero" */
+  size,
 }: {
   eyebrow?: ReactNode;
   title: string;
   titleId?: string;
   description?: string;
   align?: "left" | "center";
-  size?: "default" | "large";
+  tier?: AboutHeaderTier;
   className?: string;
   titleClassName?: string;
   animated?: boolean;
-  /** Índice de capítulo editorial — ej. "01" */
   chapter?: string;
+  size?: "default" | "large";
 }) {
+  const resolvedTier: AboutHeaderTier =
+    size === "large" ? "hero" : tier;
+  const tierStyles = aboutHeaderTierClass[resolvedTier];
   const centered = align === "center";
   const reduceMotion = useReducedMotion();
   const useMotion = animated && !reduceMotion;
+  const HeadingTag = resolvedTier === "hero" ? "h1" : "h2";
 
-  const headerClass = cn(
-    "space-y-7 sm:space-y-8 lg:space-y-10",
-    centered && "text-center",
-    className
+  const headerClass = cn(tierStyles.stack, centered && "text-center", className);
+
+  const titleClass = cn(
+    tierStyles.title,
+    centered && "mx-auto max-w-3xl",
+    titleClassName
+  );
+
+  const descriptionClass = cn(
+    tierStyles.description,
+    centered ? "mx-auto max-w-2xl" : "max-w-2xl"
   );
 
   if (!useMotion) {
@@ -205,29 +220,17 @@ export function AboutEditorialHeader({
         {eyebrow ? (
           <p className={cn(aboutEd.eyebrow, centered && "mx-auto")}>{eyebrow}</p>
         ) : null}
-        <h2
-          id={titleId}
-          className={cn(
-            size === "large" ? aboutEd.titleHero : aboutEd.title,
-            centered && "mx-auto max-w-3xl",
-            titleClassName
-          )}
-        >
+        <HeadingTag id={titleId} className={titleClass}>
           {title}
-        </h2>
+        </HeadingTag>
         {description ? (
-          <p
-            className={cn(
-              aboutEd.lead,
-              centered ? "mx-auto max-w-2xl" : "max-w-xl"
-            )}
-          >
-            {description}
-          </p>
+          <p className={descriptionClass}>{description}</p>
         ) : null}
       </header>
     );
   }
+
+  const MotionHeading = resolvedTier === "hero" ? motion.h1 : motion.h2;
 
   return (
     <motion.header
@@ -235,7 +238,7 @@ export function AboutEditorialHeader({
       variants={aboutHeaderStagger}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.35 }}
+      viewport={{ once: true, amount: 0.25 }}
     >
       {chapter ? (
         <motion.div variants={aboutHeaderItem}>
@@ -250,25 +253,15 @@ export function AboutEditorialHeader({
           {eyebrow}
         </motion.p>
       ) : null}
-      <motion.h2
+      <MotionHeading
         id={titleId}
         variants={aboutHeaderItem}
-        className={cn(
-          size === "large" ? aboutEd.titleHero : aboutEd.title,
-          centered && "mx-auto max-w-3xl",
-          titleClassName
-        )}
+        className={titleClass}
       >
         {title}
-      </motion.h2>
+      </MotionHeading>
       {description ? (
-        <motion.p
-          variants={aboutHeaderItem}
-          className={cn(
-            aboutEd.lead,
-            centered ? "mx-auto max-w-2xl" : "max-w-xl"
-          )}
-        >
+        <motion.p variants={aboutHeaderItem} className={descriptionClass}>
           {description}
         </motion.p>
       ) : null}

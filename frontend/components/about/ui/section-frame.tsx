@@ -3,7 +3,10 @@
 import type { ReactNode } from "react";
 
 import type { AboutStoryChapter } from "@/components/about/about-editorial-story";
-import { aboutEd } from "@/components/about/about-editorial-tokens";
+import {
+  aboutEd,
+  type AboutHeaderTier,
+} from "@/components/about/about-editorial-tokens";
 import {
   AboutContainer,
   AboutEditorialHeader,
@@ -17,19 +20,54 @@ import {
 import { AboutSectionHairline } from "@/components/about/ui/section-hairline";
 import { cn } from "@/lib/utils";
 
+export type AboutSectionVariant = "editorial" | "compact" | "interactive";
+
+const variantConfig: Record<
+  AboutSectionVariant,
+  {
+    sectionClass: string;
+    headerTier: AboutHeaderTier;
+    headerAlign: "left" | "center";
+    atmosphere: AboutAtmospherePreset;
+    showChapter: boolean;
+  }
+> = {
+  editorial: {
+    sectionClass: aboutEd.section,
+    headerTier: "section",
+    headerAlign: "left",
+    atmosphere: "whisper",
+    showChapter: true,
+  },
+  compact: {
+    sectionClass: aboutEd.sectionCompact,
+    headerTier: "compact",
+    headerAlign: "left",
+    atmosphere: "none",
+    showChapter: true,
+  },
+  interactive: {
+    sectionClass: aboutEd.section,
+    headerTier: "compact",
+    headerAlign: "left",
+    atmosphere: "whisper",
+    showChapter: true,
+  },
+};
+
 export type AboutSectionFrameProps = {
   chapter: AboutStoryChapter;
+  variant?: AboutSectionVariant;
   header: {
     titleId: string;
     eyebrow?: ReactNode;
     title: string;
     description?: string;
     titleClassName?: string;
-    size?: "default" | "large";
+    tier?: AboutHeaderTier;
     align?: "left" | "center";
   };
   children: ReactNode;
-  /** Cierre editorial opcional (pull quote) */
   footer?: ReactNode;
   atmosphere?: {
     preset?: AboutAtmospherePreset;
@@ -46,48 +84,44 @@ export type AboutSectionFrameProps = {
   hairlineClassName?: string;
   ariaLabel?: string;
   className?: string;
-  cinematic?: boolean;
   animate?: boolean;
 };
 
-/**
- * Marco reutilizable para secciones editoriales — arquitectura unificada.
- * Encapsula: sección, tono, atmósfera, header, hairline, contenedor.
- */
 export function AboutSectionFrame({
   chapter,
+  variant = "editorial",
   header,
   children,
   footer,
-  atmosphere = { preset: "calm", glowPosition: "center" },
+  atmosphere,
   decorativeLines,
   containerSize = "wide",
   containerClassName,
-  headerClassName = "mx-auto max-w-3xl xl:max-w-4xl",
-  showHeaderHairline = true,
-  hairlineClassName = "max-w-xl",
+  headerClassName,
+  showHeaderHairline = false,
+  hairlineClassName = "max-w-md",
   ariaLabel,
   className,
-  cinematic,
   animate = true,
 }: AboutSectionFrameProps) {
-  const { id, tone, index } = chapter;
-  const cinematicSection = cinematic ?? chapter.cinematic ?? false;
+  const cfg = variantConfig[variant];
+  const atmospherePreset = atmosphere?.preset ?? cfg.atmosphere;
 
   return (
     <AboutSection
-      id={id}
-      tone={tone}
-      cinematic={cinematicSection}
+      id={chapter.id}
+      tone={chapter.tone}
       aria-labelledby={header.titleId}
       aria-label={ariaLabel}
       animate={animate}
-      className={cn("relative overflow-hidden", className)}
+      className={cn(cfg.sectionClass, "relative overflow-hidden", className)}
     >
-      <AboutSectionAtmosphere
-        preset={atmosphere.preset}
-        glowPosition={atmosphere.glowPosition}
-      />
+      {atmospherePreset !== "none" ? (
+        <AboutSectionAtmosphere
+          preset={atmospherePreset}
+          glowPosition={atmosphere?.glowPosition ?? "center"}
+        />
+      ) : null}
 
       {decorativeLines ? (
         <AboutDecorativeLines
@@ -99,14 +133,14 @@ export function AboutSectionFrame({
       <AboutContainer size={containerSize} className={cn("relative", containerClassName)}>
         <AboutEditorialHeader
           titleId={header.titleId}
-          chapter={index}
+          chapter={cfg.showChapter ? chapter.index : undefined}
           eyebrow={header.eyebrow}
           title={header.title}
           description={header.description}
-          align={header.align ?? "center"}
-          size={header.size}
+          align={header.align ?? cfg.headerAlign}
+          tier={header.tier ?? cfg.headerTier}
           titleClassName={header.titleClassName}
-          className={headerClassName}
+          className={cn("max-w-3xl", headerClassName)}
         />
 
         {showHeaderHairline ? (
@@ -116,7 +150,6 @@ export function AboutSectionFrame({
         ) : null}
 
         {children}
-
         {footer}
       </AboutContainer>
     </AboutSection>

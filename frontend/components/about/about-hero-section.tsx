@@ -38,7 +38,7 @@ const AboutHeroPremiumVisual = dynamic(
   {
     loading: () => (
       <div
-        className="relative mx-auto aspect-[5/4] w-full max-w-[540px] min-h-[280px] rounded-[32px] bg-brand-muted/20 lg:max-w-none"
+        className="relative mx-auto aspect-[4/3] w-full max-w-[420px] min-h-[220px] rounded-2xl bg-brand-muted/15 lg:max-w-none"
         role="presentation"
         aria-hidden
       />
@@ -66,40 +66,6 @@ function HeroMicrobadge({ label }: { label: string }) {
   );
 }
 
-function HeroValueIndicator({
-  label,
-  detail,
-  index,
-}: {
-  label: string;
-  detail: string;
-  index: number;
-}) {
-  return (
-    <motion.li
-      variants={aboutHeroFadeUp}
-      className={cn("list-none", aboutCardPremium.compact)}
-      whileHover={{ y: -2, transition: { duration: 0.3 } }}
-    >
-      <span
-        className={cn(
-          aboutEd.indexMarker,
-          "block text-[9.5px] text-primary/45"
-        )}
-        aria-hidden
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-      <p className="mt-2 text-[13px] font-medium tracking-tight text-foreground">
-        {label}
-      </p>
-      <p className="mt-1.5 text-[12.5px] leading-snug text-foreground/65">
-        {detail}
-      </p>
-    </motion.li>
-  );
-}
-
 export function AboutHeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -118,10 +84,9 @@ export function AboutHeroSection() {
     <AboutSection
       id="sobre-hero"
       tone="cinematic"
-      cinematic
       animate={false}
       aria-labelledby="about-hero-heading"
-      className="overflow-hidden"
+      className={cn("overflow-hidden", aboutEd.sectionHero)}
     >
       <div ref={sectionRef} className="absolute inset-0 pointer-events-none" aria-hidden />
       <AboutAmbientGlow position="center" className="top-[-6%]" intensity="soft" />
@@ -135,15 +100,14 @@ export function AboutHeroSection() {
         transition={{ duration: 1.1 }}
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-brand-background via-brand-background/80 to-transparent sm:h-48"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-background via-brand-background/85 to-transparent sm:h-28"
         aria-hidden
       />
 
       <AboutContainer size="wide" className="relative">
-        <div className="grid items-center gap-16 sm:gap-20 lg:grid-cols-[1.02fr_0.98fr] lg:gap-20 xl:gap-28">
-          {/* Columna editorial */}
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
           <motion.div
-            className="max-w-2xl lg:py-10 xl:max-w-[38rem] xl:py-14"
+            className="max-w-xl lg:max-w-2xl"
             variants={aboutHeroStagger}
             initial="hidden"
             animate="show"
@@ -170,10 +134,7 @@ export function AboutHeroSection() {
             <motion.h1
               id="about-hero-heading"
               variants={aboutHeroFadeUp}
-              className={cn(
-                aboutEd.titleHero,
-                "mt-7 text-balance sm:mt-8 lg:mt-9"
-              )}
+              className={cn(aboutEd.h1, "mt-4 text-balance sm:mt-5")}
             >
               {aboutHeroCopy.title.split(/(comprender|regular|sostener)/).map(
                 (part, i) =>
@@ -190,27 +151,16 @@ export function AboutHeroSection() {
               )}
             </motion.h1>
 
-            <motion.div
+            <motion.p
               variants={aboutHeroFadeUp}
-              className="relative mt-7 max-w-xl lg:mt-8"
+              className={cn(aboutEd.lead, "mt-4 max-w-lg")}
             >
-              <div
-                className="absolute -left-3 top-1 bottom-1 w-px bg-gradient-to-b from-primary/35 via-primary/15 to-transparent sm:-left-4"
-                aria-hidden
-              />
-              <p
-                className={cn(
-                  aboutEd.lead,
-                  "pl-0 text-[16.5px] leading-[1.82] sm:text-[17.5px] sm:leading-[1.84]"
-                )}
-              >
-                {aboutHeroCopy.subtitle}
-              </p>
-            </motion.div>
+              {aboutHeroCopy.subtitle}
+            </motion.p>
 
             <motion.div
               variants={aboutHeroFadeUp}
-              className="mt-9 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center"
+              className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:items-center"
             >
               <motion.div
                 whileHover={reduceMotion ? undefined : { y: aboutHover.lift }}
@@ -221,8 +171,8 @@ export function AboutHeroSection() {
                 <BrandCtaLink
                   href={aboutHeroCopy.primaryCta.href}
                   variant="primary"
-                  size="lg"
-                  className="w-full shadow-[0_12px_32px_rgb(var(--brand-primary-rgb)/0.1)] sm:w-auto"
+                  size="default"
+                  className="w-full sm:w-auto"
                 >
                   {aboutHeroCopy.primaryCta.label}
                   <ArrowRight className="size-4" aria-hidden />
@@ -236,11 +186,8 @@ export function AboutHeroSection() {
                 <BrandCtaLink
                   href={aboutHeroCopy.secondaryCta.href}
                   variant="secondary"
-                  size="lg"
-                  className={cn(
-                    "w-full border-[rgb(var(--brand-primary-rgb)/0.1)] bg-brand-surface/48 backdrop-blur-md sm:w-auto",
-                    "shadow-[0_8px_22px_rgba(34,34,34,0.03)] hover:bg-brand-surface/72"
-                  )}
+                  size="default"
+                  className="w-full sm:w-auto"
                 >
                   {aboutHeroCopy.secondaryCta.label}
                 </BrandCtaLink>
@@ -248,22 +195,7 @@ export function AboutHeroSection() {
             </motion.div>
 
             <motion.ul
-              className="mt-9 grid list-none gap-3 p-0 sm:mt-10 sm:grid-cols-3 sm:gap-2.5"
-              aria-label="Indicadores de valor clínico"
-              variants={aboutHeroStagger}
-            >
-              {aboutHeroCopy.valueIndicators.map((item, i) => (
-                <HeroValueIndicator
-                  key={item.label}
-                  label={item.label}
-                  detail={item.detail}
-                  index={i}
-                />
-              ))}
-            </motion.ul>
-
-            <motion.ul
-              className="mt-8 flex list-none flex-col gap-2 p-0 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-2"
+              className="mt-5 flex list-none flex-col gap-2 p-0 sm:flex-row sm:flex-wrap sm:gap-2"
               aria-label="Enfoque clínico"
               variants={aboutHeroStagger}
             >
@@ -275,8 +207,8 @@ export function AboutHeroSection() {
             <motion.p
               variants={aboutHeroFadeUp}
               className={cn(
-                aboutEd.body,
-                "mt-8 max-w-md border-t border-border/25 pt-7 text-[13.5px] leading-relaxed opacity-75 sm:mt-9"
+                aboutEd.bodySm,
+                "mt-5 max-w-md border-t border-border/30 pt-4 opacity-80"
               )}
             >
               {aboutHeroCopy.ethicsNote}{" "}
@@ -294,7 +226,7 @@ export function AboutHeroSection() {
 
           {/* Columna visual */}
           <motion.div
-            className="relative flex justify-center lg:justify-end lg:py-8 lg:pl-4 xl:py-12"
+            className="relative flex justify-center lg:justify-end lg:pl-2"
             style={{ y: visualY }}
             initial={{ opacity: 0, y: reduceMotion ? 0 : 32 }}
             animate={{ opacity: 1, y: 0 }}

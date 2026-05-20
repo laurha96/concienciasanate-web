@@ -2,5 +2,4 @@
 export {
   AboutDifferentialSectionLazy,
   AboutEcosystemSectionLazy,
-  AboutManifestoSectionLazy,
 } from "@/components/about/sections/lazy";

@@ -2,22 +2,6 @@ import dynamic from "next/dynamic";
 
 import { AboutSectionPlaceholder } from "@/components/about/ui";
 
-export const AboutDifferentialSectionLazy = dynamic(
-  () =>
-    import("@/components/about/sections/differential-section").then((mod) => ({
-      default: mod.AboutDifferentialSection,
-    })),
-  {
-    loading: () => (
-      <AboutSectionPlaceholder
-        variant="differential"
-        sectionId="por-que-somos-distintos"
-        label="Cargando diferencial"
-      />
-    ),
-  }
-);
-
 export const AboutEcosystemSectionLazy = dynamic(
   () =>
     import("@/components/about/sections/ecosystem-section").then((mod) => ({
@@ -34,17 +18,17 @@ export const AboutEcosystemSectionLazy = dynamic(
   }
 );
 
-export const AboutManifestoSectionLazy = dynamic(
+export const AboutDifferentialSectionLazy = dynamic(
   () =>
-    import("@/components/about/sections/manifesto-section").then((mod) => ({
-      default: mod.AboutManifestoSection,
+    import("@/components/about/sections/differential-section").then((mod) => ({
+      default: mod.AboutDifferentialSection,
     })),
   {
     loading: () => (
       <AboutSectionPlaceholder
-        variant="manifesto"
-        sectionId="salud-mental"
-        label="Cargando manifiesto"
+        variant="differential"
+        sectionId="por-que-somos-distintos"
+        label="Cargando diferencial"
       />
     ),
   }

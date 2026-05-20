@@ -3,74 +3,59 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const ABOUT_SEO = {
-  title: "Sobre Conciencia Sánate | Salud mental con base clínica",
+  title: "Sobre Conciencia Sánate | Psicoeducación y salud mental con evidencia",
   description:
-    "Conoce Conciencia Sánate: psicoeducación con evidencia, regulación emocional, hábitos sostenibles y tecnología clínica Elynthis. Marco ético explícito, lenguaje claro y acompañamiento sin promesas de cura.",
+    "Conoce Conciencia Sánate: psicoeducación basada en evidencia, regulación emocional y tecnología clínica Elynthis. Alcance explícito, sin diagnóstico en línea ni promesas de tratamiento.",
   path: "/sobre",
   socialTitle: "Sobre Conciencia Sánate",
   keywords: [
     "Conciencia Sánate",
     "salud mental",
+    "psicoeducación",
     "psicología basada en evidencia",
     "regulación emocional",
-    "psicoeducación",
-    "TCC",
+    "terapia cognitivo-conductual",
     "Elynthis",
     "tecnología clínica",
-    "ética salud digital",
-    "autocuidado estructurado",
+    "salud digital ética",
   ],
   ogImageAlt:
-    "Conciencia Sánate — salud mental con criterio clínico y evidencia aplicada",
+    "Conciencia Sánate — psicoeducación y salud mental con criterio clínico",
 } as const;
 
-/** Secciones ancla — navegación, JSON-LD ItemList y landmarks. */
 export const ABOUT_PAGE_SECTIONS = [
   {
     id: "sobre-hero",
     label: "Inicio",
     description:
-      "Propuesta clínica de Conciencia Sánate: evidencia, regulación y límites éticos",
+      "Psicoeducación, regulación emocional y límites éticos del servicio",
   },
   {
     id: "vision-clinica",
-    label: "Visión clínica",
-    description:
-      "Cómo acompañamos la experiencia emocional con comprensión y autonomía",
+    label: "Visión",
+    description: "Marco clínico para comprender y regular la experiencia emocional",
   },
   {
-    id: "base-cientifica",
-    label: "Base científica",
+    id: "pilares-clinicos",
+    label: "Pilares",
     description:
-      "Marcos con respaldo empírico que sostienen herramientas y contenidos",
-  },
-  {
-    id: "por-que-somos-distintos",
-    label: "Diferencial",
-    description:
-      "Criterio clínico frente al volumen de contenido y al wellness genérico",
-  },
-  {
-    id: "etica-limites",
-    label: "Ética y límites",
-    description:
-      "Alcance del producto, derivación profesional y seguridad emocional",
+      "TCC, regulación emocional, neurociencia aplicada y tecnología clínica",
   },
   {
     id: "ecosistema",
     label: "Ecosistema",
     description:
-      "Psicología, educación, hábitos y tecnología clínica en un mismo proceso",
+      "Articulación de psicoeducación, hábitos, regulación y Elynthis",
   },
   {
-    id: "salud-mental",
-    label: "Salud mental",
-    description: "Principios clínicos sobre cómo entendemos la salud mental",
+    id: "por-que-somos-distintos",
+    label: "Diferencial",
+    description: "Evidencia, claridad, ética y herramientas aplicables",
   },
   {
     id: "empezar-claridad",
-    label: "Empezar",
-    description: "Explorar herramientas o conocer Elynthis para profesionales",
+    label: "Explorar",
+    description: "Herramientas de psicoeducación y plataforma para profesionales",
   },
 ] as const;
 

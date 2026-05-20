@@ -7,11 +7,7 @@ import { aboutStoryChapters } from "@/components/about/about-editorial-story";
 import { aboutEd } from "@/components/about/about-editorial-tokens";
 import { aboutFadeUp } from "@/components/about/about-motion";
 import { EcosystemInteractiveDiagram } from "@/components/about/ecosystem-interactive-diagram";
-import {
-  AboutSectionFrame,
-  AboutSectionHairline,
-} from "@/components/about/ui";
-import { cn } from "@/lib/utils";
+import { AboutSectionFrame } from "@/components/about/ui";
 
 export function AboutEcosystemSection() {
   const reduceMotion = useReducedMotion();
@@ -19,25 +15,23 @@ export function AboutEcosystemSection() {
   return (
     <AboutSectionFrame
       chapter={aboutStoryChapters.ecosystem}
+      variant="interactive"
       header={{
         titleId: "about-ecosystem-heading",
         eyebrow: ecosystemCopy.eyebrow,
         title: ecosystemCopy.title,
         description: ecosystemCopy.description,
+        tier: "compact",
       }}
-      atmosphere={{ preset: "calm", glowPosition: "center" }}
-      cinematic={aboutStoryChapters.ecosystem.cinematic}
-      showHeaderHairline={false}
+      atmosphere={{ preset: "none" }}
     >
-      <AboutSectionHairline className={cn("max-w-lg", aboutEd.sectionGapTight)} />
-
       <motion.div
-        className={aboutEd.sectionGap}
+        className={aboutEd.sectionGapTight}
         {...(reduceMotion
           ? {}
           : {
               ...aboutFadeUp,
-              initial: { opacity: 0, y: 12 },
+              initial: { opacity: 0, y: 8 },
             })}
       >
         <EcosystemInteractiveDiagram />

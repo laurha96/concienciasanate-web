@@ -105,24 +105,18 @@ export const aboutVisual = {
 /** Shell de card premium — tono regulador */
 export const aboutCardVisual = {
   shell: cn(
-    "group relative overflow-hidden rounded-[32px]",
-    aboutVisual.glass.border,
-    aboutVisual.surface.card,
-    aboutVisual.shadow.card,
-    aboutVisual.shadow.cardInset,
-    aboutVisual.glass.blur,
-    aboutVisual.glass.saturate,
-    "ring-1 ring-[rgb(var(--brand-primary-rgb)/0.06)]",
-    "transition-[border-color,box-shadow,transform] duration-[480ms]",
-    "hover:border-[rgb(var(--brand-primary-rgb)/0.14)]",
-    "hover:shadow-[0_26px_60px_rgba(34,34,34,0.04)]"
+    "group relative overflow-hidden rounded-2xl",
+    "border border-border/45 bg-brand-surface/50",
+    aboutVisual.shadow.soft,
+    "transition-[border-color,box-shadow] duration-300",
+    "hover:border-border/65 hover:shadow-[0_12px_36px_rgba(34,34,34,0.034)]"
   ),
-  shellLg: "rounded-[34px]",
-  gradientLight: aboutVisual.gradient.cardLight,
-  gradientDepth: aboutVisual.gradient.cardDepth,
-  glow: aboutVisual.glow.card,
-  glowLeft: aboutVisual.glow.cardLeft,
-  glowRight: aboutVisual.glow.cardRight,
+  shellLg: "rounded-2xl",
+  gradientLight: "hidden",
+  gradientDepth: "hidden",
+  glow: "hidden",
+  glowLeft: "hidden",
+  glowRight: "hidden",
   sideAccent:
     "pointer-events-none absolute inset-y-7 left-0 w-[3px] rounded-full bg-gradient-to-b from-[rgb(var(--brand-primary-rgb)/0.28)] via-[rgb(var(--brand-primary-rgb)/0.1)] to-transparent sm:inset-y-8",
   topLine: cn(

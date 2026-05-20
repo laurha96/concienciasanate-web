@@ -18,7 +18,7 @@ export function AboutPageNav() {
       aria-label="Secciones de la página Sobre"
       className={cn("about-page-nav-sticky", aboutVisual.nav.bar)}
     >
-      <div className={cn(aboutEd.containerWide, "py-5 sm:py-6")}>
+      <div className={cn(aboutEd.containerWide, "py-3 sm:py-4")}>
         <h2 className="sr-only">Navegación por secciones</h2>
         <ol className="flex list-none flex-wrap justify-center gap-2 p-0 sm:gap-2.5">
           {ABOUT_PAGE_SECTIONS.filter((s) => s.id !== "sobre-hero").map(

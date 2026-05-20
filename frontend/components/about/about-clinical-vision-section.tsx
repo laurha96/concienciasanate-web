@@ -1,5 +1,5 @@
-/** @deprecated Importar desde `@/components/about/sections/vision-section` */
+/** @deprecated Usar AboutClinicalEditorialSection */
 export {
-  AboutClinicalVisionSection,
+  AboutClinicalEditorialSection as AboutClinicalVisionSection,
   AboutVisionSection,
-} from "@/components/about/sections/vision-section";
+} from "@/components/about/sections/clinical-editorial-section";

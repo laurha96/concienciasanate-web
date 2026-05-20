@@ -36,11 +36,11 @@ export function AboutJsonLd() {
         },
         description: ABOUT_SEO.description,
         knowsAbout: [
+          "Psicoeducación",
           "Psicología basada en evidencia",
           "Regulación emocional",
           "Terapia cognitivo-conductual",
-          "Salud mental digital",
-          "Tecnología clínica",
+          "Salud digital en salud mental",
         ],
       },
       {

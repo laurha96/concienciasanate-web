@@ -357,10 +357,14 @@
     text-wrap: pretty;
   }
 
-  /* Flujo editorial — capítulos con respiración (Apple / Linear / Notion) */
   .about-editorial-flow {
     display: flex;
     flex-direction: column;
+    gap: 0;
+  }
+
+  .about-page .about-editorial-flow > section {
+    flex-shrink: 0;
   }
 
   .about-page-nav-sticky {

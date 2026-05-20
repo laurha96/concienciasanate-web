@@ -1,23 +1,18 @@
 import { AboutPageMotion } from "@/components/about/about-page-motion";
 import { AboutPageNav, AboutSkipLink } from "@/components/about/about-page-nav";
 import {
+  AboutClinicalEditorialSection,
+  AboutClinicalPillarsSection,
   AboutCtaSection,
   AboutDifferentialSectionLazy,
   AboutEcosystemSectionLazy,
-  AboutEthicsSection,
   AboutHeroSection,
-  AboutManifestoSectionLazy,
-  AboutScienceSection,
-  AboutVisionSection,
 } from "@/components/about/sections";
-import {
-  AboutEditorialPause,
-  AboutPageShell,
-} from "@/components/about/ui";
+import { AboutPageShell } from "@/components/about/ui";
 
 /**
- * Composición de la página Sobre — arco editorial con alternancia de fondos,
- * lazy loading below-the-fold y ritmo vertical premium.
+ * Sobre — arquitectura compacta: hero → visión editorial → pilares →
+ * ecosistema → diferencial → CTA.
  */
 export function AboutPageContent() {
   return (
@@ -28,18 +23,10 @@ export function AboutPageContent() {
         <AboutPageNav />
 
         <main id="sobre-contenido-principal" className="about-editorial-flow">
-          <AboutVisionSection />
-          <AboutEditorialPause size="lg" />
-          <AboutScienceSection />
-          <AboutEditorialPause size="md" />
-          <AboutDifferentialSectionLazy />
-          <AboutEditorialPause size="lg" />
-          <AboutEthicsSection />
-          <AboutEditorialPause size="md" />
+          <AboutClinicalEditorialSection />
+          <AboutClinicalPillarsSection />
           <AboutEcosystemSectionLazy />
-          <AboutEditorialPause size="xl" />
-          <AboutManifestoSectionLazy />
-          <AboutEditorialPause size="lg" showHairline={false} />
+          <AboutDifferentialSectionLazy />
           <AboutCtaSection />
         </main>
       </AboutPageShell>
