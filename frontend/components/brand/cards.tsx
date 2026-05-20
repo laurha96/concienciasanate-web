@@ -23,8 +23,8 @@ function CardShell({
   if (as === "motion" && interactive) {
     return (
       <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.22, ease: "easeOut" }}
+        whileHover={{ y: -1 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         className={base}
       >
         {children}
@@ -40,31 +40,64 @@ export function FeatureCard({
   description,
   className,
   interactive = true,
+  compact = false,
+  layout = "stack",
 }: {
   icon?: ReactNode;
   title: string;
   description: string;
   className?: string;
   interactive?: boolean;
+  compact?: boolean;
+  layout?: "stack" | "row";
 }) {
+  const isRow = compact && layout === "row";
+
   return (
     <CardShell
       interactive={interactive}
-      className={cn(brandClasses.cardFeature, "h-full", className)}
+      className={cn(
+        compact
+          ? cn(brandClasses.cardPremium, interactive && brandClasses.cardPremiumHover)
+          : brandClasses.cardFeature,
+        "h-full",
+        className
+      )}
     >
-      {icon ? (
-        <div className="mb-4 grid size-12 place-items-center rounded-2xl bg-accent text-[var(--green-secondary)]">
-          <div className="[&_svg]:size-5 [&_svg]:stroke-[1.75]">
+      <div className={cn("flex h-full", isRow ? "flex-row items-start gap-3" : "flex-col")}>
+        {icon ? (
+          <div
+            className={cn(
+              compact
+                ? brandClasses.cardPremiumIcon
+                : "mb-4 grid size-12 place-items-center rounded-2xl bg-accent text-[var(--green-secondary)] [&_svg]:size-5"
+            )}
+            aria-hidden
+          >
             {icon}
           </div>
+        ) : null}
+        <div className="min-w-0 flex-1">
+          <h3
+            className={
+              compact
+                ? brandClasses.cardPremiumTitle
+                : "text-lg font-semibold tracking-tight text-foreground"
+            }
+          >
+            {title}
+          </h3>
+          <p
+            className={
+              compact
+                ? brandClasses.cardPremiumDesc
+                : "mt-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]"
+            }
+          >
+            {description}
+          </p>
         </div>
-      ) : null}
-      <h3 className="text-lg font-semibold tracking-tight text-foreground">
-        {title}
-      </h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-        {description}
-      </p>
+      </div>
     </CardShell>
   );
 }

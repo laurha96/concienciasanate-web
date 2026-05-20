@@ -1,18 +1,15 @@
 /** Copy de la Hero (home). */
 export const heroCopy = {
-  badge:
-    "Psicología basada en evidencia · Regulación emocional · Tecnología clínica",
-  title:
-    "Bienestar emocional basado en ciencia, claridad y herramientas prácticas",
+  badge: "Salud mental basada en evidencia",
+  title: "Comprender tu mente también es aprender a sanar",
   subtitle:
-    "Conciencia Sánate integra educación psicológica, regulación emocional, hábitos sostenibles y tecnología clínica para ayudarte a comprender tu mente, cuidar tu cuerpo y construir bienestar real.",
+    "Educación psicológica, regulación emocional y herramientas prácticas basadas en evidencia para la vida real.",
   microcopy:
-    "Sin promesas mágicas. Solo herramientas reales, ciencia aplicada y procesos sostenibles.",
+    "Claridad clínica, procesos sostenibles y tecnología al servicio del bienestar.",
   ctas: {
     primary: { label: "Explorar recursos", href: "/herramientas" },
     secondary: { label: "Conocer Elynthis", href: "/elynthis" },
   },
-  visualTags: ["mente", "regulación", "hábitos", "evidencia"] as const,
 } as const;
 
 /** Copy institucional de marca (home, footer, metadata). */
@@ -40,29 +37,29 @@ export const ecosystemCards = [
   {
     key: "education",
     title: "Educación basada en evidencia",
-    body: "Artículos y recursos para comprender ansiedad, estrés, emociones, hábitos y salud mental desde una mirada científica y cercana.",
+    body: "Artículos sobre ansiedad, estrés, emociones y hábitos con mirada científica.",
   },
   {
     key: "tools",
     title: "Herramientas prácticas",
-    body: "Ejercicios guiados para regulación emocional, autocuidado, hábitos sostenibles y conexión mente-cuerpo.",
+    body: "Ejercicios guiados de regulación, autocuidado y conexión mente-cuerpo.",
   },
   {
     key: "clinical",
     title: "Tecnología clínica",
-    body: "Elynthis facilita la gestión clínica, el seguimiento terapéutico y la organización profesional para psicólogos y profesionales de la salud.",
+    body: "Gestión clínica y seguimiento para psicólogos y profesionales de la salud.",
   },
   {
     key: "wellbeing",
     title: "Bienestar sostenible",
-    body: "Pequeños pasos consistentes para construir cambios reales, sin promesas mágicas ni soluciones rápidas.",
+    body: "Pasos consistentes para cambios reales, sin promesas mágicas.",
   },
 ] as const;
 
 export const methodCopy = {
   title: "Comprender, regular y transformar",
   intro:
-    "El bienestar emocional empieza cuando puedes comprender lo que te ocurre, aprender a regularlo y construir nuevas formas de relacionarte contigo, con tu cuerpo y con tu vida.",
+    "Comprende lo que te ocurre, regúlalo y construye una relación más clara contigo y con tu cuerpo.",
   microcopy:
     "No buscamos soluciones rápidas. Buscamos procesos claros y sostenibles.",
 } as const;
@@ -89,10 +86,9 @@ export const methodBlocks = [
 ] as const;
 
 export const elynthisCopy = {
-  badge: "Elynthis",
-  title: "Elynthis: tecnología clínica para profesionales",
-  subtitle:
-    "Organiza tu práctica clínica en un entorno claro, seguro y profesional.",
+  badge: "Elynthis · Tecnología clínica",
+  title: "Elynthis para profesionales",
+  subtitle: "Panel clínico claro, seguro y organizado.",
   body: "Elynthis permite gestionar pacientes, historias clínicas, documentos y seguimiento terapéutico dentro de un entorno claro, seguro y profesional.",
   ctas: {
     primary: { label: "Conocer Elynthis", href: "/elynthis" },
@@ -100,6 +96,19 @@ export const elynthisCopy = {
   },
 } as const;
 
+/** Etiquetas cortas para pills en la Home */
+export const elynthisFeaturePills = [
+  "Pacientes",
+  "Historias",
+  "Documentos",
+  "Seguimiento",
+  "Planes",
+  "Agenda",
+  "Reportes",
+  "Seguridad",
+] as const;
+
+/** @deprecated Usar `elynthisFeaturePills` en la Home */
 export const elynthisFeatures = [
   "Gestión de pacientes",
   "Historias clínicas",
@@ -122,32 +131,32 @@ export const evidenceCards = [
   {
     key: "evidence",
     title: "Psicología basada en evidencia",
-    body: "Contenido orientado por modelos clínicos y hallazgos científicos, explicado de forma simple y aplicable.",
+    body: "Modelos clínicos y ciencia explicados de forma simple.",
   },
   {
     key: "behavior",
     title: "Ciencia del comportamiento",
-    body: "Herramientas para comprender patrones, hábitos, decisiones y cambios sostenibles.",
+    body: "Patrones, hábitos y cambios sostenibles.",
   },
   {
     key: "regulation",
     title: "Regulación emocional",
-    body: "Recursos para identificar, nombrar y gestionar emociones de forma más consciente.",
+    body: "Identificar, nombrar y gestionar emociones.",
   },
   {
     key: "mind-body",
     title: "Intervenciones mente-cuerpo",
-    body: "Prácticas complementarias para reconocer la relación entre cuerpo, estrés, emoción y autocuidado.",
+    body: "Cuerpo, estrés, emoción y autocuidado integrados.",
   },
   {
     key: "habits",
     title: "Hábitos sostenibles",
-    body: "Pequeñas acciones repetidas con sentido, más allá de la motivación momentánea.",
+    body: "Acciones pequeñas con sentido, más allá de la motivación.",
   },
   {
     key: "tracking",
     title: "Seguimiento y medición",
-    body: "La claridad también se construye observando avances, patrones y necesidades.",
+    body: "Observar avances, patrones y necesidades con claridad.",
   },
 ] as const;
 

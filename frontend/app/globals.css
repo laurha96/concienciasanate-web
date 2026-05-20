@@ -216,6 +216,77 @@
     @apply relative py-20 sm:py-24;
   }
 
+  /* Home compacta (~35–45% menos altura que cs-section estándar) */
+  .cs-section-home {
+    @apply relative py-8 sm:py-10 lg:py-12;
+  }
+
+  .cs-display-title-home {
+    @apply font-display text-[1.65rem] font-semibold leading-[1.12] tracking-[-0.02em] text-foreground sm:text-[2.1rem] lg:text-[2.65rem] lg:leading-[1.1];
+  }
+
+  /* Hero — editorial premium (Apple Health / Calm) */
+  .cs-display-title-hero {
+    @apply font-display text-[1.875rem] font-semibold leading-[0.98] tracking-[-0.04em] text-foreground sm:text-[2.25rem] md:text-[2.625rem] lg:text-5xl xl:text-6xl xl:leading-[0.98];
+  }
+
+  .cs-hero-subtitle {
+    @apply max-w-[34rem] text-[15px] leading-relaxed text-muted-foreground sm:text-base sm:leading-relaxed;
+  }
+
+  .cs-hero-badge {
+    @apply inline-flex max-w-full items-center rounded-full border border-border/50 bg-brand-surface/70 px-3 py-1 text-[10px] font-medium tracking-wide text-[var(--green-secondary)] shadow-soft backdrop-blur-sm sm:text-[11px];
+  }
+
+  .cs-hero-microcopy {
+    @apply max-w-md text-xs leading-relaxed text-muted-foreground/90;
+  }
+
+  .cs-section-title-home {
+    @apply font-display text-[1.35rem] font-semibold tracking-[-0.02em] text-foreground sm:text-[1.75rem] lg:text-[2rem] lg:leading-[1.15];
+  }
+
+  .cs-section-desc-home {
+    @apply text-sm leading-snug text-muted-foreground sm:text-[15px] sm:leading-relaxed;
+  }
+
+  .cs-card-feature-compact {
+    @apply rounded-lg border border-border/55 bg-brand-surface/95 p-4 shadow-[0_1px_2px_rgba(34,34,34,0.04)];
+  }
+
+  /* Home — cards premium compactas */
+  .cs-card-premium {
+    @apply rounded-lg border border-border/55 bg-brand-surface/95 p-4 shadow-[0_1px_2px_rgba(34,34,34,0.04)];
+  }
+
+  .cs-card-premium-hover {
+    @apply transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-px hover:border-[rgb(var(--brand-primary-rgb)/0.28)] hover:shadow-[0_8px_22px_rgba(34,34,34,0.07)];
+  }
+
+  .cs-card-premium-icon {
+    @apply grid size-9 shrink-0 place-items-center rounded-md bg-accent/90 text-[var(--green-secondary)] [&_svg]:size-4;
+  }
+
+  .cs-card-premium-title {
+    @apply text-[13px] font-semibold leading-snug tracking-tight text-foreground sm:text-sm;
+  }
+
+  .cs-card-premium-desc {
+    @apply mt-1 line-clamp-2 text-xs leading-snug text-muted-foreground;
+  }
+
+  .cs-card-premium-action {
+    @apply mt-2.5 inline-flex items-center gap-1 text-[11px] font-medium text-[var(--green-secondary)] transition-colors group-hover:text-primary;
+  }
+
+  .cs-card-preview-compact {
+    @apply rounded-2xl border border-border/70 bg-brand-surface/95 p-3 shadow-card backdrop-blur-sm sm:p-4;
+  }
+
+  .cs-card-preview-mini {
+    @apply rounded-xl border border-border/60 bg-brand-surface/95 p-2 shadow-[0_1px_2px_rgba(34,34,34,0.05)] backdrop-blur-sm;
+  }
+
   .cs-container {
     @apply mx-auto max-w-[1240px] px-5 md:px-7 lg:px-10;
   }

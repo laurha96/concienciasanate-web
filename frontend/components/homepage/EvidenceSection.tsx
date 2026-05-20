@@ -15,6 +15,7 @@ import { evidenceCards, evidenceCopy } from "@/components/homepage/data";
 import { ScientificCard } from "@/components/homepage/ScientificCard";
 import { SectionContainer } from "@/components/homepage/SectionContainer";
 import { SectionHeading } from "@/components/homepage/section-heading";
+import { homeLayout } from "@/lib/home-layout";
 
 const icons = {
   evidence: Brain,
@@ -26,27 +27,24 @@ const icons = {
 } as const;
 
 const cardMotion = {
-  initial: { opacity: 0, y: 14 },
+  initial: { opacity: 0, y: 8 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.15 },
-  transition: { duration: 0.45, ease: "easeOut" },
+  viewport: { once: true, amount: 0.1 },
+  transition: { duration: 0.35, ease: "easeOut" },
 } as const;
 
 export function EvidenceSection() {
   return (
     <SectionContainer
+      variant="home"
       id="evidencia"
       aria-labelledby="evidence-heading"
-      className="relative overflow-hidden border-y border-border/30 bg-gradient-to-b from-accent/45 via-brand-surface/90 to-brand-background py-16 sm:py-20 lg:py-24"
+      className="border-y border-border/30 bg-gradient-to-b from-accent/45 via-brand-surface/90 to-brand-background"
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-accent/50 to-transparent"
-        aria-hidden
-      />
-
-      <div className="mx-auto mb-10 flex max-w-3xl flex-col items-center text-center sm:mb-12">
-        <BrandBadge className="mb-4">{evidenceCopy.badge}</BrandBadge>
+      <div className={`mx-auto flex max-w-2xl flex-col items-center text-center ${homeLayout.headingMb}`}>
+        <BrandBadge className="mb-2 text-[10px]">{evidenceCopy.badge}</BrandBadge>
         <SectionHeading
+          variant="home"
           titleId="evidence-heading"
           title={evidenceCopy.title}
           description={evidenceCopy.subtitle}
@@ -54,23 +52,23 @@ export function EvidenceSection() {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${homeLayout.gridGap}`}>
         {evidenceCards.map((card, index) => {
           const Icon = icons[card.key as keyof typeof icons] ?? Brain;
           return (
             <motion.div
               key={card.key}
+              className="h-full"
               {...cardMotion}
-              transition={{
-                ...cardMotion.transition,
-                delay: index * 0.06,
-              }}
+              transition={{ ...cardMotion.transition, delay: index * 0.04 }}
             >
               <ScientificCard
-                icon={<Icon className="size-5" strokeWidth={1.75} aria-hidden />}
+                compact
+                interactive={false}
+                icon={<Icon className="size-4" strokeWidth={1.75} aria-hidden />}
                 title={card.title}
                 body={card.body}
-                className="h-full border-border/50 bg-brand-surface/95 shadow-[0_1px_0_rgba(53,94,43,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-soft"
+                className="h-full border-border/50 bg-brand-surface/95 shadow-soft"
               />
             </motion.div>
           );

@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { HomeCompactCard } from "@/components/homepage/home-compact-card";
 import { SectionContainer } from "@/components/homepage/SectionContainer";
 import { SectionHeading } from "@/components/homepage/section-heading";
 import {
@@ -15,6 +16,7 @@ import {
   trustEthicsCopy,
   type TrustEthicsBlock,
 } from "@/components/homepage/trust-ethics-data";
+import { homeLayout } from "@/lib/home-layout";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -25,10 +27,10 @@ const icons = {
 } as const;
 
 const blockMotion = {
-  initial: { opacity: 0, y: 10 },
+  initial: { opacity: 0, y: 8 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.15 },
-  transition: { duration: 0.4, ease: "easeOut" },
+  viewport: { once: true, amount: 0.1 },
+  transition: { duration: 0.35, ease: "easeOut" },
 } as const;
 
 function EthicsBlockCard({
@@ -39,37 +41,23 @@ function EthicsBlockCard({
   index: number;
 }) {
   const Icon = icons[block.key as keyof typeof icons] ?? BookOpen;
-  const isCrisis = block.key === "crisis";
 
   return (
     <motion.li
       {...blockMotion}
-      transition={{
-        ...blockMotion.transition,
-        delay: index * 0.06,
-      }}
-      className={cn(
-        "h-full rounded-2xl border bg-brand-surface/90 p-5 sm:p-6",
-        isCrisis
-          ? "border-border/70"
-          : "border-border/60 shadow-[0_1px_0_rgba(53,94,43,0.04)]"
-      )}
+      transition={{ ...blockMotion.transition, delay: index * 0.05 }}
+      className="h-full list-none"
     >
-      <div
+      <HomeCompactCard
+        title={block.title}
+        description={block.body}
+        icon={<Icon strokeWidth={1.75} aria-hidden />}
+        layout="row"
+        interactive={false}
         className={cn(
-          "mb-4 grid size-10 place-items-center rounded-xl",
-          isCrisis ? "bg-brand-muted/80 text-foreground/70" : "bg-accent/70 text-[var(--green-secondary)]"
+          block.key === "crisis" && "border-border/70 bg-brand-muted/30"
         )}
-        aria-hidden
-      >
-        <Icon className="size-5" strokeWidth={1.75} />
-      </div>
-      <h3 className="text-base font-semibold tracking-tight text-foreground">
-        {block.title}
-      </h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
-        {block.body}
-      </p>
+      />
     </motion.li>
   );
 }
@@ -83,26 +71,27 @@ export function TrustAndEthicsSection({
 }: TrustAndEthicsSectionProps) {
   return (
     <SectionContainer
+      variant="home"
       id="etica"
       aria-labelledby="trust-ethics-heading"
-      className="border-t border-border/40 bg-gradient-to-b from-brand-background to-brand-muted/30 py-16 sm:py-20 lg:py-24"
+      className="border-t border-border/40 bg-gradient-to-b from-brand-background to-brand-muted/30"
     >
-      <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
-        <SectionHeading
-          titleId="trust-ethics-heading"
-          title={trustEthicsCopy.title}
-          description={trustEthicsCopy.subtitle}
-          align="center"
-        />
-      </div>
+      <SectionHeading
+        variant="home"
+        titleId="trust-ethics-heading"
+        title={trustEthicsCopy.title}
+        description={trustEthicsCopy.subtitle}
+        align="center"
+        className="mx-auto mb-5 max-w-2xl sm:mb-6"
+      />
 
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:gap-6">
+      <ul className={`grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 ${homeLayout.gridGap}`}>
         {blocks.map((block, index) => (
           <EthicsBlockCard key={block.key} block={block} index={index} />
         ))}
       </ul>
 
-      <p className="mx-auto mt-10 max-w-3xl rounded-2xl border border-dashed border-border/60 bg-brand-surface/50 px-4 py-3.5 text-center text-xs leading-relaxed text-muted-foreground sm:mt-12 sm:px-6 sm:text-sm">
+      <p className="mx-auto mt-5 max-w-2xl rounded-lg border border-dashed border-border/60 bg-brand-surface/50 px-3 py-2.5 text-center text-[11px] leading-snug text-muted-foreground sm:text-xs">
         {trustEthicsCopy.disclaimer}
       </p>
     </SectionContainer>

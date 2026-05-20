@@ -1,15 +1,12 @@
 import type { ComponentType } from "react";
 
-import { EcosystemSection } from "@/components/homepage/EcosystemSection";
-import { EducationHubSection } from "@/components/homepage/EducationHubSection";
 import { ElynthisPreviewSection } from "@/components/homepage/ElynthisPreviewSection";
-import { EvidenceSection } from "@/components/homepage/EvidenceSection";
 import { FinalCTASection } from "@/components/homepage/FinalCTASection";
 import { HeroSection } from "@/components/homepage/HeroSection";
-import { MethodSection } from "@/components/homepage/MethodSection";
-import { ProfessionalIdentitySection } from "@/components/homepage/ProfessionalIdentitySection";
-import { ToolsPreviewSection } from "@/components/homepage/ToolsPreviewSection";
-import { TrustAndEthicsSection } from "@/components/homepage/TrustAndEthicsSection";
+import { HomeDifferentialSection } from "@/components/homepage/HomeDifferentialSection";
+import { HomeIntroSection } from "@/components/homepage/HomeIntroSection";
+import { TabsSection } from "@/components/homepage/TabsSection";
+import { HomeTrustStrip } from "@/components/homepage/HomeTrustStrip";
 
 export type HomeSectionEntry = {
   id: string;
@@ -17,26 +14,15 @@ export type HomeSectionEntry = {
 };
 
 /**
- * Orden narrativo de la Home (producción).
- * 1. Qué es → Hero + Ecosistema
- * 2. Cómo funciona → Método
- * 3. Tecnología clínica → Elynthis
- * 4. Evidencia → Ciencia aplicada
- * 5. Educación → Aprende
- * 6. Herramientas → Práctica
- * 7. Diferencial → Identidad profesional
- * 8. Confianza → Ética
- * 9. Cierre → CTA final
+ * Home — narrativa de conversión (6 bloques).
+ * Hero → Qué es → Diferencial → Elynthis → Recursos (tabs) → Ética (strip) → CTA
  */
 export const HOME_SECTIONS: HomeSectionEntry[] = [
   { id: "hero", Component: HeroSection },
-  { id: "ecosistema", Component: EcosystemSection },
-  { id: "metodo", Component: MethodSection },
+  { id: "ecosistema", Component: HomeIntroSection },
+  { id: "ciencia", Component: HomeDifferentialSection },
   { id: "elynthis", Component: ElynthisPreviewSection },
-  { id: "evidencia", Component: EvidenceSection },
-  { id: "aprende", Component: EducationHubSection },
-  { id: "herramientas-preview", Component: ToolsPreviewSection },
-  { id: "identidad", Component: ProfessionalIdentitySection },
-  { id: "etica", Component: TrustAndEthicsSection },
+  { id: "aprende", Component: TabsSection },
+  { id: "etica", Component: HomeTrustStrip },
   { id: "empezar", Component: FinalCTASection },
 ];

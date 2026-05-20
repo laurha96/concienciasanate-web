@@ -6,7 +6,7 @@ export type ProfessionalIdentityPillar = {
 
 export const professionalIdentityCopy = {
   title: "Una mirada integral, clara y humana",
-  body: "Conciencia Sánate nace de una forma de entender la salud mental donde el bienestar no se reduce a pensar positivo. Se trata de comprender la historia, los patrones, el cuerpo, las emociones y los recursos que permiten construir una vida con más claridad y sentido.",
+  body: "El bienestar no se reduce a pensar positivo: comprende patrones, cuerpo, emociones y recursos para vivir con más claridad.",
   quote:
     "No se trata de cambiar quién eres. Se trata de comprenderte mejor para vivir con más libertad.",
 } as const;

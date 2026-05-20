@@ -10,63 +10,58 @@ import { authRoutes } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
 const panelMotion = {
-  initial: { opacity: 0, y: 16 },
+  initial: { opacity: 0, y: 10 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.55, ease: "easeOut" },
+  viewport: { once: true, amount: 0.25 },
+  transition: { duration: 0.4, ease: "easeOut" },
 } as const;
-
-const ctaButtonClass =
-  "w-full min-w-0 sm:w-auto sm:min-w-[11.5rem] transition-transform duration-200 hover:-translate-y-px";
 
 export function FinalCTASection() {
   return (
     <SectionContainer
+      variant="home"
       id="empezar"
       aria-labelledby="final-cta-heading"
-      className="pb-20 pt-6 sm:pb-28 sm:pt-8"
+      className="!pb-10 !pt-3 sm:!pb-12"
     >
       <motion.div
         {...panelMotion}
         className={cn(
-          "overflow-hidden rounded-[28px] border border-border/50 px-6 py-12 text-center sm:rounded-[32px] sm:px-10 sm:py-16 lg:px-14 lg:py-[4.5rem]",
+          "overflow-hidden rounded-2xl border border-border/50 px-5 py-7 text-center sm:rounded-3xl sm:px-8 sm:py-8 lg:px-10",
           "bg-gradient-to-br from-accent/50 via-brand-muted/85 to-brand-surface shadow-[var(--brand-shadow-glow)]"
         )}
       >
         <SectionHeading
+          variant="home"
           titleId="final-cta-heading"
           title={finalCtaCopy.title}
           description={finalCtaCopy.subtitle}
           align="center"
-          className="mx-auto mb-4 max-w-2xl"
+          className="mx-auto mb-5 max-w-xl"
         />
 
-        <p className="mx-auto mb-8 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mb-10 sm:text-[15px]">
-          {finalCtaCopy.microcopy}
-        </p>
-
-        <div className="mx-auto flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
+        <div className="mx-auto flex w-full max-w-md flex-col items-stretch gap-2.5 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
           <BrandCtaLink
             href={finalCtaCopy.ctas.resources.href}
             variant="primary"
-            size="lg"
-            className={ctaButtonClass}
+            size="default"
+            className="w-full sm:w-auto"
           >
             {finalCtaCopy.ctas.resources.label}
           </BrandCtaLink>
           <BrandCtaLink
             href={authRoutes.register}
             variant="secondary"
-            size="lg"
-            className={ctaButtonClass}
+            size="default"
+            className="w-full sm:w-auto"
           >
             {finalCtaCopy.ctas.register.label}
           </BrandCtaLink>
           <BrandCtaLink
             href={finalCtaCopy.ctas.elynthis.href}
             variant="ghost"
-            size="lg"
-            className={ctaButtonClass}
+            size="default"
+            className="w-full sm:w-auto"
           >
             {finalCtaCopy.ctas.elynthis.label}
           </BrandCtaLink>

@@ -6,7 +6,12 @@ import { cn } from "@/lib/utils";
 
 export function Navbar({ className }: { className?: string }) {
   return (
-    <header className={cn("relative z-20", className)}>
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-white/15 bg-[#f7f6ef]/18 shadow-none backdrop-blur-xl",
+        className
+      )}
+    >
       <div className="w-full px-5 py-6">
         <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between">
           <Link href="/" className="flex items-center gap-2">

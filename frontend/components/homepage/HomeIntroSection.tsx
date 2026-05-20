@@ -4,9 +4,10 @@ import { BookOpen, Leaf, Stethoscope, Wrench } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { FeatureCard } from "@/components/homepage/FeatureCard";
-import { ecosystemCards, ecosystemCopy } from "@/components/homepage/data";
+import { ecosystemCards } from "@/components/homepage/data";
+import { homeIntroCopy } from "@/components/homepage/home-conversion-data";
 import { SectionContainer } from "@/components/homepage/SectionContainer";
-import { SectionHeading } from "@/components/homepage/section-heading";
+import { SectionHeaderRow } from "@/components/homepage/section-header-row";
 import { homeLayout } from "@/lib/home-layout";
 
 const icons = {
@@ -16,38 +17,38 @@ const icons = {
   wellbeing: Leaf,
 } as const;
 
-const cardMotion = {
-  initial: { opacity: 0, y: 10 },
+const fade = {
+  initial: { opacity: 0, y: 8 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.15 },
-  transition: { duration: 0.35, ease: "easeOut" },
+  viewport: { once: true, amount: 0.12 },
+  transition: { duration: 0.3, ease: "easeOut" },
 } as const;
 
-export function EcosystemSection() {
+export function HomeIntroSection() {
   return (
     <SectionContainer
       variant="home"
       id="ecosistema"
-      aria-labelledby="ecosystem-heading"
-      className="border-t border-border/40 bg-gradient-to-b from-brand-surface/50 via-brand-background to-brand-muted/25"
+      aria-labelledby="home-intro-heading"
+      className="relative z-10 border-none bg-brand-background !pt-5 sm:!pt-6 lg:!pt-7"
     >
-      <SectionHeading
-        variant="home"
-        titleId="ecosystem-heading"
-        title={ecosystemCopy.title}
-        description={ecosystemCopy.subtitle}
-        className={homeLayout.headingMb}
+      <SectionHeaderRow
+        titleId="home-intro-heading"
+        title={homeIntroCopy.title}
+        description={homeIntroCopy.description}
+        seeMoreHref={homeIntroCopy.seeMore.href}
+        seeMoreLabel={homeIntroCopy.seeMore.label}
       />
 
-      <div className={`grid grid-cols-1 items-stretch sm:grid-cols-2 lg:grid-cols-4 ${homeLayout.gridGap}`}>
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 ${homeLayout.gridGap}`}>
         {ecosystemCards.map((card, index) => {
           const Icon = icons[card.key as keyof typeof icons] ?? BookOpen;
           return (
             <motion.div
               key={card.key}
+              {...fade}
+              transition={{ ...fade.transition, delay: index * 0.04 }}
               className="h-full"
-              {...cardMotion}
-              transition={{ ...cardMotion.transition, delay: index * 0.05 }}
             >
               <FeatureCard
                 interactive

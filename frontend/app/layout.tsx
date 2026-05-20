@@ -52,7 +52,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="h-full scroll-smooth">
+    <html
+      lang="es"
+      className="h-full scroll-smooth light"
+      style={{ colorScheme: "light" }}
+      suppressHydrationWarning
+    >
       <body
         className={`${inter.variable} ${dmSans.variable} min-h-screen antialiased`}
       >

@@ -53,16 +53,22 @@ export function Header() {
 
   if (pathname.startsWith("/admin")) return null;
 
+  const isHome = pathname === "/";
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-[background-color,box-shadow,border-color] duration-300",
-        scrolled
-          ? "border-b border-border/60 bg-brand-surface/80 shadow-soft backdrop-blur-lg supports-[backdrop-filter]:bg-brand-surface/72"
-          : "border-b border-transparent bg-brand-surface/55 backdrop-blur-md supports-[backdrop-filter]:bg-brand-surface/45"
+        "sticky top-0 z-50 w-full border-b shadow-none transition-[background-color,backdrop-filter] duration-200",
+        isHome
+          ? "border-white/15 bg-white/[0.06] backdrop-blur-none supports-[backdrop-filter]:bg-white/[0.04]"
+          : "border-white/20 bg-white/12 backdrop-blur-sm supports-[backdrop-filter]:bg-white/8",
+        scrolled &&
+          (isHome
+            ? "border-white/20 bg-white/[0.1] backdrop-blur-[2px] supports-[backdrop-filter]:bg-white/[0.06]"
+            : "border-white/25 bg-white/20 backdrop-blur-md supports-[backdrop-filter]:bg-white/14")
       )}
     >
-      <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgb(var(--brand-primary-rgb)/0.35)]"
@@ -76,7 +82,7 @@ export function Header() {
         </Link>
 
         <nav
-          className="hidden items-center gap-0.5 lg:flex"
+          className="hidden items-center justify-self-center gap-0.5 lg:flex"
           aria-label="Navegación principal"
         >
           {siteNavItems.map((item) => {
@@ -94,61 +100,65 @@ export function Header() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <HeaderAuthActions />
-        </div>
+        <div className="col-start-3 flex items-center justify-end justify-self-end gap-2">
+          <div className="hidden items-center gap-2 lg:flex">
+            <HeaderAuthActions />
+          </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
-              <Button
-                type="button"
-                variant="secondary"
-                size="icon"
-                className="size-10 rounded-full border-border/70 bg-brand-surface/90 shadow-soft"
-                aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú de navegación"}
-                aria-expanded={mobileOpen}
-                aria-controls="site-mobile-nav"
+          <div className="flex items-center gap-2 lg:hidden">
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="icon"
+                  className="size-10 rounded-full border-border/70 bg-brand-surface/90 shadow-soft"
+                  aria-label={
+                    mobileOpen ? "Cerrar menú" : "Abrir menú de navegación"
+                  }
+                  aria-expanded={mobileOpen}
+                  aria-controls="site-mobile-nav"
+                >
+                  {mobileOpen ? (
+                    <X className="size-5" aria-hidden />
+                  ) : (
+                    <Menu className="size-5" aria-hidden />
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                id="site-mobile-nav"
+                side="right"
+                className="flex w-[min(100vw-2rem,340px)] flex-col border-border/60 bg-brand-background/95 backdrop-blur-xl"
               >
-                {mobileOpen ? (
-                  <X className="size-5" aria-hidden />
-                ) : (
-                  <Menu className="size-5" aria-hidden />
-                )}
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              id="site-mobile-nav"
-              side="right"
-              className="flex w-[min(100vw-2rem,340px)] flex-col border-border/60 bg-brand-background/95 backdrop-blur-xl"
-            >
-              <SheetHeader className="border-b border-border/50 pb-4 text-left">
-                <SheetTitle className="font-display text-lg">Menú</SheetTitle>
-              </SheetHeader>
-              <nav
-                className="mt-4 flex flex-1 flex-col gap-1"
-                aria-label="Navegación móvil"
-              >
-                {siteNavItems.map((item) => {
-                  const active = isNavActive(pathname, item.href);
-                  return (
-                    <SheetClose asChild key={item.href}>
-                      <Link
-                        href={item.href}
-                        aria-current={active ? "page" : undefined}
-                        className={mobileNavLinkClass(active)}
-                      >
-                        {item.label}
-                      </Link>
-                    </SheetClose>
-                  );
-                })}
-              </nav>
-              <div className="mt-auto border-t border-border/50 pt-5">
-                <HeaderAuthActions layout="stacked" />
-              </div>
-            </SheetContent>
-          </Sheet>
+                <SheetHeader className="border-b border-border/50 pb-4 text-left">
+                  <SheetTitle className="font-display text-lg">Menú</SheetTitle>
+                </SheetHeader>
+                <nav
+                  className="mt-4 flex flex-1 flex-col gap-1"
+                  aria-label="Navegación móvil"
+                >
+                  {siteNavItems.map((item) => {
+                    const active = isNavActive(pathname, item.href);
+                    return (
+                      <SheetClose asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          aria-current={active ? "page" : undefined}
+                          className={mobileNavLinkClass(active)}
+                        >
+                          {item.label}
+                        </Link>
+                      </SheetClose>
+                    );
+                  })}
+                </nav>
+                <div className="mt-auto border-t border-border/50 pt-5">
+                  <HeaderAuthActions layout="stacked" />
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>

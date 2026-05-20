@@ -1,12 +1,16 @@
 import { cn } from "@/lib/utils";
 
+/**
+ * @deprecated Sustituido por `HeroVisual` con imagen `/images/hero/hero-wellbeing.png`.
+ */
+
 const DEFAULT_TAGS = ["mente", "regulación", "hábitos", "evidencia"] as const;
 
 const TAG_POSITIONS: Record<string, string> = {
-  mente: "left-[8%] top-[22%] sm:left-[10%]",
-  regulación: "right-[10%] top-[14%] sm:right-[14%]",
-  evidencia: "bottom-[28%] left-[34%] sm:left-[38%]",
-  hábitos: "bottom-[10%] right-[8%] sm:right-[10%]",
+  mente: "left-[8%] top-[18%] sm:left-[10%]",
+  regulación: "right-[10%] top-[12%] sm:right-[14%]",
+  evidencia: "bottom-[24%] left-[34%] sm:left-[38%]",
+  hábitos: "bottom-[8%] right-[8%] sm:right-[10%]",
 };
 
 export function HeroNetworkVisual({
@@ -18,12 +22,15 @@ export function HeroNetworkVisual({
 }) {
   return (
     <div
-      className={cn("relative mx-auto aspect-[5/4] w-full max-h-[420px] min-h-[280px]", className)}
+      className={cn(
+        "relative mx-auto aspect-[16/10] w-full min-h-[160px] max-h-[min(260px,32vh)] sm:min-h-[180px] lg:max-h-[280px]",
+        className
+      )}
       aria-hidden
     >
-      <div className="absolute inset-4 rounded-[2rem] bg-[rgb(var(--brand-primary-rgb)/0.08)] blur-2xl" />
+      <div className="absolute inset-2 rounded-2xl bg-[rgb(var(--brand-primary-rgb)/0.08)] blur-2xl" />
 
-      <div className="cs-card-preview relative h-full overflow-hidden rounded-[2rem] border-border/50 bg-gradient-to-br from-brand-background via-brand-surface/90 to-brand-muted/40 shadow-[var(--brand-shadow-glow)] backdrop-blur-md sm:rounded-[2.25rem]">
+      <div className="cs-card-preview relative h-full overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-brand-background via-brand-surface to-brand-muted/50 shadow-[var(--brand-shadow-glow)] backdrop-blur-md sm:rounded-[1.35rem]">
         <div
           className="absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_25%_20%,rgb(var(--brand-accent-rgb)/0.9),transparent_50%),radial-gradient(circle_at_80%_70%,rgb(var(--brand-primary-rgb)/0.12),transparent_55%)]"
         />
@@ -49,7 +56,7 @@ export function HeroNetworkVisual({
                         : "0s",
               }}
             >
-              <span className="inline-block rounded-full border border-border/50 bg-brand-surface/95 px-4 py-2 text-xs font-medium capitalize tracking-wide text-foreground shadow-soft ring-1 ring-[rgb(var(--brand-primary-rgb)/0.12)] backdrop-blur-sm sm:text-sm">
+              <span className="inline-block rounded-full border border-border/50 bg-brand-surface/95 px-3 py-1.5 text-[11px] font-medium capitalize tracking-wide text-foreground shadow-soft ring-1 ring-[rgb(var(--brand-primary-rgb)/0.12)] backdrop-blur-sm sm:text-xs">
                 {tag}
               </span>
             </li>

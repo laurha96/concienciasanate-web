@@ -12,20 +12,27 @@ export type HomeFeatureCardProps = {
   className?: string;
 };
 
-/**
- * Card reutilizable para pilares del ecosistema (Home y secciones similares).
- */
 export function FeatureCard({
   icon,
   title,
   description,
   className,
-}: HomeFeatureCardProps) {
+  interactive = true,
+  compact = true,
+  layout = "row",
+}: HomeFeatureCardProps & {
+  interactive?: boolean;
+  compact?: boolean;
+  layout?: "stack" | "row";
+}) {
   return (
     <BrandFeatureCard
       icon={icon}
       title={title}
       description={description}
+      interactive={interactive}
+      compact={compact}
+      layout={layout}
       className={cn("h-full bg-brand-surface/95", className)}
     />
   );

@@ -19,6 +19,29 @@ export {
   professionalIdentityCopy,
   type ProfessionalIdentityPillar,
 } from "@/components/homepage/professional-identity-data";
+export { HomeIntroSection } from "@/components/homepage/HomeIntroSection";
+export { HomeDifferentialSection } from "@/components/homepage/HomeDifferentialSection";
+export { TabsSection } from "@/components/homepage/TabsSection";
+export type { TabsSectionProps } from "@/components/homepage/TabsSection";
+/** @deprecated Usar `TabsSection` */
+export { HomeResourcesPreviewSection } from "@/components/homepage/HomeResourcesPreviewSection";
+export { HomeTrustStrip } from "@/components/homepage/HomeTrustStrip";
+export { SectionSeeMoreLink } from "@/components/homepage/section-see-more-link";
+export {
+  ScienceWellbeingSection,
+} from "@/components/homepage/ScienceWellbeingSection";
+export { scienceWellbeingCopy } from "@/components/homepage/science-wellbeing-data";
+export {
+  ResourcesToolsSection,
+} from "@/components/homepage/ResourcesToolsSection";
+export {
+  RESOURCES_TOOLS_TABS,
+  resourcesToolsCopy,
+} from "@/components/homepage/resources-tools-data";
+/** @deprecated Home usa `ResourcesToolsSection` */
+export { LearnPracticeSection, learnPracticeCopy } from "@/components/homepage/LearnPracticeSection";
+/** @deprecated Home usa `ScienceWellbeingSection` + `TrustAndEthicsSection` */
+export { ValuesSection, valuesCopy } from "@/components/homepage/ValuesSection";
 export { EducationHubSection } from "@/components/homepage/EducationHubSection";
 export { EducationSection } from "@/components/homepage/EducationSection";
 export {
