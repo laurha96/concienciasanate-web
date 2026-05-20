@@ -10,6 +10,8 @@ const runtimeEnvSchema = z.object({
   PORT: z.coerce.number().default(5000),
   CORS_ORIGIN: z.string().default("http://localhost:3000"),
   JWT_SECRET: z.string().min(32),
+  /** Secreto distinto para tokens admin (recomendado en producción). Si falta, usa JWT_SECRET. */
+  ADMIN_JWT_SECRET: z.preprocess(emptyStringToUndefined, z.string().min(32).optional()),
 
   ADMIN_USER_IDS: z.preprocess(emptyStringToUndefined, z.string().optional()),
   HOME_PREVIEW_TOKEN: z.preprocess(emptyStringToUndefined, z.string().optional()),
@@ -37,4 +39,9 @@ export function getEnv(): Env {
 
 export function getSupabaseEnv(): SupabaseEnv {
   return supabaseEnvSchema.parse(process.env);
+}
+
+export function getAdminJwtSecret(): string {
+  const env = getEnv();
+  return env.ADMIN_JWT_SECRET ?? env.JWT_SECRET;
 }

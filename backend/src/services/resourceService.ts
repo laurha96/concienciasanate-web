@@ -6,6 +6,7 @@ export async function listResources() {
   const { data, error } = await supabase
     .from("resources")
     .select("id,title,description,category,created_at")
+    .eq("published", true)
     .order("created_at", { ascending: false })
     .limit(50);
 

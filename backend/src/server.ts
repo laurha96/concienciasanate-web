@@ -5,12 +5,16 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 
+import { apiRateLimiter } from "./middleware/rateLimiters";
 import { apiRoutes } from "./routes";
 import { getEnv } from "./utils/env";
 
 const env = getEnv();
 
 const app = express();
+
+// Railway / reverse proxy: IP real para rate limiting
+app.set("trust proxy", 1);
 
 app.use(helmet());
 app.use(
@@ -23,16 +27,10 @@ app.use(express.json({ limit: "1mb" }));
 app.use(morgan("tiny"));
 
 app.get("/health", (_req, res) => {
-  res.json({
-    ok: true,
-    port: env.PORT,
-    supabaseConfigured: Boolean(
-      env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY
-    ),
-  });
+  res.json({ ok: true });
 });
 
-app.use("/api", apiRoutes);
+app.use("/api", apiRateLimiter, apiRoutes);
 
 app.listen(env.PORT, () => {
   // eslint-disable-next-line no-console

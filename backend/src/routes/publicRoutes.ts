@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { contactRateLimiter } from "../middleware/rateLimiters";
 import {
   getPublicBlogPostBySlug,
   getPublicBlogPosts,
@@ -26,4 +27,4 @@ publicRoutes.get("/plans", getPublicPlans);
 publicRoutes.get("/site-settings", getPublicSiteSettings);
 publicRoutes.get("/pages/:pageKey", getPublicPage);
 
-publicRoutes.post("/contact", postPublicContact);
+publicRoutes.post("/contact", contactRateLimiter, postPublicContact);

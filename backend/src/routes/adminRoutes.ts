@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { adminAuthRateLimiter } from "../middleware/rateLimiters";
 import { adminAuthMiddleware } from "../middleware/adminAuthMiddleware";
 import { canEditPublicContent, requireAdminRole, superAdminOnly } from "../middleware/adminRbac";
 import { getAdminMe, postAdminLogin } from "../controllers/adminAuthController";
@@ -14,7 +15,7 @@ import { adminContentRoutes } from "./adminContentRoutes";
 export const adminRoutes = Router();
 
 // Auth
-adminRoutes.post("/auth/login", postAdminLogin);
+adminRoutes.post("/auth/login", adminAuthRateLimiter, postAdminLogin);
 adminRoutes.get("/auth/me", adminAuthMiddleware, getAdminMe);
 
 // Admin users

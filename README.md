@@ -22,7 +22,8 @@ Monorepo simple con dos apps separadas:
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
-- `JWT_SECRET` (mínimo 32 caracteres)
+- `JWT_SECRET` (mínimo 32 caracteres; tokens de usuarios finales)
+- `ADMIN_JWT_SECRET` (opcional pero **recomendado en producción**; tokens del panel admin)
 
 Opcional:
 
@@ -122,6 +123,24 @@ Nota: para el backend necesitas `SUPABASE_SERVICE_ROLE_KEY` (service_role, secre
 - `GET /api/users/preferences` (Bearer) → `{ preferences }`
 - `PUT /api/users/preferences` (Bearer) → `{ preferences }`
 - `GET /api/resources` → `{ resources }`
+
+## Seguridad (backend + frontend)
+
+Implementado en código:
+
+- **Helmet** + **CORS** restringido + límite JSON 1 MB
+- **Rate limiting**: login/registro, login admin, contacto y tope general `/api`
+- **JWT separado** para admin (`ADMIN_JWT_SECRET`) vs usuarios (`JWT_SECRET`)
+- **Recursos públicos** solo `published = true`
+- **Middleware** Next.js en `/admin/*` (cookie `admin_token`)
+- **Cabeceras de seguridad** en Vercel (`next.config.ts`)
+- **RLS** en tablas del panel admin (`backend/supabase/migrations/003_admin_rls.sql`)
+
+Tras desplegar:
+
+1. En **Railway**: define `ADMIN_JWT_SECRET` distinto de `JWT_SECRET` (los admins deben volver a iniciar sesión).
+2. En **Supabase SQL**: ejecuta la migración `003_admin_rls.sql` si aún no está aplicada.
+3. En **Vercel/Railway**: revisa protección DDoS del plan y no expongas `SUPABASE_SERVICE_ROLE_KEY` en el frontend.
 
 ## Deploy (alto nivel)
 

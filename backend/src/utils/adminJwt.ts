@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import { getEnv } from "./env";
+import { getAdminJwtSecret } from "./env";
 
 export type AdminRole = "super_admin" | "editor" | "admin_professional";
 
@@ -11,11 +11,9 @@ export type JwtAdmin = {
 };
 
 export function signAdminAccessToken(payload: JwtAdmin): string {
-  const env = getEnv();
-  return jwt.sign(payload, env.JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign(payload, getAdminJwtSecret(), { expiresIn: "7d" });
 }
 
 export function verifyAdminAccessToken(token: string): JwtAdmin {
-  const env = getEnv();
-  return jwt.verify(token, env.JWT_SECRET) as JwtAdmin;
+  return jwt.verify(token, getAdminJwtSecret()) as JwtAdmin;
 }
