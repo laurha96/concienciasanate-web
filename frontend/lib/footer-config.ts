@@ -3,18 +3,26 @@ import { buildEducationHubHref } from "@/lib/education-hub-links";
 import { siteNavItems } from "@/lib/site-nav";
 
 export const footerCopy = {
+  tagline: "Psicología basada en evidencia para procesos reales.",
   description:
-    "Plataforma digital de salud mental y bienestar basada en evidencia. Educación, herramientas prácticas y tecnología clínica.",
-  contactCta: { label: "Ir a contacto", href: "/contacto" },
+    "Educación psicológica, regulación emocional y tecnología clínica con límites éticos claros.",
+  primaryCta: { label: "Explorar herramientas", href: "/herramientas" },
+  contactCta: { label: "Contacto", href: "/contacto" },
+  disclaimer:
+    "Contenido educativo. No sustituye atención profesional de salud mental.",
 } as const;
 
-/** Enlaces de plataforma (misma fuente que el header). */
-export const footerPlatformLinks = siteNavItems.map((item) => ({
-  href: item.href,
-  label: item.label,
-}));
+/** Navegación principal (sin duplicar contacto en su columna). */
+export const footerNavLinks = siteNavItems
+  .filter((item) => item.href !== "/contacto")
+  .map((item) => ({
+    href: item.href,
+    label: item.label,
+  }));
 
-/** Temas educativos destacados en el footer. */
+/** @deprecated Usar footerNavLinks */
+export const footerPlatformLinks = footerNavLinks;
+
 const resourceKeys = [
   "estres",
   "ansiedad",
@@ -35,7 +43,13 @@ export const footerLegalLinks = [
   { href: "/terminos", label: "Términos" },
 ] as const;
 
-/** Rutas legales adicionales cuando estén publicadas (añadir aquí o vía env). */
+export const footerEthicsLinks = [
+  { href: "/sobre#etica-limites", label: "Ética y límites" },
+  { href: "/sobre#vision-clinica", label: "Visión clínica" },
+  { href: "/sobre#base-cientifica", label: "Base científica" },
+  { href: "/sobre", label: "Sobre la plataforma" },
+] as const;
+
 export function getOptionalLegalLinks(): { href: string; label: string }[] {
   const optional: { href: string; label: string }[] = [];
   const consent = process.env.NEXT_PUBLIC_LEGAL_CONSENT_PATH;

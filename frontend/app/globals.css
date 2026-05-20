@@ -331,15 +331,20 @@
     @apply rounded-[32px] border border-border/60 bg-brand-surface/75 shadow-card backdrop-blur-md;
   }
 
-  /* Página Sobre — ritmo editorial (scoped) */
+  /* Página Sobre — sistema visual regulador (scoped) */
   .about-page {
     @apply text-foreground antialiased;
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern" 1, "liga" 1;
+    --about-veil: rgb(var(--brand-accent-rgb) / 0.07);
+    --about-glow: rgb(var(--brand-primary-rgb) / 0.045);
+    --about-glass-border: rgb(255 255 255 / 0.48);
+    --about-ring: rgb(var(--brand-primary-rgb) / 0.08);
+    background-color: var(--brand-background);
   }
 
   .about-page ::selection {
-    background: rgb(var(--brand-primary-rgb) / 0.18);
+    background: rgb(var(--brand-primary-rgb) / 0.14);
   }
 
   .about-page h1,
@@ -350,6 +355,33 @@
 
   .about-page p {
     text-wrap: pretty;
+  }
+
+  /* Flujo editorial — capítulos con respiración (Apple / Linear / Notion) */
+  .about-editorial-flow {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-page-nav-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .about-page-enter {
+      animation: about-page-fade-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+  }
+}
+
+@keyframes about-page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

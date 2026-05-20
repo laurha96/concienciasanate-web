@@ -102,16 +102,13 @@ export function EthicsPillarCard({
       </p>
 
       <ul className="mt-4 space-y-2.5" aria-label={pillar.title}>
-        {pillar.points.map((point) => (
+        {pillar.items.map((item) => (
           <li
-            key={point}
-            className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground"
+            key={item.label}
+            className="flex flex-col gap-1 text-sm leading-relaxed text-muted-foreground"
           >
-            <span
-              className="mt-2 h-px w-4 shrink-0 rounded-full bg-gradient-to-r from-primary/40 to-transparent"
-              aria-hidden
-            />
-            <span>{point}</span>
+            <span className="font-medium text-foreground/90">{item.label}</span>
+            <span>{item.detail}</span>
           </li>
         ))}
       </ul>

@@ -1,7 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 import {
   aboutDividerFillClass,
@@ -9,19 +15,24 @@ import {
   aboutSectionToneClass,
   type AboutSectionTone,
 } from "@/components/about/about-editorial-tokens";
-import { aboutFadeUp } from "@/components/about/about-motion";
+import { aboutVisual } from "@/components/about/about-visual-tokens";
+import {
+  aboutDuration,
+  aboutEase,
+  aboutFadeUp,
+  aboutHairlineGrow,
+  aboutHeaderItem,
+  aboutHeaderStagger,
+  aboutSectionEnter,
+  aboutStaggerContainer,
+} from "@/components/about/about-motion";
 import { cn } from "@/lib/utils";
 
 export function AboutPageShell({ children }: { children: ReactNode }) {
   return (
-    <motion.div
-      className={cn(aboutEd.page, "overflow-x-clip")}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <div className={cn(aboutEd.page, "about-page-enter overflow-x-clip")}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -29,29 +40,40 @@ export function AboutSection({
   children,
   id,
   "aria-labelledby": ariaLabelledby,
+  "aria-label": ariaLabel,
   tone = "canvas",
   cinematic = false,
   className,
+  animate = true,
 }: {
   children: ReactNode;
   id?: string;
   "aria-labelledby"?: string;
+  /** Si no hay encabezado visible con id, usar aria-label. */
+  "aria-label"?: string;
   tone?: AboutSectionTone;
   cinematic?: boolean;
   className?: string;
+  /** Fade-up al entrar en viewport */
+  animate?: boolean;
 }) {
+  const reduceMotion = useReducedMotion();
+  const motionProps = animate && !reduceMotion ? aboutSectionEnter : {};
+
   return (
-    <section
+    <motion.section
       id={id}
       aria-labelledby={ariaLabelledby}
+      aria-label={ariaLabelledby ? undefined : ariaLabel}
       className={cn(
         cinematic ? aboutEd.sectionCinematic : aboutEd.section,
         aboutSectionToneClass[tone],
         className
       )}
+      {...motionProps}
     >
       {children}
-    </section>
+    </motion.section>
   );
 }
 
@@ -59,11 +81,22 @@ export function AboutContainer({
   children,
   size = "default",
   className,
+  parallax = false,
 }: {
   children: ReactNode;
   size?: "default" | "wide" | "narrow";
   className?: string;
+  /** Parallax vertical muy sutil */
+  parallax?: boolean;
 }) {
+  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [6, -6]);
+
   const sizeClass =
     size === "wide"
       ? aboutEd.containerWide
@@ -71,7 +104,64 @@ export function AboutContainer({
         ? aboutEd.containerNarrow
         : aboutEd.container;
 
-  return <motion.div className={cn(sizeClass, className)}>{children}</motion.div>;
+  return (
+    <motion.div
+      ref={ref}
+      className={cn(sizeClass, className)}
+      style={parallax && !reduceMotion ? { y } : undefined}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function AboutStaggerGrid({
+  children,
+  className,
+  "aria-label": ariaLabel,
+  as = "ul",
+}: {
+  children: ReactNode;
+  className?: string;
+  "aria-label"?: string;
+  as?: "ul" | "ol";
+}) {
+  const reduceMotion = useReducedMotion();
+  const Component = as === "ol" ? motion.ol : motion.ul;
+
+  return (
+    <Component
+      className={className}
+      aria-label={ariaLabel}
+      variants={aboutStaggerContainer}
+      initial={reduceMotion ? false : "hidden"}
+      whileInView={reduceMotion ? undefined : "show"}
+      viewport={{ once: true, amount: 0.08 }}
+    >
+      {children}
+    </Component>
+  );
+}
+
+function AboutChapterMarker({
+  index,
+  centered,
+}: {
+  index: string;
+  centered: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-3",
+        centered ? "mx-auto justify-center" : "justify-start"
+      )}
+      aria-hidden
+    >
+      <span className={aboutEd.chapterIndex}>{index}</span>
+      <span className={aboutEd.chapterRule} />
+    </div>
+  );
 }
 
 export function AboutEditorialHeader({
@@ -82,48 +172,107 @@ export function AboutEditorialHeader({
   align = "left",
   size = "default",
   className,
+  titleClassName,
+  animated = true,
+  chapter,
 }: {
-  eyebrow?: string;
+  eyebrow?: ReactNode;
   title: string;
   titleId?: string;
   description?: string;
   align?: "left" | "center";
   size?: "default" | "large";
   className?: string;
+  titleClassName?: string;
+  animated?: boolean;
+  /** Índice de capítulo editorial — ej. "01" */
+  chapter?: string;
 }) {
   const centered = align === "center";
+  const reduceMotion = useReducedMotion();
+  const useMotion = animated && !reduceMotion;
+
+  const headerClass = cn(
+    "space-y-7 sm:space-y-8 lg:space-y-10",
+    centered && "text-center",
+    className
+  );
+
+  if (!useMotion) {
+    return (
+      <header className={headerClass}>
+        {chapter ? <AboutChapterMarker index={chapter} centered={centered} /> : null}
+        {eyebrow ? (
+          <p className={cn(aboutEd.eyebrow, centered && "mx-auto")}>{eyebrow}</p>
+        ) : null}
+        <h2
+          id={titleId}
+          className={cn(
+            size === "large" ? aboutEd.titleHero : aboutEd.title,
+            centered && "mx-auto max-w-3xl",
+            titleClassName
+          )}
+        >
+          {title}
+        </h2>
+        {description ? (
+          <p
+            className={cn(
+              aboutEd.lead,
+              centered ? "mx-auto max-w-2xl" : "max-w-xl"
+            )}
+          >
+            {description}
+          </p>
+        ) : null}
+      </header>
+    );
+  }
 
   return (
-    <header
-      className={cn(
-        "space-y-6 sm:space-y-7",
-        centered && "text-center",
-        className
-      )}
+    <motion.header
+      className={headerClass}
+      variants={aboutHeaderStagger}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.35 }}
     >
-      {eyebrow ? (
-        <p className={cn(aboutEd.eyebrow, centered && "mx-auto")}>{eyebrow}</p>
+      {chapter ? (
+        <motion.div variants={aboutHeaderItem}>
+          <AboutChapterMarker index={chapter} centered={centered} />
+        </motion.div>
       ) : null}
-      <h2
+      {eyebrow ? (
+        <motion.p
+          variants={aboutHeaderItem}
+          className={cn(aboutEd.eyebrow, centered && "mx-auto")}
+        >
+          {eyebrow}
+        </motion.p>
+      ) : null}
+      <motion.h2
         id={titleId}
+        variants={aboutHeaderItem}
         className={cn(
           size === "large" ? aboutEd.titleHero : aboutEd.title,
-          centered && "mx-auto max-w-3xl"
+          centered && "mx-auto max-w-3xl",
+          titleClassName
         )}
       >
         {title}
-      </h2>
+      </motion.h2>
       {description ? (
-        <p
+        <motion.p
+          variants={aboutHeaderItem}
           className={cn(
             aboutEd.lead,
             centered ? "mx-auto max-w-2xl" : "max-w-xl"
           )}
         >
           {description}
-        </p>
+        </motion.p>
       ) : null}
-    </header>
+    </motion.header>
   );
 }
 
@@ -135,31 +284,46 @@ export function AboutOrganicDivider({
 }: {
   variant?: "wave" | "curve" | "fade" | "breathe";
   flip?: boolean;
-  /** Tono de la sección que el divisor debe “rellenar” visualmente */
   fillTone?: AboutSectionTone;
   className?: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   if (variant === "fade" || variant === "breathe") {
     return (
       <div
         aria-hidden
         className={cn(
-          variant === "breathe" ? "relative h-24 sm:h-32" : "relative h-20 sm:h-28",
+          variant === "breathe" ? "relative h-28 sm:h-36 lg:h-40" : "relative h-24 sm:h-32 lg:h-36",
           className
         )}
       >
         <motion.div
           className={cn(aboutEd.hairline, "absolute inset-x-8 top-1/2 sm:inset-x-16")}
-          initial={{ scaleX: 0, opacity: 0 }}
-          whileInView={{ scaleX: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          {...(reduceMotion
+            ? { style: { opacity: 1 } }
+            : {
+                initial: aboutHairlineGrow.initial,
+                whileInView: aboutHairlineGrow.whileInView,
+                viewport: aboutHairlineGrow.viewport,
+                transition: aboutHairlineGrow.transition,
+              })}
           style={{ transformOrigin: "center" }}
         />
         {variant === "breathe" ? (
-          <div
-            className="pointer-events-none absolute inset-x-0 top-1/2 h-28 -translate-y-1/2 bg-gradient-to-b from-transparent via-accent/10 to-transparent blur-3xl"
+          <motion.div
+            className={aboutVisual.gradient.dividerBreath}
             aria-hidden
+            animate={
+              reduceMotion
+                ? undefined
+                : { opacity: [0.2, 0.32, 0.2] }
+            }
+            transition={{
+              duration: aboutDuration.ambient,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
         ) : null}
       </div>
@@ -177,14 +341,14 @@ export function AboutOrganicDivider({
       aria-hidden
       className={cn(
         "relative -mt-px w-full overflow-hidden",
-        variant === "wave" ? "h-16 sm:h-24" : "h-14 sm:h-20",
+        variant === "wave" ? "h-20 sm:h-28 lg:h-32" : "h-16 sm:h-24 lg:h-28",
         flip && "rotate-180",
         className
       )}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: aboutDuration.base, ease: aboutEase }}
     >
       <svg
         viewBox="0 0 1200 88"
@@ -200,10 +364,23 @@ export function AboutOrganicDivider({
 export function AboutAmbientGlow({
   position = "center",
   className,
+  interactive = true,
+  intensity = "soft",
 }: {
   position?: "center" | "left" | "right";
   className?: string;
+  /** Pulso orgánico muy suave */
+  interactive?: boolean;
+  intensity?: "soft" | "medium";
 }) {
+  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [6, -6]);
+
   const positionClass =
     position === "left"
       ? "left-0 -translate-x-1/3"
@@ -211,16 +388,40 @@ export function AboutAmbientGlow({
         ? "right-0 translate-x-1/3"
         : "left-1/2 -translate-x-1/2";
 
+  const softPulse = {
+    opacity: [0.11, 0.19, 0.11],
+    scale: [1, 1.015, 1],
+  };
+  const mediumPulse = {
+    opacity: [0.16, 0.28, 0.16],
+    scale: [1, 1.02, 1],
+  };
+
   return (
     <motion.div
+      ref={ref}
       aria-hidden
       className={cn(
-        "pointer-events-none absolute top-1/5 size-[min(110%,720px)] rounded-full bg-[radial-gradient(circle,rgb(var(--brand-primary-rgb)/0.07)_0%,transparent_68%)] blur-3xl",
+        "pointer-events-none absolute top-1/5",
+        aboutVisual.glow.ambientSize,
+        aboutVisual.glow.ambient,
+        "transition-opacity duration-700",
         positionClass,
         className
       )}
-      animate={{ opacity: [0.25, 0.45, 0.25] }}
-      transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      style={interactive && !reduceMotion ? { y } : undefined}
+      animate={
+        reduceMotion || !interactive
+          ? undefined
+          : intensity === "soft"
+            ? softPulse
+            : mediumPulse
+      }
+      transition={{
+        duration: aboutDuration.ambient,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
     />
   );
 }
@@ -234,11 +435,13 @@ export function AboutReveal({
   className?: string;
   delay?: number;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      initial={aboutFadeUp.initial}
-      whileInView={aboutFadeUp.whileInView}
+      initial={reduceMotion ? false : aboutFadeUp.initial}
+      whileInView={reduceMotion ? undefined : aboutFadeUp.whileInView}
       viewport={aboutFadeUp.viewport}
       transition={{ ...aboutFadeUp.transition, delay }}
     >
@@ -256,23 +459,29 @@ export function AboutPullQuote({
   attribution?: string;
   className?: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <blockquote
-      className={cn(
-        "relative border-none py-2 pl-0",
-        className
-      )}
-    >
+    <blockquote className={cn("relative border-none py-2 pl-0", className)}>
       <motion.div
         className={aboutEd.hairlineAccent}
         aria-hidden
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        style={{ transformOrigin: "left" }}
+        {...(reduceMotion
+          ? { style: { transformOrigin: "left" } }
+          : {
+              ...aboutHairlineGrow,
+              style: { transformOrigin: "left" },
+            })}
       />
-      <p className={cn(aboutEd.pullQuote, "mt-8 max-w-2xl")}>{children}</p>
+      <motion.p
+        className={cn(aboutEd.pullQuote, "mt-8 max-w-2xl")}
+        initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+        whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: aboutDuration.base, ease: aboutEase, delay: 0.06 }}
+      >
+        {children}
+      </motion.p>
       {attribution ? (
         <footer className={cn(aboutEd.eyebrow, "mt-5 normal-case tracking-[0.14em]")}>
           {attribution}
@@ -282,6 +491,7 @@ export function AboutPullQuote({
   );
 }
 
+/** @deprecated Usar AboutStaggerGrid */
 export function AboutEditorialGrid({
   children,
   className,
@@ -292,18 +502,8 @@ export function AboutEditorialGrid({
   "aria-label"?: string;
 }) {
   return (
-    <motion.ul
-      className={cn(
-        "grid list-none gap-x-12 gap-y-16 p-0 sm:grid-cols-2 sm:gap-x-16 sm:gap-y-20 lg:gap-x-20 lg:gap-y-24",
-        className
-      )}
-      aria-label={ariaLabel}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.05 }}
-      transition={{ duration: 0.4 }}
-    >
+    <AboutStaggerGrid className={className} aria-label={ariaLabel}>
       {children}
-    </motion.ul>
+    </AboutStaggerGrid>
   );
 }

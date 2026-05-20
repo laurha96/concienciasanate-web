@@ -1,105 +1,167 @@
-export type EthicsPillarKey =
+export type EthicsSectionKey =
+  | "we-do"
+  | "we-dont"
   | "professional-help"
-  | "emotional-safety"
-  | "evidence"
-  | "privacy";
+  | "emotional-safety";
 
-export type EthicsPillar = {
-  key: EthicsPillarKey;
+export type EthicsSectionVariant = "positive" | "negative" | "guidance" | "safety";
+
+export type EthicsSectionItem = {
+  label: string;
+  detail: string;
+};
+
+export type EthicsSection = {
+  key: EthicsSectionKey;
+  variant: EthicsSectionVariant;
   badge: string;
   title: string;
   lead: string;
-  points: readonly string[];
+  items: readonly EthicsSectionItem[];
 };
 
 export const aboutEthicsCopy = {
   eyebrow: "Ética y límites",
-  title: "Cuidado informado, con límites que protegen",
+  title: "Transparencia como parte del cuidado",
   description:
-    "Creemos que la confianza no se construye con promesas amplias, sino con honestidad sobre lo que una plataforma digital puede aportar — y lo que debe quedar en manos de un profesional. Hablamos con claridad para que puedas decidir con tranquilidad.",
+    "En salud mental, la confianza no se gana con promesas amplias, sino con honestidad sobre el alcance de una herramienta digital. Decimos con claridad qué puedes esperar aquí y qué debe seguir en manos de un profesional — para que puedas elegir con tranquilidad y criterio.",
   clinicalBadges: [
-    "Marco clínico",
-    "Límites explícitos",
+    "Alcance explícito",
+    "Límites del producto",
     "Seguridad emocional",
     "Sin diagnóstico automático",
   ] as const,
-  boundaries: {
-    weDo: {
-      title: "Qué hacemos",
-      lead: "Acompañamos procesos de comprensión y regulación con herramientas educativas y prácticas, siempre dentro de un marco ético.",
+  sections: [
+    {
+      key: "we-do",
+      variant: "positive",
+      badge: "Alcance",
+      title: "Lo que sí ofrecemos",
+      lead: "Acompañamos procesos de comprensión y regulación mediante educación y herramientas prácticas, dentro de un marco ético que no sustituye una evaluación clínica individual.",
       items: [
-        "Psicoeducación basada en evidencia, con lenguaje claro y aplicable",
-        "Herramientas de regulación emocional y hábitos sostenibles en la vida cotidiana",
-        "Recursos para comprender experiencias emocionales sin etiquetar ni diagnosticar",
-        "Orientación respetuosa sobre cuándo conviene ampliar el cuidado con un profesional",
-        "Tecnología clínica (Elynthis) para organizar el trabajo profesional, no para sustituirlo",
+        {
+          label: "Psicoeducación",
+          detail:
+            "Contenido estructurado para entender experiencias emocionales, con lenguaje claro y modelos con respaldo científico.",
+        },
+        {
+          label: "Herramientas prácticas",
+          detail:
+            "Ejercicios y protocolos aplicables en la vida cotidiana, con instrucciones concretas y ritmo ajustable.",
+        },
+        {
+          label: "Regulación emocional",
+          detail:
+            "Habilidades para modular ansiedad, estrés y activación, sin prometer mejoras instantáneas ni resultados garantizados.",
+        },
+        {
+          label: "Contenido con evidencia",
+          detail:
+            "Marcos de TCC, regulación emocional y ciencia del comportamiento traducidos con rigor y accesibilidad.",
+        },
       ],
     },
-    weDoNot: {
-      title: "Qué no hacemos",
-      lead: "Estos límites no son restricciones comerciales: son parte de un cuidado responsable de tu salud mental.",
+    {
+      key: "we-dont",
+      variant: "negative",
+      badge: "Límites",
+      title: "Lo que no hacemos",
+      lead: "Estos límites no son obstáculos comerciales: son parte de un cuidado responsable de tu salud mental y de la relación con el tratamiento profesional cuando lo necesitas.",
       items: [
-        "No sustituimos psicoterapia, vínculo terapéutico ni acompañamiento clínico presencial",
-        "No diagnosticamos, etiquetamos ni “clasificamos” de forma automática",
-        "No prometemos curas, tiempos fijos de mejora ni resultados garantizados",
-        "No reemplazamos valoración médica, psiquiátrica ni atención de urgencias",
-        "No utilizamos culpa, urgencia artificial ni mensajes de productividad extrema",
+        {
+          label: "Diagnóstico automatizado",
+          detail:
+            "No clasificamos ni etiquetamos mediante algoritmos, cuestionarios automáticos ni perfiles generados por la plataforma.",
+        },
+        {
+          label: "Sustituto de terapia",
+          detail:
+            "No reemplazamos psicoterapia, vínculo terapéutico ni el criterio de un profesional acreditado.",
+        },
+        {
+          label: "Promesas de cura",
+          detail:
+            "No garantizamos curación, plazos fijos de mejora ni resultados iguales para todas las personas.",
+        },
+        {
+          label: "Urgencias y crisis",
+          detail:
+            "No somos un servicio de emergencia ni de contención inmediata en situaciones de riesgo.",
+        },
       ],
     },
-  },
-  pillars: [
     {
       key: "professional-help",
+      variant: "guidance",
       badge: "Derivación",
-      title: "Cuándo buscar ayuda profesional",
-      lead: "El autocuidado tiene un lugar valioso. También lo tiene saber cuándo conviene un acompañamiento más especializado.",
-      points: [
-        "Cuando el malestar interfiere de forma persistente con tu trabajo, relaciones o descanso",
-        "Si aparecen pensamientos de hacerte daño, de dañar a otros o de no querer seguir viviendo",
-        "Si sospechas que necesitas una evaluación formal o un tratamiento específico",
-        "Si hay síntomas físicos relevantes que conviene valorar con atención médica",
-        "Si llevas tiempo aplicando herramientas y notas que el malestar no disminuye o empeora",
+      title: "Cuándo conviene ayuda profesional",
+      lead: "El autocuido tiene un lugar importante. También lo tiene reconocer cuándo el malestar desborda tus recursos habituales y requiere evaluación o tratamiento especializado.",
+      items: [
+        {
+          label: "Malestar intenso o persistente",
+          detail:
+            "Cuando el sufrimiento es fuerte, no cede con el tiempo o interfiere de forma sostenida con tu vida.",
+        },
+        {
+          label: "Crisis aguda",
+          detail:
+            "Episodios de descompensación que necesitan evaluación y contención profesional en el momento.",
+        },
+        {
+          label: "Riesgo para la vida",
+          detail:
+            "Pensamientos de hacerte daño, de dañar a otras personas o de no querer seguir viviendo requieren atención especializada de inmediato.",
+        },
+        {
+          label: "Trauma complejo",
+          detail:
+            "Experiencias traumáticas que conviene abordar con un profesional formado en trauma y regulación del sistema nervioso.",
+        },
+        {
+          label: "Deterioro en lo cotidiano",
+          detail:
+            "Cuando trabajar, relacionarte, descansar o cuidar de ti se vuelve de forma continua más difícil de lo habitual.",
+        },
       ],
     },
     {
       key: "emotional-safety",
-      badge: "Contención",
-      title: "Seguridad emocional",
-      lead: "Diseñamos la experiencia para que se sienta contenida y predecible, no invasiva ni exigente.",
-      points: [
-        "Lenguaje que no avergüenza, no culpa y no apura decisiones importantes",
-        "Ritmo y estructura que favorecen la claridad, no la sobreestimulación",
-        "Espacio para pausar, reflexionar y elegir qué profundizar",
-        "Derivación respetuosa cuando el autocuidado digital no es suficiente",
+      variant: "safety",
+      badge: "Experiencia",
+      title: "Seguridad emocional en el diseño",
+      lead: "Diseñamos la experiencia para que se sienta predecible, respetuosa y contenida — no invasiva, culpabilizante ni exigente.",
+      items: [
+        {
+          label: "Lenguaje cuidadoso",
+          detail:
+            "Nombramos experiencias sin avergonzar, sin culpar y sin convertir el malestar en un defecto de carácter.",
+        },
+        {
+          label: "Respeto al ritmo",
+          detail:
+            "Tus decisiones y tu dignidad orientan cómo presentamos cada recurso. Puedes pausar o dejar de usar algo sin presión.",
+        },
+        {
+          label: "Autonomía",
+          detail:
+            "Tú eliges qué profundizar. La plataforma informa y acompaña; no dirige tu vida emocional.",
+        },
+        {
+          label: "Límites visibles",
+          detail:
+            "Explicamos con transparencia qué ofrecemos y qué queda fuera de nuestro alcance.",
+        },
       ],
     },
-    {
-      key: "evidence",
-      badge: "Evidencia",
-      title: "Basado en evidencia",
-      lead: "Nos guiamos por modelos y prácticas con respaldo científico, comunicados con honestidad sobre sus alcances.",
-      points: [
-        "Marco en psicología basada en evidencia, regulación emocional y ciencia del comportamiento",
-        "Distinción clara entre educación, herramientas de apoyo y tratamiento clínico",
-        "Prioridad por intervenciones pequeñas, repetibles y sostenibles",
-        "Revisión de criterios con perspectiva profesional, no solo tendencias digitales",
-      ],
-    },
-    {
-      key: "privacy",
-      badge: "Respeto",
-      title: "Privacidad y respeto",
-      lead: "Tu experiencia emocional merece discreción, autonomía y explicaciones comprensibles sobre el uso de la plataforma.",
-      points: [
-        "Recogemos solo lo necesario para ofrecer las funciones que utilizas",
-        "Información sobre finalidad y límites del uso de herramientas digitales",
-        "Respeto por tu ritmo, tus decisiones y tu derecho a dejar de usar un recurso",
-        "Sin sensacionalismo ni explotación del malestar con fines comerciales",
-      ],
-    },
-  ] satisfies EthicsPillar[],
+  ] satisfies EthicsSection[],
   crisisNote: {
-    title: "Si necesitas apoyo inmediato",
-    body: "Si estás en una situación de riesgo para tu integridad o la de otras personas, contacta con servicios de urgencias o con una línea de crisis de tu país. Conciencia Sánate puede acompañar procesos de bienestar, pero no sustituye una respuesta de emergencia.",
+    title: "Si necesitas apoyo ahora mismo",
+    body: "Si hay riesgo para tu integridad o la de otras personas, contacta con servicios de urgencias o con una línea de crisis de tu país. Conciencia Sánate puede acompañar procesos de bienestar, pero no sustituye una respuesta de emergencia.",
   },
 } as const;
+
+/** @deprecated Usar EthicsSectionKey — alias de compatibilidad */
+export type EthicsPillarKey = EthicsSectionKey;
+
+/** @deprecated Usar EthicsSection */
+export type EthicsPillar = EthicsSection;

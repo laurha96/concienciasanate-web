@@ -1,14 +1,48 @@
-import { ABOUT_SEO } from "@/components/about/about-data";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.concienciasanate.com";
+import {
+  ABOUT_PAGE_SECTIONS,
+  ABOUT_SEO,
+} from "@/components/about/about-seo";
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  absoluteUrl,
+  safeJsonLd,
+  siteUrl,
+} from "@/lib/seo";
 
 export function AboutJsonLd() {
-  const pageUrl = new URL(ABOUT_SEO.path, siteUrl).toString();
+  const pageUrl = absoluteUrl(ABOUT_SEO.path);
+  const ogImageUrl = absoluteUrl(DEFAULT_OG_IMAGE.url);
 
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
+        name: SITE_NAME,
+        inLanguage: "es",
+        publisher: { "@id": `${siteUrl}/#organization` },
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: SITE_NAME,
+        url: siteUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: absoluteUrl("/icons/icon.png"),
+        },
+        description: ABOUT_SEO.description,
+        knowsAbout: [
+          "Psicología basada en evidencia",
+          "Regulación emocional",
+          "Terapia cognitivo-conductual",
+          "Salud mental digital",
+          "Tecnología clínica",
+        ],
+      },
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -17,28 +51,45 @@ export function AboutJsonLd() {
         description: ABOUT_SEO.description,
         isPartOf: { "@id": `${siteUrl}/#website` },
         about: { "@id": `${siteUrl}/#organization` },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: ogImageUrl,
+          width: DEFAULT_OG_IMAGE.width,
+          height: DEFAULT_OG_IMAGE.height,
+        },
         inLanguage: "es",
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+        mainEntity: { "@id": `${pageUrl}#sections` },
       },
       {
-        "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
-        name: "Conciencia Sánate",
-        url: siteUrl,
-        description: ABOUT_SEO.description,
-        knowsAbout: [
-          "Psicología basada en evidencia",
-          "Regulación emocional",
-          "Salud mental digital",
-          "Tecnología clínica",
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Inicio",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Sobre",
+            item: pageUrl,
+          },
         ],
       },
       {
-        "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: siteUrl,
-        name: "Conciencia Sánate",
-        publisher: { "@id": `${siteUrl}/#organization` },
-        inLanguage: "es",
+        "@type": "ItemList",
+        "@id": `${pageUrl}#sections`,
+        name: "Contenido de la página Sobre",
+        itemListElement: ABOUT_PAGE_SECTIONS.map((section, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: section.label,
+          description: section.description,
+          url: `${pageUrl}#${section.id}`,
+        })),
       },
     ],
   };
@@ -46,7 +97,7 @@ export function AboutJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(structuredData) }}
     />
   );
 }
