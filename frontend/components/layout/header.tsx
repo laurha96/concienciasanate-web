@@ -11,6 +11,7 @@ import {
   ElynthisNavMobile,
 } from "@/components/layout/elynthis-nav-menu";
 import { HeaderAuthActions } from "@/components/layout/header-auth-actions";
+import { HeaderMoreMenu } from "@/components/layout/header-more-menu";
 import { Logo } from "@/components/layout/logo";
 import { mobileNavLinkClass, navLinkClass } from "@/components/layout/nav-styles";
 import { Button } from "@/components/ui/button";
@@ -68,7 +69,7 @@ export function Header() {
         </Link>
 
         <nav
-          className="hidden items-center justify-self-center gap-0.5 xl:flex"
+          className="hidden items-center justify-self-center gap-0.5 lg:flex"
           aria-label="Navegación principal"
         >
           {siteNavItems.map((item) => {
@@ -76,26 +77,31 @@ export function Header() {
               return <ElynthisNavMenu key={item.href} pathname={pathname} />;
             }
             const active = isNavActive(pathname, item.href);
+            const isPrimary = item.href === "/";
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={navLinkClass(active)}
+                className={cn(
+                  navLinkClass(active),
+                  !isPrimary && "hidden xl:inline-flex"
+                )}
               >
                 {item.label}
               </Link>
             );
           })}
+          <HeaderMoreMenu pathname={pathname} className="xl:hidden" />
         </nav>
 
         <div className="col-start-3 flex items-center justify-end justify-self-end gap-2">
-          <div className="hidden items-center gap-2 xl:flex">
-            <ElynthisAccessMenu />
+          <div className="hidden items-center gap-1.5 lg:flex xl:gap-2">
+            <ElynthisAccessMenu className="px-3 xl:px-4" />
             <HeaderAuthActions />
           </div>
 
-          <div className="flex items-center gap-2 xl:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button
