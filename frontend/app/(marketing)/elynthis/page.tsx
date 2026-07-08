@@ -5,8 +5,12 @@ import Link from "next/link";
 import { Hero } from "@/components/healthtech/hero";
 import { ElynthisWorkflow } from "@/components/healthtech/elynthis-workflow";
 import { SectionHeading } from "@/components/sections/section-heading";
+import { PrimaryButton, SecondaryButton } from "@/components/brand";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { elynthisAccess } from "@/lib/site-nav";
+
+const [ELYNTHIS_CLINICAL, ELYNTHIS_CARE] = elynthisAccess.options;
 
 export const metadata: Metadata = {
   title: "Elynthis",
@@ -22,7 +26,25 @@ export default function ElynthisPage() {
         subtitle="Un producto clínico para organizar pacientes, agenda, registros y monitoreo. Diseñado con claridad, trazabilidad y un flujo de trabajo suave."
         primaryCta={{ label: "Solicitar demo", href: "/contacto" }}
         secondaryCta={{ label: "Ver módulos", href: "#modulos" }}
-      />
+      >
+        <div className="mt-6 max-w-md rounded-2xl border border-border/60 bg-background-soft/70 p-4 sm:p-5">
+          <p className="text-xs font-medium tracking-tight text-muted-foreground">
+            ¿Ya tienes una cuenta en Elynthis?
+          </p>
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <PrimaryButton asChild size="sm" className="w-full sm:w-auto">
+              <a href={ELYNTHIS_CLINICAL.href}>Ingresar como profesional</a>
+            </PrimaryButton>
+            <SecondaryButton
+              asChild
+              size="sm"
+              className="w-full border-primary/50 bg-card text-[var(--green-secondary)] hover:bg-primary/5 sm:w-auto"
+            >
+              <a href={ELYNTHIS_CARE.href}>Ingresar como paciente</a>
+            </SecondaryButton>
+          </div>
+        </div>
+      </Hero>
 
       {/* Module grid */}
       <section id="modulos" className="py-20 sm:py-24">

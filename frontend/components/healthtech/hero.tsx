@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,8 @@ export type HeroProps = {
   primaryCta: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   className?: string;
+  /** Contenido secundario opcional debajo de los CTA principales. */
+  children?: ReactNode;
 };
 
 export function Hero({
@@ -17,6 +20,7 @@ export function Hero({
   primaryCta,
   secondaryCta,
   className,
+  children,
 }: HeroProps) {
   return (
     <section className={cn("py-20 sm:py-24", className)}>
@@ -38,6 +42,7 @@ export function Hero({
               </Button>
             ) : null}
           </div>
+          {children}
         </div>
       </div>
     </section>

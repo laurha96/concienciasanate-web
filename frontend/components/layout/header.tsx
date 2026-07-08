@@ -5,8 +5,14 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { Menu, X } from "lucide-react";
 
+import { ElynthisAccessMenu } from "@/components/layout/elynthis-access-menu";
+import {
+  ElynthisNavMenu,
+  ElynthisNavMobile,
+} from "@/components/layout/elynthis-nav-menu";
 import { HeaderAuthActions } from "@/components/layout/header-auth-actions";
 import { Logo } from "@/components/layout/logo";
+import { mobileNavLinkClass, navLinkClass } from "@/components/layout/nav-styles";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,26 +24,6 @@ import {
 } from "@/components/ui/sheet";
 import { isNavActive, siteNavItems } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
-
-function navLinkClass(active: boolean) {
-  return cn(
-    "rounded-full px-3 py-2 text-sm font-medium tracking-tight transition-colors duration-200",
-    "focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgb(var(--brand-primary-rgb)/0.35)]",
-    active
-      ? "bg-accent text-[var(--green-secondary)] shadow-soft"
-      : "text-muted-foreground hover:bg-accent/55 hover:text-foreground"
-  );
-}
-
-function mobileNavLinkClass(active: boolean) {
-  return cn(
-    "block rounded-2xl px-3 py-2.5 text-sm font-medium transition-colors",
-    "focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgb(var(--brand-primary-rgb)/0.35)]",
-    active
-      ? "bg-accent text-[var(--green-secondary)]"
-      : "text-foreground hover:bg-accent/55"
-  );
-}
 
 export function Header() {
   const pathname = usePathname() ?? "/";
@@ -86,6 +72,9 @@ export function Header() {
           aria-label="Navegación principal"
         >
           {siteNavItems.map((item) => {
+            if (item.href === "/elynthis") {
+              return <ElynthisNavMenu key={item.href} pathname={pathname} />;
+            }
             const active = isNavActive(pathname, item.href);
             return (
               <Link
@@ -102,6 +91,7 @@ export function Header() {
 
         <div className="col-start-3 flex items-center justify-end justify-self-end gap-2">
           <div className="hidden items-center gap-2 lg:flex">
+            <ElynthisAccessMenu />
             <HeaderAuthActions />
           </div>
 
@@ -129,7 +119,7 @@ export function Header() {
               <SheetContent
                 id="site-mobile-nav"
                 side="right"
-                className="flex w-[min(100vw-2rem,340px)] flex-col border-border/60 bg-brand-background/95 backdrop-blur-xl"
+                className="flex w-[min(100vw-2rem,340px)] flex-col overflow-y-auto border-border/60 bg-brand-background/95 backdrop-blur-xl"
               >
                 <SheetHeader className="border-b border-border/50 pb-4 text-left">
                   <SheetTitle className="font-display text-lg">Menú</SheetTitle>
@@ -139,6 +129,15 @@ export function Header() {
                   aria-label="Navegación móvil"
                 >
                   {siteNavItems.map((item) => {
+                    if (item.href === "/elynthis") {
+                      return (
+                        <ElynthisNavMobile
+                          key={item.href}
+                          pathname={pathname}
+                          onNavigate={() => setMobileOpen(false)}
+                        />
+                      );
+                    }
                     const active = isNavActive(pathname, item.href);
                     return (
                       <SheetClose asChild key={item.href}>
@@ -153,7 +152,11 @@ export function Header() {
                     );
                   })}
                 </nav>
-                <div className="mt-auto border-t border-border/50 pt-5">
+                <div className="mt-auto flex flex-col gap-4 border-t border-border/50 pt-5">
+                  <ElynthisAccessMenu
+                    layout="stacked"
+                    onNavigate={() => setMobileOpen(false)}
+                  />
                   <HeaderAuthActions layout="stacked" />
                 </div>
               </SheetContent>
