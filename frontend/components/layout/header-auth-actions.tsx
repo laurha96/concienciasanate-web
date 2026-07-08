@@ -29,11 +29,14 @@ type HeaderAuthActionsProps = {
   className?: string;
   /** En el sheet móvil los botones van a ancho completo */
   layout?: "inline" | "stacked";
+  /** Clases extra para cada botón (p. ej. padding responsive en desktop) */
+  buttonClassName?: string;
 };
 
 export function HeaderAuthActions({
   className,
   layout = "inline",
+  buttonClassName,
 }: HeaderAuthActionsProps) {
   const [user, setUser] = React.useState<SessionUser | null>(null);
   const envReady = safeGetClientEnv() !== null;
@@ -58,7 +61,11 @@ export function HeaderAuthActions({
   if (!envReady) {
     return (
       <div className={cn(stackClass, className)}>
-        <SecondaryButton asChild size="sm" className={layout === "stacked" ? "w-full" : undefined}>
+        <SecondaryButton
+          asChild
+          size="sm"
+          className={cn(layout === "stacked" && "w-full", buttonClassName)}
+        >
           <Link href={authRoutes.login}>Entrar</Link>
         </SecondaryButton>
       </div>
@@ -71,14 +78,14 @@ export function HeaderAuthActions({
         <SecondaryButton
           asChild
           size="sm"
-          className={layout === "stacked" ? "w-full" : undefined}
+          className={cn(layout === "stacked" && "w-full", buttonClassName)}
         >
           <Link href={authRoutes.login}>Entrar</Link>
         </SecondaryButton>
         <PrimaryButton
           asChild
           size="sm"
-          className={layout === "stacked" ? "w-full" : undefined}
+          className={cn(layout === "stacked" && "w-full", buttonClassName)}
         >
           <Link href={authRoutes.register}>Crear cuenta</Link>
         </PrimaryButton>
@@ -94,7 +101,10 @@ export function HeaderAuthActions({
         <Button
           variant="secondary"
           size="sm"
-          className="gap-2 rounded-full border-border/80 bg-brand-surface/90 shadow-soft"
+          className={cn(
+            "gap-2 rounded-full border-border/80 bg-brand-surface/90 shadow-soft",
+            buttonClassName
+          )}
         >
           <Avatar className="h-6 w-6">
             <AvatarFallback className="text-[10px]">{initials}</AvatarFallback>

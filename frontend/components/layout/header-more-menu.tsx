@@ -13,17 +13,10 @@ import { navLinkClass } from "@/components/layout/nav-styles";
 import { isNavActive, siteNavItems } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
-/** Rutas que permanecen siempre visibles en el nav (no entran en "Más"). */
-const PRIMARY_HREFS = new Set(["/", "/elynthis"]);
-
-/** Links secundarios que se agrupan en "Más" en anchos tipo laptop. */
-export const secondaryNavItems = siteNavItems.filter(
-  (item) => !PRIMARY_HREFS.has(item.href)
-);
-
 /**
- * Menú "Más": agrupa los links secundarios en pantallas laptop (lg–xl),
- * donde no cabe la navegación completa. Oculto en desktop grande (xl+).
+ * Menú "Más": agrupa TODA la navegación principal en anchos tipo laptop
+ * (1100–1279px), donde no cabe la barra completa. Oculto en desktop (xl+)
+ * mediante la clase que le pasa el header.
  */
 export function HeaderMoreMenu({
   pathname,
@@ -32,9 +25,7 @@ export function HeaderMoreMenu({
   pathname: string;
   className?: string;
 }) {
-  const active = secondaryNavItems.some((item) =>
-    isNavActive(pathname, item.href)
-  );
+  const active = siteNavItems.some((item) => isNavActive(pathname, item.href));
 
   return (
     <DropdownMenu>
@@ -42,11 +33,7 @@ export function HeaderMoreMenu({
         <button
           type="button"
           aria-label="Más secciones"
-          className={cn(
-            "group inline-flex items-center gap-1",
-            navLinkClass(active),
-            className
-          )}
+          className={cn("group gap-1", navLinkClass(active), className)}
         >
           Más
           <ChevronDown
@@ -60,7 +47,7 @@ export function HeaderMoreMenu({
         sideOffset={10}
         className="w-52 rounded-2xl border-border/70 p-1.5 shadow-soft"
       >
-        {secondaryNavItems.map((item) => {
+        {siteNavItems.map((item) => {
           const itemActive = isNavActive(pathname, item.href);
           return (
             <DropdownMenuItem

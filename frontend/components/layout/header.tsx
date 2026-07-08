@@ -26,6 +26,14 @@ import {
 import { isNavActive, siteNavItems } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
+/**
+ * Debug del layout del header. Pon en `true` para registrar en consola el
+ * ancho de viewport y el breakpoint activo mientras redimensionas (útil en
+ * DevTools). Usa `window.innerWidth` (viewport CSS, sensible al zoom),
+ * NUNCA `screen.width` (resolución física).
+ */
+const DEBUG_HEADER: boolean = false;
+
 export function Header() {
   const pathname = usePathname() ?? "/";
   const [scrolled, setScrolled] = React.useState(false);
@@ -37,6 +45,27 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  React.useEffect(() => {
+    if (!DEBUG_HEADER || process.env.NODE_ENV === "production") return;
+    const log = () => {
+      const w = window.innerWidth;
+      const layout =
+        w < 1100
+          ? "hamburguesa (<1100)"
+          : w < 1280
+            ? "laptop · Más (1100–1279)"
+            : w < 1440
+              ? "compacto (1280–1439)"
+              : "completo (≥1440)";
+      console.debug(
+        `[header] viewport=${w}px · layout=${layout} · menú=${mobileOpen ? "abierto" : "cerrado"}`
+      );
+    };
+    log();
+    window.addEventListener("resize", log);
+    return () => window.removeEventListener("resize", log);
+  }, [mobileOpen]);
 
   if (pathname.startsWith("/admin")) return null;
 
@@ -55,53 +84,54 @@ export function Header() {
             : "border-white/25 bg-white/20 backdrop-blur-md supports-[backdrop-filter]:bg-white/14")
       )}
     >
-      <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-x-[clamp(0.5rem,1.5vw,1.25rem)] overflow-x-clip px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgb(var(--brand-primary-rgb)/0.35)]"
+          className="flex shrink-0 items-center rounded-xl focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgb(var(--brand-primary-rgb)/0.35)]"
           aria-label="Conciencia Sánate — ir al inicio"
         >
           <Logo
-            className="gap-3 sm:gap-4"
+            className="gap-2.5 sm:gap-4"
             nameClassName="text-base font-semibold leading-none tracking-tight sm:text-lg"
             subtitleClassName="mt-0.5 text-[10px] leading-none text-muted-foreground sm:text-[11px]"
           />
         </Link>
 
         <nav
-          className="hidden items-center justify-self-center gap-0.5 lg:flex"
+          className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 min-[1100px]:flex"
           aria-label="Navegación principal"
         >
           {siteNavItems.map((item) => {
             if (item.href === "/elynthis") {
-              return <ElynthisNavMenu key={item.href} pathname={pathname} />;
+              return (
+                <div key={item.href} className="hidden xl:flex">
+                  <ElynthisNavMenu pathname={pathname} />
+                </div>
+              );
             }
             const active = isNavActive(pathname, item.href);
-            const isPrimary = item.href === "/";
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={cn(
-                  navLinkClass(active),
-                  !isPrimary && "hidden xl:inline-flex"
-                )}
+                className={cn(navLinkClass(active), "hidden xl:inline-flex")}
               >
                 {item.label}
               </Link>
             );
           })}
+          {/* Laptop (1100–1279px): toda la navegación se agrupa en "Más" */}
           <HeaderMoreMenu pathname={pathname} className="xl:hidden" />
         </nav>
 
-        <div className="col-start-3 flex items-center justify-end justify-self-end gap-2">
-          <div className="hidden items-center gap-1.5 lg:flex xl:gap-2">
-            <ElynthisAccessMenu className="px-3 xl:px-4" />
-            <HeaderAuthActions />
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 xl:gap-2">
+          <div className="hidden items-center gap-1.5 min-[1100px]:flex xl:gap-2">
+            <ElynthisAccessMenu className="px-[clamp(0.625rem,1vw,1rem)]" />
+            <HeaderAuthActions buttonClassName="px-[clamp(0.7rem,1vw,1rem)]" />
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center min-[1100px]:hidden">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button
