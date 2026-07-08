@@ -68,7 +68,7 @@ export function Header() {
         </Link>
 
         <nav
-          className="hidden items-center justify-self-center gap-0.5 lg:flex"
+          className="hidden items-center justify-self-center gap-0.5 xl:flex"
           aria-label="Navegación principal"
         >
           {siteNavItems.map((item) => {
@@ -90,12 +90,12 @@ export function Header() {
         </nav>
 
         <div className="col-start-3 flex items-center justify-end justify-self-end gap-2">
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className="hidden items-center gap-2 xl:flex">
             <ElynthisAccessMenu />
             <HeaderAuthActions />
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button
