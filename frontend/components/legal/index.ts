@@ -1,0 +1,12 @@
+export { LegalBackToTop } from "@/components/legal/legal-back-to-top";
+export { LegalBlocks } from "@/components/legal/legal-blocks";
+export { LegalBreadcrumbs } from "@/components/legal/legal-breadcrumbs";
+export { LegalDocumentNav } from "@/components/legal/legal-document-nav";
+export { LegalDocumentShell } from "@/components/legal/legal-document-shell";
+export { LegalHub } from "@/components/legal/legal-hub";
+export { LegalDocumentJsonLd, LegalHubJsonLd } from "@/components/legal/legal-json-ld";
+export { LegalPage, buildLegalPageMetadata } from "@/components/legal/legal-page";
+export { LegalPrintButton } from "@/components/legal/legal-print-button";
+export { LegalSearch } from "@/components/legal/legal-search";
+export { LegalSignForm } from "@/components/legal/legal-sign-form";
+export { LegalToc } from "@/components/legal/legal-toc";

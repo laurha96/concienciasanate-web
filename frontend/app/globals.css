@@ -426,3 +426,32 @@
     transform: scale(1.12);
   }
 }
+
+/* Centro Legal — impresión */
+@media print {
+  header,
+  footer,
+  .legal-sidebar,
+  .legal-toc,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .legal-document {
+    background: white !important;
+    color: black !important;
+  }
+
+  .legal-document a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  .legal-document section {
+    break-inside: avoid;
+  }
+
+  main {
+    min-height: 0 !important;
+  }
+}
