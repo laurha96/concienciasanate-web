@@ -102,7 +102,7 @@ export function LegalDocumentShell({ document }: { document: LegalDocument }) {
           </header>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[260px_minmax(0,1fr)]">
-            <aside className="legal-sidebar print:hidden lg:sticky lg:top-24 lg:self-start">
+            <aside className="legal-sidebar hidden print:hidden lg:sticky lg:top-24 lg:block lg:self-start">
               <div className="rounded-3xl border border-border/60 bg-brand-surface/75 p-4 shadow-[0_16px_40px_rgba(34,34,34,0.04)] backdrop-blur-md">
                 <LegalToc
                   articles={document.articles}
