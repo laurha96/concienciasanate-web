@@ -16,6 +16,21 @@ const nextConfig: NextConfig = {
     return [
       { source: "/auth/login", destination: "/login", permanent: true },
       { source: "/auth/register", destination: "/registro", permanent: true },
+      {
+        source: "/privacidad",
+        destination: "/Politica-de-Privacidad",
+        permanent: true,
+      },
+      {
+        source: "/terminos",
+        destination: "/Terminos-&-Condiciones",
+        permanent: true,
+      },
+      {
+        source: "/legal",
+        destination: "/Centro-Legal",
+        permanent: true,
+      },
     ];
   },
   async headers() {

@@ -56,7 +56,7 @@ function FooterColumn({
       >
         {title}
       </p>
-      <ul className="mt-4 space-y-3 sm:mt-5 sm:space-y-3.5">{children}</ul>
+      <ul className="mt-4 space-y-2.5 sm:mt-5 sm:space-y-3">{children}</ul>
     </nav>
   );
 }
@@ -180,7 +180,7 @@ export function Footer() {
                     ))}
                   </FooterColumn>
 
-                  <FooterColumn title="Legal">
+                  <FooterColumn title="Legal" className="col-span-2 sm:col-span-1">
                     {allLegal.map((link) => (
                       <FooterLinkItem
                         key={link.href}
