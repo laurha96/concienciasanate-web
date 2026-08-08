@@ -1,35 +1,132 @@
-import { LEGAL_CONTACTS, LEGAL_ENTITY, THIRD_PARTY_SERVICES } from "@/lib/legal/constants";
-import type { LegalDocument } from "@/lib/legal/types";
+import {
+  DELETE_ACCOUNT_PATH,
+  LEGAL_CONTACTS,
+  LEGAL_ENTITY,
+  PRIVACY_PATH,
+  TERMS_PATH,
+  THIRD_PARTY_SERVICES,
+} from "@/lib/legal/constants";
+import { embedSourceAsSection, mergeDefinitions } from "@/lib/legal/compose";
+import { avisoLegalDocument } from "@/lib/legal/content/aviso-legal";
+import { cumplimientoDocument } from "@/lib/legal/content/cumplimiento";
+import type { LegalArticle, LegalDocument } from "@/lib/legal/types";
+
+const avisoSection = embedSourceAsSection({
+  source: avisoLegalDocument,
+  sectionId: "aviso-legal",
+  sectionNumber: "Artículo 25",
+  sectionTitle: "Aviso legal, titularidad y responsabilidad",
+  numberPrefix: "25",
+  introBlocks: [
+    {
+      type: "p",
+      text: "Esta sección incorpora el Aviso Legal previamente publicado de forma independiente, incluyendo identificación del titular u operador, naturaleza del sitio, propósito informativo, límites del contenido, propiedad intelectual, marcas, enlaces externos, disponibilidad, errores, limitaciones de responsabilidad, jurisdicción y contacto.",
+    },
+  ],
+});
+
+const cumplimientoSection = embedSourceAsSection({
+  source: cumplimientoDocument,
+  sectionId: "cumplimiento-legal-y-normativo",
+  sectionNumber: "Artículo 26",
+  sectionTitle: "Cumplimiento legal y normativo",
+  numberPrefix: "26",
+  introBlocks: [
+    {
+      type: "p",
+      text: "Esta sección consolida el documento de Cumplimiento Normativo: condiciones de alineamiento legal, responsabilidades profesionales, historia clínica, interoperabilidad, RDA/IHCE, seguridad, consentimientos y marco de referencia. Elynthis es una herramienta tecnológica y no sustituye el juicio clínico; el profesional permanece responsable de la atención y de la historia clínica. Las materias exclusivamente de privacidad y tratamiento de datos se desarrollan además en la Política de Privacidad.",
+    },
+    {
+      type: "ul",
+      items: [
+        `Datos personales, cookies, seguridad técnica detallada y eliminación de cuenta: ${PRIVACY_PATH}`,
+        `Google, Limited Use e inteligencia artificial: ${PRIVACY_PATH}#google-apis y ${PRIVACY_PATH}#inteligencia-artificial`,
+        `Conservación y derechos del Titular: ${PRIVACY_PATH}#conservacion-eliminacion y ${PRIVACY_PATH}#derechos-titulares`,
+      ],
+    },
+  ],
+});
+
+const relationArticle: LegalArticle = {
+  id: "relacion-politica-privacidad",
+  number: "Artículo 27",
+  title: "Relación con la Política de Privacidad",
+  blocks: [
+    {
+      type: "p",
+      text: `El tratamiento de datos personales, cookies, seguridad de la información, eliminación de cuenta, Google, inteligencia artificial, conservación y derechos del Titular se rige por la Política de Privacidad y Tratamiento de Datos Personales publicada en ${PRIVACY_PATH}. Estos Términos no reducen las garantías de esa Política.`,
+    },
+    {
+      type: "ul",
+      items: [
+        `Política de Privacidad: ${PRIVACY_PATH}`,
+        `Cookies y preferencias: ${PRIVACY_PATH}#cookies-tecnologias-analitica-y-preferencias`,
+        `Seguridad de la información: ${PRIVACY_PATH}#seguridad-de-la-informacion`,
+        `Cierre de cuenta y supresión: ${PRIVACY_PATH}#cierre-y-supresion-de-datos`,
+        `Datos sensibles y clínicos: ${PRIVACY_PATH}#datos-personales-sensibles-y-clinicos`,
+      ],
+    },
+  ],
+};
+
+const consolidationArticle: LegalArticle = {
+  id: "consolidacion-documental-terminos",
+  number: "Artículo 28",
+  title: "Consolidación documental y vigencia",
+  blocks: [
+    {
+      type: "p",
+      text: "La versión 1.1.0 de estos Términos consolidó el Aviso Legal y el documento de Cumplimiento Normativo. La versión 1.2.0 aclara el cierre de cuenta frente a la conservación documental. La aceptación de estos Términos implica el conocimiento de las secciones consolidadas.",
+    },
+  ],
+};
+
+const accountClosureArticle: LegalArticle = {
+  id: "cierre-de-cuenta-y-custodia",
+  number: "Artículo 29",
+  title: "Cierre de cuenta, custodia y conservación documental",
+  blocks: [
+    {
+      type: "p",
+      text: `Cerrar una cuenta de acceso no equivale a eliminar historias clínicas, consentimientos, firmas, RIPS, facturas ni otras evidencias sujetas a conservación legal. El procedimiento, los derechos de supresión cuando procedan y los bloqueos por retención se regulan en la Política de Privacidad (${PRIVACY_PATH}#cierre-y-supresion-de-datos) y en el formulario ${DELETE_ACCOUNT_PATH}.`,
+    },
+    {
+      type: "ul",
+      items: [
+        "Elynthis es una herramienta tecnológica y no sustituye el juicio clínico ni la custodia del Profesional o la institución Responsable.",
+        "El Profesional o la institución permanecen responsables de la atención, de la historia clínica y de los procedimientos de exportación, continuidad o transferencia antes del cierre definitivo.",
+        "La cancelación de una suscripción no extingue obligaciones de custodia, facturación ni conservación documental.",
+        "Queda prohibido utilizar el cierre de cuenta para destruir, alterar o hacer inaccesibles registros clínicos que deban conservarse.",
+        "Tras el cierre, el Usuario pierde el acceso ordinario; los documentos retenidos permanecen bloqueados y limitados a finalidades legales.",
+      ],
+    },
+  ],
+};
 
 export const terminosDocument: LegalDocument = {
   id: "terminos",
-  path: "/Terminos-&-Condiciones",
+  path: TERMS_PATH,
   title: "Términos y Condiciones de Uso",
   shortTitle: "Términos y Condiciones",
   summary:
-    "Condiciones contractuales del uso de Conciencia Sánate y de la suite Elynthis (Clinical, Care y Lite).",
+    "Condiciones de uso, aviso legal, responsabilidades, propiedad intelectual, pagos y cumplimiento contractual del ecosistema Elynthis.",
   description:
-    "Términos y Condiciones de uso de Conciencia Sánate y Elynthis: cuentas, responsabilidades de profesionales y pacientes, servicios de terceros, propiedad intelectual y jurisdicción colombiana.",
-  version: "1.0.0",
-  updatedAt: "2026-08-04",
-  effectiveDate: "2026-08-04",
+    "Términos y Condiciones de uso de Conciencia Sánate y Elynthis: cuentas, aviso legal, responsabilidades de profesionales y pacientes, cumplimiento normativo, propiedad intelectual y jurisdicción colombiana.",
+  version: "1.2.0",
+  updatedAt: "2026-08-08",
+  effectiveDate: "2026-08-08",
   category: "contractual",
   keywords: [
     "términos y condiciones",
+    "aviso legal",
+    "cumplimiento",
     "Elynthis",
     "Conciencia Sánate",
     "historia clínica electrónica",
     "teleconsulta",
     "Colombia",
   ],
-  relatedIds: [
-    "privacidad",
-    "cookies",
-    "aviso-legal",
-    "seguridad",
-    "proteccion-datos",
-    "cumplimiento",
-  ],
+  relatedIds: ["privacidad"],
   definitions: [
     {
       term: "Plataforma",
@@ -98,6 +195,7 @@ export const terminosDocument: LegalDocument = {
     },
   ],
   articles: [
+
     {
       id: "aceptacion",
       number: "Artículo 1",
@@ -549,6 +647,11 @@ export const terminosDocument: LegalDocument = {
         },
       ],
     },
+    ...avisoSection.articles,
+    ...cumplimientoSection.articles,
+    relationArticle,
+    consolidationArticle,
+    accountClosureArticle,
   ],
   annexes: [
     {
@@ -573,9 +676,15 @@ export const terminosDocument: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "Sin perjuicio de la lista completa en el Centro Legal y en Cumplimiento Normativo, estos Términos se interpretan de forma coherente con la Constitución Política, la Ley 1581 de 2012, la Ley 1751 de 2015, las normas de historia clínica e interoperabilidad (incluyendo Ley 2015 de 2020, Resolución 866 de 2021 y Resolución 1888 de 2025) y demás disposiciones vigentes.",
+          text: "Sin perjuicio de la sección de Cumplimiento legal y normativo de estos Términos y de la Política de Privacidad, estos Términos se interpretan de forma coherente con la Constitución Política, la Ley 1581 de 2012, la Ley 1751 de 2015, las normas de historia clínica e interoperabilidad (incluyendo Ley 2015 de 2020, Resolución 866 de 2021 y Resolución 1888 de 2025) y demás disposiciones vigentes.",
         },
       ],
     },
   ],
 };
+
+terminosDocument.definitions = mergeDefinitions(
+  terminosDocument.definitions,
+  avisoSection.definitions,
+  cumplimientoSection.definitions
+);

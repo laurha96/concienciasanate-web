@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { assertLoginAllowed } from "./accountClosureService";
 import { getSupabaseAdminClient } from "../utils/supabaseClient";
 
 export const loginSchema = z.object({
@@ -28,6 +29,8 @@ export async function loginWithPassword(input: z.infer<typeof loginSchema>) {
   if (!data.user) {
     throw new Error("Login failed");
   }
+
+  await assertLoginAllowed(data.user.id);
 
   return { user: data.user };
 }

@@ -19,7 +19,7 @@ export function LegalDocumentJsonLd({ document }: { document: LegalDocument }) {
         isPartOf: {
           "@type": "WebSite",
           name: SITE_NAME,
-          url: LEGAL_ENTITY.siteUrlWww,
+          url: LEGAL_ENTITY.siteUrl,
         },
         about: {
           "@type": "SoftwareApplication",
@@ -95,12 +95,12 @@ export function LegalHubJsonLd({
         url: hubUrl,
         name: "Centro Legal — Conciencia Sánate / Elynthis",
         description:
-          "Centro legal corporativo de Conciencia Sánate y Elynthis: términos, privacidad, seguridad, consentimientos y cumplimiento normativo en Colombia.",
+          "Centro legal de Conciencia Sánate y Elynthis: Términos y Condiciones y Política de Privacidad y Tratamiento de Datos Personales.",
         inLanguage: "es-CO",
         isPartOf: {
           "@type": "WebSite",
           name: SITE_NAME,
-          url: LEGAL_ENTITY.siteUrlWww,
+          url: LEGAL_ENTITY.siteUrl,
         },
         hasPart: documents.map((doc) => ({
           "@type": "WebPage",

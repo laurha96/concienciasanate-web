@@ -1,7 +1,6 @@
 import { EDUCATION_HUB_CATEGORIES } from "@/components/homepage/education-hub-data";
 import { buildEducationHubHref } from "@/lib/education-hub-links";
 import { footerLegalCenterLinks } from "@/lib/legal/content";
-import { LEGAL_HUB_PATH } from "@/lib/legal/constants";
 import { siteNavItems } from "@/lib/site-nav";
 
 export const footerCopy = {
@@ -40,10 +39,8 @@ export const footerResourceLinks = EDUCATION_HUB_CATEGORIES.filter((c) =>
   href: buildEducationHubHref(category),
 }));
 
-export const footerLegalLinks = [
-  { href: LEGAL_HUB_PATH, label: "Centro Legal" },
-  ...footerLegalCenterLinks,
-] as const;
+/** Solo los dos documentos legales principales (sin Centro Legal ni políticas satélite). */
+export const footerLegalLinks = [...footerLegalCenterLinks] as const;
 
 export const footerEthicsLinks = [
   { href: "/sobre#etica-limites", label: "Ética y límites" },
@@ -53,21 +50,8 @@ export const footerEthicsLinks = [
 ] as const;
 
 export function getOptionalLegalLinks(): { href: string; label: string }[] {
-  const optional: { href: string; label: string }[] = [];
-  const consent = process.env.NEXT_PUBLIC_LEGAL_CONSENT_PATH;
-  const dataTreatment = process.env.NEXT_PUBLIC_LEGAL_DATA_PATH;
-
-  // Evitar duplicar rutas ya publicadas en el Centro Legal.
-  const known = new Set<string>(footerLegalLinks.map((link) => link.href));
-
-  if (consent?.startsWith("/") && !known.has(consent)) {
-    optional.push({ href: consent, label: "Consentimiento informado" });
-  }
-  if (dataTreatment?.startsWith("/") && !known.has(dataTreatment)) {
-    optional.push({ href: dataTreatment, label: "Tratamiento de datos" });
-  }
-
-  return optional;
+  // No inyectar enlaces legales adicionales en el footer.
+  return [];
 }
 
 export function getSupportEmail(): string | null {

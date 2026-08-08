@@ -4,17 +4,25 @@ import type { NextRequest } from "next/server";
 const ADMIN_COOKIE = "admin_token";
 
 /**
- * Edge proxy: auth admin + redirect case-sensitive de /Eliminar-Cuenta.
- * No usar next.config para ese redirect: los redirects son case-insensitive
- * y generan bucle 308 hacia /eliminar-cuenta.
+ * Redirects case-sensitive que no pueden vivir en next.config
+ * (allí son case-insensitive y ciclan con las rutas canónicas en minúsculas).
  */
+const CASE_SENSITIVE_REDIRECTS: Record<string, { pathname: string; hash?: string }> =
+  {
+    "/Eliminar-Cuenta": {
+      pathname: "/eliminar-cuenta",
+    },
+    "/Centro-Legal": { pathname: "/centro-legal" },
+    "/Terminos-y-Condiciones": { pathname: "/terminos-y-condiciones" },
+  };
+
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-
-  // Comparación exacta (case-sensitive).
-  if (pathname === "/Eliminar-Cuenta") {
+  const target = CASE_SENSITIVE_REDIRECTS[pathname];
+  if (target) {
     const url = req.nextUrl.clone();
-    url.pathname = "/eliminar-cuenta";
+    url.pathname = target.pathname;
+    url.hash = target.hash ?? "";
     return NextResponse.redirect(url, 308);
   }
 
@@ -32,5 +40,10 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/Eliminar-Cuenta"],
+  matcher: [
+    "/admin/:path*",
+    "/Eliminar-Cuenta",
+    "/Centro-Legal",
+    "/Terminos-y-Condiciones",
+  ],
 };

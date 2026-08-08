@@ -24,10 +24,9 @@ export const consentimientoDatosDocument: LegalDocument = {
   ],
   relatedIds: [
     "privacidad",
-    "proteccion-datos",
+    "terminos",
     "consentimiento-teleconsulta",
     "consentimiento-psicologica",
-    "eliminar-cuenta",
   ],
   definitions: [
     {

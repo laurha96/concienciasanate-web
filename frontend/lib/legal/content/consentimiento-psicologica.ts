@@ -25,9 +25,8 @@ export const consentimientoPsicologicaDocument: LegalDocument = {
   relatedIds: [
     "consentimiento-datos",
     "consentimiento-teleconsulta",
-    "proteccion-datos",
     "privacidad",
-    "cumplimiento",
+    "terminos",
   ],
   definitions: [
     {

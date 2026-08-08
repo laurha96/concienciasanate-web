@@ -11,39 +11,106 @@ const securityHeaders = [
   },
 ];
 
+/**
+ * Redirecciones permanentes hacia los dos documentos canónicos.
+ *
+ * No incluir aquí variantes que solo cambian mayúsculas/minúsculas respecto
+ * de la ruta canónica (p. ej. /Centro-Legal → /centro-legal): los redirects
+ * de next.config son case-insensitive y generan bucles 308.
+ * Esas variantes se resuelven en proxy.ts con comparación exacta.
+ */
+const legalRedirects = [
+  {
+    source: "/Politica-de-Privacidad",
+    destination: "/privacidad",
+    permanent: true,
+  },
+  {
+    source: "/Politica-de-privacidad",
+    destination: "/privacidad",
+    permanent: true,
+  },
+  {
+    source: "/politica-de-privacidad",
+    destination: "/privacidad",
+    permanent: true,
+  },
+  {
+    source: "/Politica-de-Cookies",
+    destination: "/privacidad#cookies-tecnologias-analitica-y-preferencias",
+    permanent: true,
+  },
+  {
+    source: "/politica-de-cookies",
+    destination: "/privacidad#cookies-tecnologias-analitica-y-preferencias",
+    permanent: true,
+  },
+  {
+    source: "/Politica-de-Seguridad",
+    destination: "/privacidad#seguridad-de-la-informacion",
+    permanent: true,
+  },
+  {
+    source: "/politica-de-seguridad",
+    destination: "/privacidad#seguridad-de-la-informacion",
+    permanent: true,
+  },
+  {
+    source: "/Proteccion-de-Datos",
+    destination: "/privacidad#datos-personales-sensibles-y-clinicos",
+    permanent: true,
+  },
+  {
+    source: "/proteccion-de-datos",
+    destination: "/privacidad#datos-personales-sensibles-y-clinicos",
+    permanent: true,
+  },
+  // /eliminar-cuenta permanece como página pública operativa (formulario).
+  // Anclas de privacidad: #cierre-y-supresion-de-datos (+ #eliminacion-de-cuenta legacy).
+  {
+    source: "/Aviso-Legal",
+    destination: "/terminos-y-condiciones#aviso-legal",
+    permanent: true,
+  },
+  {
+    source: "/aviso-legal",
+    destination: "/terminos-y-condiciones#aviso-legal",
+    permanent: true,
+  },
+  {
+    source: "/Cumplimiento",
+    destination: "/terminos-y-condiciones#cumplimiento-legal-y-normativo",
+    permanent: true,
+  },
+  {
+    source: "/cumplimiento",
+    destination: "/terminos-y-condiciones#cumplimiento-legal-y-normativo",
+    permanent: true,
+  },
+  // Distinto de la canónica por el "&" — no colisiona por casing.
+  {
+    source: "/Terminos-&-Condiciones",
+    destination: "/terminos-y-condiciones",
+    permanent: true,
+  },
+  {
+    source: "/terminos",
+    destination: "/terminos-y-condiciones",
+    permanent: true,
+  },
+  {
+    source: "/legal",
+    destination: "/centro-legal",
+    permanent: true,
+  },
+] as const;
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/auth/login", destination: "/login", permanent: true },
       { source: "/auth/register", destination: "/registro", permanent: true },
-      // Privacidad canónica: /privacidad
-      // (destinos con path distinto; no usan solo cambio de casing)
-      {
-        source: "/Politica-de-Privacidad",
-        destination: "/privacidad",
-        permanent: true,
-      },
-      {
-        source: "/Politica-de-privacidad",
-        destination: "/privacidad",
-        permanent: true,
-      },
-      {
-        source: "/politica-de-privacidad",
-        destination: "/privacidad",
-        permanent: true,
-      },
-      // /Eliminar-Cuenta → /eliminar-cuenta se maneja en proxy.ts (case-sensitive)
-      {
-        source: "/terminos",
-        destination: "/Terminos-&-Condiciones",
-        permanent: true,
-      },
-      {
-        source: "/legal",
-        destination: "/Centro-Legal",
-        permanent: true,
-      },
+      ...legalRedirects,
     ];
   },
   async headers() {

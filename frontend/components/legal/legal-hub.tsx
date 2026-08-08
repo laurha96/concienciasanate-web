@@ -5,11 +5,7 @@ import { LegalBackToTop } from "@/components/legal/legal-back-to-top";
 import { LegalBreadcrumbs } from "@/components/legal/legal-breadcrumbs";
 import { LegalHubJsonLd } from "@/components/legal/legal-json-ld";
 import { LegalSearch } from "@/components/legal/legal-search";
-import {
-  LEGAL_CATEGORY_LABELS,
-  legalDocumentMetas,
-  legalDocuments,
-} from "@/lib/legal/content";
+import { primaryLegalDocumentMetas, primaryLegalDocuments } from "@/lib/legal/content";
 import {
   LEGAL_CORPUS_UPDATED_AT,
   LEGAL_CORPUS_VERSION,
@@ -19,20 +15,11 @@ import {
 import { formatLegalDate } from "@/lib/legal/format";
 import { cn } from "@/lib/utils";
 
-const categoryOrder = [
-  "contractual",
-  "privacy",
-  "security",
-  "consent",
-  "compliance",
-  "operations",
-] as const;
-
 export function LegalHub() {
   return (
     <>
       <LegalHubJsonLd
-        documents={legalDocuments.map((doc) => ({
+        documents={primaryLegalDocuments.map((doc) => ({
           title: doc.title,
           path: doc.path,
           description: doc.description,
@@ -65,9 +52,10 @@ export function LegalHub() {
               Centro Legal
             </h1>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Documentación jurídica corporativa del ecosistema clínico
-              Elynthis: contratos de uso, privacidad, seguridad, consentimientos
-              firmables y cumplimiento normativo colombiano.
+              Documentación jurídica del ecosistema Elynthis organizada en dos
+              documentos principales. El contenido de cookies, seguridad,
+              protección de datos, eliminación de cuenta, aviso legal y
+              cumplimiento se conserva integrado dentro de ellos.
             </p>
             <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <div>
@@ -87,62 +75,48 @@ export function LegalHub() {
             <h2 id="buscador-legal" className="sr-only">
               Buscador de documentos
             </h2>
-            <LegalSearch documents={legalDocumentMetas} />
+            <LegalSearch documents={primaryLegalDocumentMetas} />
           </section>
 
-          <section className="mt-14 space-y-10" aria-labelledby="biblioteca-legal">
+          <section className="mt-14 space-y-6" aria-labelledby="documentos-principales">
             <div>
               <h2
-                id="biblioteca-legal"
+                id="documentos-principales"
                 className="font-display text-2xl font-semibold tracking-tight text-foreground"
               >
-                Biblioteca documental
+                Documentos principales
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                Cada documento es una página independiente, con índice, versión,
-                definiciones, alcance, artículos y anexos cuando aplica.
+                Cada documento incluye índice interno, versión, definiciones,
+                alcance, artículos y anexos cuando aplica.
               </p>
             </div>
 
-            {categoryOrder.map((category) => {
-              const docs = legalDocumentMetas.filter(
-                (doc) => doc.category === category
-              );
-              if (docs.length === 0) return null;
-              return (
-                <div key={category}>
-                  <h3 className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/80">
-                    {LEGAL_CATEGORY_LABELS[category]}
-                  </h3>
-                  <ul className="mt-3 grid gap-3 sm:grid-cols-2">
-                    {docs.map((doc) => (
-                      <li key={doc.id}>
-                        <Link
-                          href={doc.path}
-                          className={cn(
-                            "flex h-full flex-col rounded-2xl border border-border/60 bg-brand-surface/75 p-5",
-                            "transition-[border-color,transform,box-shadow] duration-300",
-                            "hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_18px_40px_rgba(34,34,34,0.06)]",
-                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-                          )}
-                        >
-                          <span className="font-display text-[15px] font-semibold text-foreground">
-                            {doc.title}
-                          </span>
-                          <span className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                            {doc.summary}
-                          </span>
-                          <span className="mt-4 text-xs text-muted-foreground/80">
-                            v{doc.version} · {formatLegalDate(doc.updatedAt)}
-                            {doc.signable ? " · Firmable" : ""}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {primaryLegalDocumentMetas.map((doc) => (
+                <li key={doc.id}>
+                  <Link
+                    href={doc.path}
+                    className={cn(
+                      "flex h-full flex-col rounded-2xl border border-border/60 bg-brand-surface/75 p-5",
+                      "transition-[border-color,transform,box-shadow] duration-300",
+                      "hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_18px_40px_rgba(34,34,34,0.06)]",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                    )}
+                  >
+                    <span className="font-display text-[15px] font-semibold text-foreground">
+                      {doc.title}
+                    </span>
+                    <span className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {doc.summary}
+                    </span>
+                    <span className="mt-4 text-xs text-muted-foreground/80">
+                      v{doc.version} · {formatLegalDate(doc.updatedAt)}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section
