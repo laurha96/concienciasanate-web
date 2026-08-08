@@ -142,7 +142,7 @@ export const consentimientoPsicologicaDocument: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: "Autorizo el registro de la atención en la historia clínica electrónica de Elynthis, con Retention conforme a normas sanitarias y reserva legal.",
+          text: "Autorizo el registro de la atención en la historia clínica electrónica de Elynthis, con retención conforme a normas sanitarias y reserva legal.",
         },
       ],
     },

@@ -1,5 +1,9 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 
-export default function PrivacidadRedirectPage() {
-  redirect("/Politica-de-Privacidad");
+import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
+
+export const metadata: Metadata = buildLegalPageMetadata("privacidad");
+
+export default function PrivacidadPage() {
+  return <LegalPage documentId="privacidad" />;
 }

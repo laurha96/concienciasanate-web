@@ -3,6 +3,7 @@ export { LegalBlocks } from "@/components/legal/legal-blocks";
 export { LegalBreadcrumbs } from "@/components/legal/legal-breadcrumbs";
 export { LegalDocumentNav } from "@/components/legal/legal-document-nav";
 export { LegalDocumentShell } from "@/components/legal/legal-document-shell";
+export { GoogleCalendarConsentDialog } from "@/components/legal/google-calendar-consent-dialog";
 export { LegalHub } from "@/components/legal/legal-hub";
 export { LegalDocumentJsonLd, LegalHubJsonLd } from "@/components/legal/legal-json-ld";
 export { LegalPage, buildLegalPageMetadata } from "@/components/legal/legal-page";

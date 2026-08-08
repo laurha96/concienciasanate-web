@@ -70,11 +70,11 @@ export const LEGAL_CATEGORY_LABELS: Record<LegalDocument["category"], string> = 
 /** Enlaces canónicos para footer (orden institucional). */
 export const footerLegalCenterLinks = [
   { href: "/Terminos-&-Condiciones", label: "Términos y Condiciones" },
-  { href: "/Politica-de-Privacidad", label: "Política de Privacidad" },
+  { href: "/privacidad", label: "Política de Privacidad" },
   { href: "/Politica-de-Cookies", label: "Política de Cookies" },
   { href: "/Aviso-Legal", label: "Aviso Legal" },
   { href: "/Politica-de-Seguridad", label: "Política de Seguridad" },
   { href: "/Proteccion-de-Datos", label: "Protección de Datos" },
-  { href: "/Eliminar-Cuenta", label: "Eliminar Cuenta" },
+  { href: "/eliminar-cuenta", label: "Eliminar Cuenta" },
   { href: "/Cumplimiento", label: "Cumplimiento" },
 ] as const;

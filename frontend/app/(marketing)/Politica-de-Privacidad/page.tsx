@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
-
-export const metadata: Metadata = buildLegalPageMetadata("privacidad");
-
-export default function PoliticaPrivacidadPage() {
-  return <LegalPage documentId="privacidad" />;
+/** Compatibilidad: la canónica es /privacidad (también redirige next.config). */
+export default function PoliticaDePrivacidadRedirectPage() {
+  redirect("/privacidad");
 }

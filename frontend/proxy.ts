@@ -4,11 +4,19 @@ import type { NextRequest } from "next/server";
 const ADMIN_COOKIE = "admin_token";
 
 /**
- * Protege rutas /admin/* en el edge (antes de renderizar).
- * El panel también valida sesión en `requireAdminSession()` en el layout.
+ * Edge proxy: auth admin + redirect case-sensitive de /Eliminar-Cuenta.
+ * No usar next.config para ese redirect: los redirects son case-insensitive
+ * y generan bucle 308 hacia /eliminar-cuenta.
  */
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // Comparación exacta (case-sensitive).
+  if (pathname === "/Eliminar-Cuenta") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/eliminar-cuenta";
+    return NextResponse.redirect(url, 308);
+  }
 
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
     const token = req.cookies.get(ADMIN_COOKIE)?.value;
@@ -24,5 +32,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/Eliminar-Cuenta"],
 };

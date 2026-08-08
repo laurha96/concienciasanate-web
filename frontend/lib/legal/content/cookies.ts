@@ -105,7 +105,7 @@ export const cookiesDocument: LegalDocument = {
           type: "callout",
           tone: "info",
           title: "Minimización",
-          text: "Configuramos analítica con criterios de minimización (IP anonimizada cuando el proveedor lo permita, Retention limitada y desactivación en rutas sensibles cuando sea viable).",
+          text: "Configuramos analítica con criterios de minimización (IP anonimizada cuando el proveedor lo permita, conservación limitada y desactivación en rutas sensibles cuando sea viable).",
         },
       ],
     },

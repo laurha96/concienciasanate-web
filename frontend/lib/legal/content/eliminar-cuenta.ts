@@ -3,16 +3,16 @@ import type { LegalDocument } from "@/lib/legal/types";
 
 export const eliminarCuentaDocument: LegalDocument = {
   id: "eliminar-cuenta",
-  path: "/Eliminar-Cuenta",
+  path: "/eliminar-cuenta",
   title: "Política de Eliminación de Cuenta",
   shortTitle: "Eliminar Cuenta",
   summary:
-    "Proceso, plazos y Retention legal al eliminar una cuenta en Conciencia Sánate / Elynthis.",
+    "Proceso, plazos y retención legal al eliminar una cuenta en Conciencia Sánate / Elynthis, incluida la revocación de integraciones de Google.",
   description:
-    "Política de Eliminación de Cuenta de Conciencia Sánate y Elynthis: proceso, plazos, datos eliminados, Retention obligatoria de historias clínicas y canales de solicitud.",
-  version: "1.0.0",
-  updatedAt: "2026-08-04",
-  effectiveDate: "2026-08-04",
+    "Política de Eliminación de Cuenta de Conciencia Sánate y Elynthis: proceso, plazos, datos eliminados, retención obligatoria de historias clínicas, tokens de Google y canales de solicitud.",
+  version: "1.1.0",
+  updatedAt: "2026-08-07",
+  effectiveDate: "2026-08-07",
   category: "operations",
   keywords: [
     "eliminar cuenta",
@@ -35,7 +35,7 @@ export const eliminarCuentaDocument: LegalDocument = {
         "Proceso mediante el cual se desactiva el acceso del Usuario y se suprimen o anonimizan datos de cuenta que no deban conservarse por mandato legal o legítimo.",
     },
     {
-      term: "Retention legal",
+      term: "Retención legal",
       definition:
         "Conservación obligatoria de cierta información (especialmente historia clínica y evidencias) durante los plazos exigidos por la normativa colombiana o por autoridad competente.",
     },
@@ -57,7 +57,7 @@ export const eliminarCuentaDocument: LegalDocument = {
           items: [
             "Inicie sesión (si es posible) y use la opción de eliminación en configuración de cuenta, o envíe solicitud a privacidad@concienciasanate.com / soporte@concienciasanate.com.",
             "Acredite identidad (nombre, documento, correo de la cuenta y, si aplica, rol u organización).",
-            "Indique si solicita solo cierre de acceso o también ejercicio de supresión de datos personales no sujetos a Retention.",
+            "Indique si solicita solo cierre de acceso o también ejercicio de supresión de datos personales no sujetos a retención.",
             "Recibirá confirmación de recepción y el resultado del proceso en los plazos indicados.",
             "Tras la verificación, se desactivará el acceso y se ejecutará el borrado/anonimización aplicable.",
           ],
@@ -65,7 +65,7 @@ export const eliminarCuentaDocument: LegalDocument = {
         {
           type: "note",
           title: "Cuentas institucionales",
-          text: "Si la cuenta pertenece a una organización, un Administrador o Representante autorizado puede ser requerido para aprobar la salida de usuarios o la eliminación de workspaces, sin perjuicio de Retention clínica.",
+          text: "Si la cuenta pertenece a una organización, un Administrador o Representante autorizado puede ser requerido para aprobar la salida de usuarios o la eliminación de workspaces, sin perjuicio de la retención clínica.",
         },
       ],
     },
@@ -79,7 +79,7 @@ export const eliminarCuentaDocument: LegalDocument = {
           items: [
             "Acuse de recibo: hasta 5 días hábiles.",
             "Desactivación de acceso tras verificación: normalmente entre 5 y 15 días hábiles.",
-            "Supresión/anonimización de datos de cuenta no sujetos a Retention: hasta 30 días hábiles, salvo complejidad o coordinación con Responsable clínico.",
+            "Supresión/anonimización de datos de cuenta no sujetos a retención: hasta 30 días hábiles, salvo complejidad o coordinación con Responsable clínico.",
             "Datos en backups: pueden persistir hasta el ciclo de rotación del respaldo, con acceso restringido y sin uso operativo ordinario.",
           ],
         },
@@ -94,7 +94,7 @@ export const eliminarCuentaDocument: LegalDocument = {
           type: "callout",
           tone: "legal",
           title: "La eliminación de cuenta no borra la HCE por defecto",
-          text: "Las historias clínicas y documentos clínicos asociados a la atención en salud están sujetos a Retention legal y reserva. El cierre de su usuario de acceso no autoriza la destrucción anticipada de la HCE cuando la ley o el Responsable del tratamiento clínico deban conservarla.",
+          text: "Las historias clínicas y documentos clínicos asociados a la atención en salud están sujetos a Retención legal y reserva. El cierre de su usuario de acceso no autoriza la destrucción anticipada de la HCE cuando la ley o el Responsable del tratamiento clínico deban conservarla.",
         },
         {
           type: "p",
@@ -112,10 +112,15 @@ export const eliminarCuentaDocument: LegalDocument = {
           items: [
             "Credenciales y sesiones activas.",
             "Perfil de acceso y preferencias de cuenta no clínicas.",
-            "Tokens de integraciones voluntarias (calendarios, etc.) asociados al Usuario.",
+            "Tokens OAuth de integraciones voluntarias (incluido Google Calendar), con invalidación o revocación cuando sea posible.",
+            "Mapeos y datos derivados de Google que ya no sean necesarios, normalmente dentro de treinta (30) días calendario.",
             "Datos de marketing o preferencias no esenciales, cuando existan.",
-            "Contenidos del Usuario no sujetos a Retention legal ni a reclamaciones/procesos en curso.",
+            "Contenidos del Usuario no sujetos a retención legal ni a reclamaciones/procesos en curso.",
           ],
+        },
+        {
+          type: "note",
+          text: "Los eventos ya creados en Google Calendar pueden permanecer en la cuenta de Google hasta que el Usuario los elimine allí. La eliminación de cuenta en Elynthis no reactiva el acceso a Google.",
         },
       ],
     },
@@ -176,7 +181,7 @@ export const eliminarCuentaDocument: LegalDocument = {
             "Nombre completo y documento.",
             "Rol (Paciente / Profesional / Administrador).",
             "Organización (si aplica).",
-            "Confirmación de que comprende la Retention de HCE.",
+            "Confirmación de que comprende la retención de HCE.",
             "Indicar si necesita exportar información antes del cierre.",
           ],
         },

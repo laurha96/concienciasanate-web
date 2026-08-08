@@ -79,7 +79,7 @@ export const proteccionDatosDocument: LegalDocument = {
             "Se registra de forma electrónica con trazabilidad.",
             "Debe ser legible, completa y oportuna según deberes del Profesional.",
             "No puede alterarse adulterando el pasado clínico; las correcciones deben ser auditablemente trazables.",
-            "La Retention sigue mandatos sanitarios aun tras cierre de cuenta de acceso.",
+            "La retención sigue mandatos sanitarios aun tras cierre de cuenta de acceso.",
           ],
         },
       ],
@@ -218,7 +218,7 @@ export const proteccionDatosDocument: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: `Las solicitudes se canalizan a ${LEGAL_CONTACTS.privacy}. Cuando Conciencia Sánate sea Encargado, coordinará con el Responsable clínico. La Retention legal de HCE puede limitar la supresión total.`,
+          text: `Las solicitudes se canalizan a ${LEGAL_CONTACTS.privacy}. Cuando Conciencia Sánate sea Encargado, coordinará con el Responsable clínico. La Retención legal de HCE puede limitar la supresión total.`,
         },
       ],
     },
@@ -237,7 +237,7 @@ export const proteccionDatosDocument: LegalDocument = {
             ["Salud mental", "Notas de sesión, riesgo", "Confidencialidad reforzada"],
             ["Diagnósticos", "CIE / impresiones diagnósticas", "Acceso mínimo"],
             ["Medios", "Fotos, PDFs, audios clínicos", "Storage controlado"],
-            ["Evidencias", "Firmas y consentimientos", "Integridad + Retention"],
+            ["Evidencias", "Firmas y consentimientos", "Integridad + retención"],
           ],
         },
       ],
