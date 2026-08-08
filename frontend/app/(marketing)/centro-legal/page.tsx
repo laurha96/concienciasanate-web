@@ -4,19 +4,17 @@ import { LegalHub } from "@/components/legal";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Centro Legal",
+  title: "Centro Legal | Conciencia Sánate / Elynthis",
   description:
-    "Centro legal corporativo de Conciencia Sánate y Elynthis: términos, privacidad, cookies, seguridad, consentimientos y cumplimiento normativo en Colombia.",
-  path: "/Centro-Legal",
+    "Centro legal de Conciencia Sánate y Elynthis: Términos y Condiciones y Política de Privacidad y Tratamiento de Datos Personales.",
+  path: "/centro-legal",
   keywords: [
     "centro legal",
+    "términos y condiciones",
+    "privacidad",
     "Elynthis",
     "Conciencia Sánate",
-    "privacidad",
-    "términos",
-    "cumplimiento",
   ],
-  socialTitle: "Centro Legal — Conciencia Sánate / Elynthis",
 });
 
 export default function CentroLegalPage() {

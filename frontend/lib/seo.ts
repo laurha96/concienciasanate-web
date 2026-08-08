@@ -5,7 +5,7 @@ export const SITE_LOCALE = "es_ES";
 export const SITE_LANGUAGE = "es";
 
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.concienciasanate.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://concienciasanate.com";
 
 export const DEFAULT_OG_IMAGE = {
   url: "/social/opengraph-image.png",

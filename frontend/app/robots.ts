@@ -7,8 +7,20 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/privacidad", "/eliminar-cuenta", "/Centro-Legal"],
-        disallow: ["/admin", "/api/", "/dashboard", "/perfil", "/login", "/registro"],
+        allow: [
+          "/",
+          "/privacidad",
+          "/terminos-y-condiciones",
+          "/centro-legal",
+        ],
+        disallow: [
+          "/admin",
+          "/api/",
+          "/dashboard",
+          "/perfil",
+          "/login",
+          "/registro",
+        ],
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),

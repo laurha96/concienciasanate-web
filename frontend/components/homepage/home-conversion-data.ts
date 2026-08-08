@@ -26,7 +26,7 @@ export const homeMethodSteps = methodBlocks;
 export const homeTrustStripCopy = {
   title: "Bienestar con responsabilidad",
   disclaimer: trustEthicsCopy.disclaimer,
-  seeMore: { label: "Ética y límites", href: "/terminos" },
+  seeMore: { label: "Ética y límites", href: "/terminos-y-condiciones" },
 } as const;
 
 export const HOME_TRUST_STRIP_BLOCKS = [

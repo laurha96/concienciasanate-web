@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
-
-export const metadata: Metadata = buildLegalPageMetadata("cookies");
-
-export default function PoliticaCookiesPage() {
-  return <LegalPage documentId="cookies" />;
+export default function CookiesLegacyPage() {
+  redirect("/privacidad#cookies-tecnologias-analitica-y-preferencias");
 }

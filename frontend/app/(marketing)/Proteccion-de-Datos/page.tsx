@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
-
-export const metadata: Metadata = buildLegalPageMetadata("proteccion-datos");
-
-export default function ProteccionDatosPage() {
-  return <LegalPage documentId="proteccion-datos" />;
+export default function ProteccionDatosLegacyPage() {
+  redirect("/privacidad#datos-personales-sensibles-y-clinicos");
 }

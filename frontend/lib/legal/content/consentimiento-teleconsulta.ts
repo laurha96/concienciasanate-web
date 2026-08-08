@@ -26,7 +26,6 @@ export const consentimientoTeleconsultaDocument: LegalDocument = {
     "consentimiento-datos",
     "consentimiento-psicologica",
     "privacidad",
-    "seguridad",
     "terminos",
   ],
   definitions: [

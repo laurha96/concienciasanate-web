@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function TerminosRedirectPage() {
-  redirect("/Terminos-&-Condiciones");
+  redirect("/terminos-y-condiciones");
 }
