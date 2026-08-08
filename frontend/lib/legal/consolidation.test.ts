@@ -72,7 +72,7 @@ describe("privacy and terms content requirements", () => {
   it("privacy returns required Google and consolidation strings", () => {
     const privacy = getLegalDocument("privacidad");
     assert.ok(privacy);
-    assert.equal(privacy.version, "1.2.0");
+    assert.equal(privacy.version, "1.3.0");
     const text = flattenText(privacy);
     for (const needle of [
       "Google Calendar",
@@ -100,7 +100,7 @@ describe("privacy and terms content requirements", () => {
   it("terms contain aviso legal and cumplimiento", () => {
     const terms = getLegalDocument("terminos");
     assert.ok(terms);
-    assert.equal(terms.version, "1.1.0");
+    assert.equal(terms.version, "1.2.0");
     assert.equal(terms.path, TERMS_PATH);
     const text = flattenText(terms);
     assert.match(text, /aviso legal/i);

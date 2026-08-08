@@ -46,15 +46,18 @@ const seguridadSection = embedSourceAsSection({
 
 const eliminacionSection = embedSourceAsSection({
   source: eliminarCuentaDocument,
-  sectionId: "eliminacion-de-cuenta",
+  sectionId: "cierre-y-supresion-de-datos",
   sectionNumber: "Artículo 15",
-  sectionTitle:
-    "Eliminación de cuenta, supresión de datos y revocación de integraciones",
+  sectionTitle: "Cierre de cuenta, supresión, bloqueo y conservación legal",
   numberPrefix: "15",
   introBlocks: [
     {
       type: "p",
-      text: "Esta sección es públicamente accesible sin autenticación y describe el procedimiento completo para solicitar la eliminación de cuenta y datos, incluida la revocación de integraciones de Google y la eliminación o invalidación de tokens OAuth, con las conservaciones legalmente exigidas.",
+      text: "Esta sección es públicamente accesible sin autenticación. Describe el procedimiento completo para solicitar el cierre de cuenta y la supresión de datos, incluida la revocación de integraciones de Google, el bloqueo de documentos sujetos a conservación legal y la disposición final cuando corresponda. El formulario operativo está en /eliminar-cuenta.",
+    },
+    {
+      type: "p",
+      text: "Ancla histórica de compatibilidad: #eliminacion-de-cuenta redirige a esta misma sección.",
     },
   ],
 });
@@ -530,7 +533,7 @@ const coreArticles: LegalArticle[] = [
       blocks: [
         {
           type: "p",
-          text: "La Política puede actualizarse por cambios normativos, operativos, tecnológicos o de finalidades. La versión, fecha de actualización y entrada en vigor se publicarán en esta página. La versión 1.2.0 reorganiza y consolida documentos legales previamente separados sin alterar, por ese solo hecho, las finalidades de tratamiento. Si un cambio modifica sustancialmente el uso de datos personales o de Google, se informará de manera destacada y, cuando corresponda, se solicitará una nueva autorización.",
+          text: "La Política puede actualizarse por cambios normativos, operativos, tecnológicos o de finalidades. La versión, fecha de actualización y entrada en vigor se publicarán en esta página. La versión 1.2.0 reorganizó y consolidó documentos legales previamente separados; la versión 1.3.0 aclara el cierre de cuenta, la supresión, el bloqueo y la conservación legal sin alterar, por ese solo hecho, las finalidades de tratamiento. Si un cambio modifica sustancialmente el uso de datos personales o de Google, se informará de manera destacada y, cuando corresponda, se solicitará una nueva autorización.",
         },
       ],
     },
@@ -541,7 +544,7 @@ const coreArticles: LegalArticle[] = [
       blocks: [
         {
           type: "p",
-          text: "Esta Política debe leerse junto con los Términos y Condiciones y los consentimientos clínicos firmables cuando apliquen. La versión 1.2.0 consolida documentos previamente publicados de forma separada (Cookies, Seguridad, Protección de Datos, Eliminación de Cuenta y materias de cumplimiento relacionadas con privacidad), sin reducir derechos ni garantías ni modificar por sí sola las finalidades de tratamiento. Su publicación no sustituye la autorización de tratamiento de datos ni el consentimiento informado clínico cuando sean legalmente requeridos.",
+          text: "Esta Política debe leerse junto con los Términos y Condiciones y los consentimientos clínicos firmables cuando apliquen. La versión 1.3.0 mantiene la consolidación documental y precisa el régimen de cierre de cuenta, supresión, bloqueo y conservación legal, sin reducir derechos ni garantías ni modificar por sí sola las finalidades de tratamiento. Su publicación no sustituye la autorización de tratamiento de datos ni el consentimiento informado clínico cuando sean legalmente requeridos.",
         },
       ],
     },
@@ -556,10 +559,10 @@ export const privacidadDocument: LegalDocument = {
   title: "Política de Privacidad y Tratamiento de Datos Personales",
   shortTitle: "Privacidad",
   summary:
-    "Datos personales y clínicos, cookies, seguridad, Google, inteligencia artificial, conservación, eliminación de cuenta y derechos del Titular en Conciencia Sánate y Elynthis.",
+    "Datos personales y clínicos, cookies, seguridad, Google, inteligencia artificial, conservación, cierre de cuenta, supresión y derechos del Titular en Conciencia Sánate y Elynthis.",
   description:
-    "Política de Privacidad de Conciencia Sánate y Elynthis: datos personales y clínicos, cookies, seguridad, Google Sign-In, Google Calendar, Limited Use, inteligencia artificial, conservación, derechos del titular y eliminación de cuenta.",
-  version: "1.2.0",
+    "Política de Privacidad de Conciencia Sánate y Elynthis: datos personales y clínicos, cookies, seguridad, Google Sign-In, Google Calendar, Limited Use, inteligencia artificial, conservación, derechos del titular, cierre de cuenta y supresión de datos.",
+  version: "1.3.0",
   updatedAt: "2026-08-08",
   effectiveDate: "2026-08-08",
   category: "privacy",
@@ -569,6 +572,8 @@ export const privacidadDocument: LegalDocument = {
     "Google API Services User Data Policy",
     "Limited Use",
     "Google Calendar",
+    "cierre de cuenta",
+    "supresión de datos",
     "eliminación de cuenta",
     "cookies",
     "seguridad de la información",
@@ -641,7 +646,7 @@ export const privacidadDocument: LegalDocument = {
     },
     {
       type: "p",
-      text: "La versión 1.2.0 consolida en un único documento la Política de Cookies, la Política de Seguridad, la Política de Protección de Datos Sensibles, la Política de Eliminación de Cuenta y las materias de cumplimiento relacionadas con privacidad, sin reducir derechos ni garantías.",
+      text: "La versión 1.2.0 consolidó en un único documento la Política de Cookies, la Política de Seguridad, la Política de Protección de Datos Sensibles, la Política de Eliminación de Cuenta y las materias de cumplimiento relacionadas con privacidad. La versión 1.3.0 actualiza el régimen de cierre de cuenta, supresión, bloqueo y conservación legal, sin reducir derechos ni garantías.",
     },
   ],
   articles: coreArticles,
@@ -661,7 +666,8 @@ export const privacidadDocument: LegalDocument = {
             "Google Workspace User Data and Developer Policy: https://developers.google.com/workspace/workspace-api-user-data-developer-policy",
             "Gestión de conexiones de la Cuenta de Google: https://myaccount.google.com/connections",
             `Política canónica: ${LEGAL_ENTITY.siteUrl}${PRIVACY_PATH}`,
-            `Eliminación de cuenta: ${LEGAL_ENTITY.siteUrl}${PRIVACY_PATH}#eliminacion-de-cuenta`,
+            `Cierre y supresión: ${LEGAL_ENTITY.siteUrl}${PRIVACY_PATH}#cierre-y-supresion-de-datos`,
+            `Formulario de cierre: ${LEGAL_ENTITY.siteUrl}/eliminar-cuenta`,
           ],
         },
       ],

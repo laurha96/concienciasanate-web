@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --import ./scripts/alias-loader.mjs --experimental-strip-types --test lib/privacy/*.test.ts lib/legal/*.test.ts",
+    "test": "node --import ./scripts/alias-loader.mjs --experimental-strip-types --test lib/privacy/*.test.ts lib/legal/*.test.ts lib/account-closure/*.test.ts",
     "test:privacy": "node scripts/verify-privacy-routes.mjs",
     "test:legal": "node scripts/verify-privacy-routes.mjs && node --import ./scripts/alias-loader.mjs --experimental-strip-types --test lib/legal/*.test.ts",
     "generate:icons": "node scripts/generate-brand-icons.mjs"

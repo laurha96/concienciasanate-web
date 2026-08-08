@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { accountClosureRoutes } from "./accountClosureRoutes";
 import { authRoutes } from "./authRoutes";
 import { userRoutes } from "./userRoutes";
 import { resourceRoutes } from "./resourceRoutes";
@@ -13,3 +14,4 @@ apiRoutes.use("/users", userRoutes);
 apiRoutes.use("/resources", resourceRoutes);
 apiRoutes.use("/admin", adminRoutes);
 apiRoutes.use("/public", publicRoutes);
+apiRoutes.use("/account", accountClosureRoutes);

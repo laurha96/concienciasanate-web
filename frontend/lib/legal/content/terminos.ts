@@ -1,4 +1,5 @@
 import {
+  DELETE_ACCOUNT_PATH,
   LEGAL_CONTACTS,
   LEGAL_ENTITY,
   PRIVACY_PATH,
@@ -61,7 +62,7 @@ const relationArticle: LegalArticle = {
         `Política de Privacidad: ${PRIVACY_PATH}`,
         `Cookies y preferencias: ${PRIVACY_PATH}#cookies-tecnologias-analitica-y-preferencias`,
         `Seguridad de la información: ${PRIVACY_PATH}#seguridad-de-la-informacion`,
-        `Eliminación de cuenta: ${PRIVACY_PATH}#eliminacion-de-cuenta`,
+        `Cierre de cuenta y supresión: ${PRIVACY_PATH}#cierre-y-supresion-de-datos`,
         `Datos sensibles y clínicos: ${PRIVACY_PATH}#datos-personales-sensibles-y-clinicos`,
       ],
     },
@@ -75,7 +76,29 @@ const consolidationArticle: LegalArticle = {
   blocks: [
     {
       type: "p",
-      text: "La versión 1.1.0 de estos Términos consolida el Aviso Legal y el documento de Cumplimiento Normativo previamente publicados como páginas independientes, sin reducir obligaciones ni garantías. La aceptación de estos Términos implica el conocimiento de las secciones consolidadas.",
+      text: "La versión 1.1.0 de estos Términos consolidó el Aviso Legal y el documento de Cumplimiento Normativo. La versión 1.2.0 aclara el cierre de cuenta frente a la conservación documental. La aceptación de estos Términos implica el conocimiento de las secciones consolidadas.",
+    },
+  ],
+};
+
+const accountClosureArticle: LegalArticle = {
+  id: "cierre-de-cuenta-y-custodia",
+  number: "Artículo 29",
+  title: "Cierre de cuenta, custodia y conservación documental",
+  blocks: [
+    {
+      type: "p",
+      text: `Cerrar una cuenta de acceso no equivale a eliminar historias clínicas, consentimientos, firmas, RIPS, facturas ni otras evidencias sujetas a conservación legal. El procedimiento, los derechos de supresión cuando procedan y los bloqueos por retención se regulan en la Política de Privacidad (${PRIVACY_PATH}#cierre-y-supresion-de-datos) y en el formulario ${DELETE_ACCOUNT_PATH}.`,
+    },
+    {
+      type: "ul",
+      items: [
+        "Elynthis es una herramienta tecnológica y no sustituye el juicio clínico ni la custodia del Profesional o la institución Responsable.",
+        "El Profesional o la institución permanecen responsables de la atención, de la historia clínica y de los procedimientos de exportación, continuidad o transferencia antes del cierre definitivo.",
+        "La cancelación de una suscripción no extingue obligaciones de custodia, facturación ni conservación documental.",
+        "Queda prohibido utilizar el cierre de cuenta para destruir, alterar o hacer inaccesibles registros clínicos que deban conservarse.",
+        "Tras el cierre, el Usuario pierde el acceso ordinario; los documentos retenidos permanecen bloqueados y limitados a finalidades legales.",
+      ],
     },
   ],
 };
@@ -89,7 +112,7 @@ export const terminosDocument: LegalDocument = {
     "Condiciones de uso, aviso legal, responsabilidades, propiedad intelectual, pagos y cumplimiento contractual del ecosistema Elynthis.",
   description:
     "Términos y Condiciones de uso de Conciencia Sánate y Elynthis: cuentas, aviso legal, responsabilidades de profesionales y pacientes, cumplimiento normativo, propiedad intelectual y jurisdicción colombiana.",
-  version: "1.1.0",
+  version: "1.2.0",
   updatedAt: "2026-08-08",
   effectiveDate: "2026-08-08",
   category: "contractual",
@@ -628,6 +651,7 @@ export const terminosDocument: LegalDocument = {
     ...cumplimientoSection.articles,
     relationArticle,
     consolidationArticle,
+    accountClosureArticle,
   ],
   annexes: [
     {

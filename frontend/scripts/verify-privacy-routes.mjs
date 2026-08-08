@@ -29,22 +29,25 @@ function assert(cond, msg) {
   }
 }
 
+const eliminar = read("lib/legal/content/eliminar-cuenta.ts");
+const corpusAll = `${corpus}\n${eliminar}`;
+
 const requiredPrivacy = [
   "Google API Services User Data Policy",
   "Limited Use",
   "Google Calendar",
-  "eliminación de cuenta",
+  "cierre de cuenta",
   "cookies",
   "seguridad de la información",
   "inteligencia artificial",
   "openid",
   "CRA 29 31D 60 SUR",
   "+1 3124462648",
-  "1.2.0",
+  "1.3.0",
   "cookies-tecnologias-analitica-y-preferencias",
   "seguridad-de-la-informacion",
   "datos-personales-sensibles-y-clinicos",
-  "eliminacion-de-cuenta",
+  "cierre-y-supresion-de-datos",
   "7.1 ",
   "7.8 ",
   "Tratamientos necesarios para seguridad y prevención de fraude",
@@ -53,14 +56,17 @@ const requiredPrivacy = [
 ];
 
 for (const needle of requiredPrivacy) {
-  assert(corpus.toLowerCase().includes(needle.toLowerCase()) || corpus.includes(needle), `MISSING in privacy corpus: ${needle}`);
+  assert(
+    corpusAll.toLowerCase().includes(needle.toLowerCase()) || corpusAll.includes(needle),
+    `MISSING in privacy corpus: ${needle}`
+  );
 }
 
 // Case-sensitive musts
 assert(privacidad.includes("Google Calendar"), "MISSING Google Calendar");
 assert(privacidad.includes("Limited Use"), "MISSING Limited Use");
 assert(privacidad.includes("Google API Services User Data Policy"), "MISSING Google API policy");
-assert(privacidad.includes("eliminación de cuenta") || privacidad.includes("Eliminación de cuenta"), "MISSING eliminación de cuenta");
+assert(privacidad.includes("cierre-y-supresion-de-datos"), "MISSING cierre-y-supresion-de-datos");
 assert(privacidad.includes("cookies") || privacidad.includes("Cookies"), "MISSING cookies");
 assert(privacidad.includes("seguridad de la información") || privacidad.includes("Seguridad de la información"), "MISSING seguridad");
 assert(
@@ -69,11 +75,14 @@ assert(
     privacidad.includes("excluidos de estos flujos"),
   "MISSING Google→AI exclusion"
 );
+assert(!/nunca se eliminan/i.test(eliminar), "FORBIDDEN never-delete claim");
+assert(!/toda tu información será borrada/i.test(eliminar), "FORBIDDEN total wipe claim");
 
 assert(terminos.includes("aviso-legal"), "MISSING aviso-legal anchor in terms");
 assert(terminos.includes("cumplimiento-legal-y-normativo"), "MISSING cumplimiento anchor in terms");
 assert(terminos.includes("Aviso legal"), "MISSING aviso legal title");
-assert(terminos.includes("1.1.0"), "MISSING terms version 1.1.0");
+assert(terminos.includes("cierre-de-cuenta-y-custodia"), "MISSING terms closure article");
+assert(terminos.includes("1.2.0"), "MISSING terms version 1.2.0");
 
 assert(constants.includes('TERMS_PATH = "/terminos-y-condiciones"'), "TERMS_PATH missing");
 assert(constants.includes('LEGAL_HUB_PATH = "/centro-legal"'), "LEGAL_HUB_PATH missing");
@@ -100,7 +109,10 @@ assert(!hub.includes("categoryOrder"), "Hub must not list full category inventor
 assert(nextConfig.includes('destination: "/privacidad#cookies-tecnologias-analitica-y-preferencias"'), "cookies redirect missing");
 assert(nextConfig.includes('destination: "/privacidad#seguridad-de-la-informacion"'), "security redirect missing");
 assert(nextConfig.includes('destination: "/privacidad#datos-personales-sensibles-y-clinicos"'), "proteccion redirect missing");
-assert(nextConfig.includes('destination: "/privacidad#eliminacion-de-cuenta"'), "delete redirect missing");
+assert(
+  !nextConfig.includes('source: "/eliminar-cuenta"'),
+  "/eliminar-cuenta must remain a public page (no next.config redirect away)"
+);
 assert(nextConfig.includes('destination: "/terminos-y-condiciones#aviso-legal"'), "aviso redirect missing");
 assert(nextConfig.includes('destination: "/terminos-y-condiciones#cumplimiento-legal-y-normativo"'), "cumplimiento redirect missing");
 assert(nextConfig.includes('destination: "/terminos-y-condiciones"'), "terms canonical redirect missing");
@@ -119,10 +131,8 @@ assert(
 );
 
 assert(
-  proxy.includes('"/Eliminar-Cuenta"') &&
-    proxy.includes('"/privacidad"') &&
-    proxy.includes("eliminacion-de-cuenta"),
-  "proxy must case-sensitively redirect /Eliminar-Cuenta to privacy section"
+  proxy.includes('"/Eliminar-Cuenta"') && proxy.includes('"/eliminar-cuenta"'),
+  "proxy must case-sensitively redirect /Eliminar-Cuenta to /eliminar-cuenta"
 );
 assert(
   proxy.includes('"/Centro-Legal"') && proxy.includes('"/centro-legal"'),
@@ -137,20 +147,29 @@ assert(
 assert(seo.includes("https://concienciasanate.com"), "SEO default siteUrl must be apex");
 assert(!seo.includes("https://www.concienciasanate.com"), "SEO default must not prefer www");
 assert(robots.includes("/privacidad") && robots.includes("/terminos-y-condiciones"), "robots must allow canonical legal routes");
+assert(robots.includes("/eliminar-cuenta"), "robots must allow /eliminar-cuenta");
 assert(sitemap.includes("primaryLegalDocuments"), "sitemap must use primaryLegalDocuments");
+assert(sitemap.includes("DELETE_ACCOUNT_PATH"), "sitemap must include delete/closure path constant");
 assert(!sitemap.includes("consolidatedSourceDocuments"), "sitemap must not index consolidated sources as primary list via wrong export");
+
+const pageClosure = read("app/(marketing)/eliminar-cuenta/page.tsx");
+assert(pageClosure.includes("AccountClosureForm"), "eliminar-cuenta page must render closure form");
+assert(pageClosure.includes("Confirmar solicitud de cierre") === false, "button text lives in form component");
+const form = read("components/legal/account-closure-form.tsx");
+assert(form.includes("Confirmar solicitud de cierre"), "closure form CTA missing");
+assert(form.includes("Entiendo que perderé el acceso"), "mandatory retention checkbox missing");
 
 const forbidden = [
   "[DIRECCIÓN DE NOTIFICACIONES]",
   "[TELÉFONO DE CONTACTO]",
 ];
 for (const needle of forbidden) {
-  assert(!corpus.includes(needle) && !index.includes(needle), `FORBIDDEN: ${needle}`);
+  assert(!corpusAll.includes(needle) && !index.includes(needle), `FORBIDDEN: ${needle}`);
 }
 // No afirmar certificación; sí se permite negar o usar como referencia.
 assert(
-  !/\bcertificada HIPAA\b/.test(corpus) ||
-    /no.*certificad[oa].*HIPAA|sin afirmar.*HIPAA|no declara.*HIPAA/i.test(corpus),
+  !/\bcertificada HIPAA\b/.test(corpusAll) ||
+    /no.*certificad[oa].*HIPAA|sin afirmar.*HIPAA|no declara.*HIPAA/i.test(corpusAll),
   "FORBIDDEN unsupported HIPAA certification claim"
 );
 

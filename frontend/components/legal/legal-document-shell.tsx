@@ -152,6 +152,14 @@ export function LegalDocumentShell({ document }: { document: LegalDocument }) {
                   aria-labelledby={article.id}
                   className="space-y-5"
                 >
+                  {/* Ancla histórica para enlaces a #eliminacion-de-cuenta */}
+                  {article.id === "cierre-y-supresion-de-datos" ? (
+                    <div
+                      id="eliminacion-de-cuenta"
+                      className="scroll-mt-28"
+                      aria-hidden
+                    />
+                  ) : null}
                   <SectionHeading
                     id={article.id}
                     eyebrow={article.number}

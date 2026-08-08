@@ -59,8 +59,9 @@ export const LEGAL_MIGRATION_MATRIX: MigrationRow[] = [
     sourcePath: "/eliminar-cuenta",
     sourceSection: "Documento completo",
     targetId: "privacidad",
-    targetSectionId: "eliminacion-de-cuenta",
+    targetSectionId: "cierre-y-supresion-de-datos",
     status: "redirect",
+    notes: "Página /eliminar-cuenta operativa + sección en Privacidad.",
   },
   {
     sourceId: "cumplimiento",
@@ -134,7 +135,7 @@ export const REQUIRED_PRIVACY_ANCHORS = [
   "cookies-tecnologias-analitica-y-preferencias",
   "seguridad-de-la-informacion",
   "datos-personales-sensibles-y-clinicos",
-  "eliminacion-de-cuenta",
+  "cierre-y-supresion-de-datos",
   "cumplimiento-privacidad-y-proteccion-de-datos",
 ] as const;
 
@@ -172,8 +173,8 @@ export const LEGACY_REDIRECTS: {
     destination: "/privacidad#datos-personales-sensibles-y-clinicos",
   },
   {
-    sources: ["/eliminar-cuenta", "/Eliminar-Cuenta"],
-    destination: "/privacidad#eliminacion-de-cuenta",
+    sources: ["/Eliminar-Cuenta"],
+    destination: "/eliminar-cuenta",
   },
   {
     sources: ["/Aviso-Legal", "/aviso-legal"],

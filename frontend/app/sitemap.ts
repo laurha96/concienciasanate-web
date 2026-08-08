@@ -4,7 +4,12 @@ import {
   primaryLegalDocuments,
   signableLegalDocuments,
 } from "@/lib/legal/content";
-import { LEGAL_HUB_PATH, PRIVACY_PATH, TERMS_PATH } from "@/lib/legal/constants";
+import {
+  DELETE_ACCOUNT_PATH,
+  LEGAL_HUB_PATH,
+  PRIVACY_PATH,
+  TERMS_PATH,
+} from "@/lib/legal/constants";
 import { absoluteUrl } from "@/lib/seo";
 
 const staticPaths = [
@@ -18,6 +23,7 @@ const staticPaths = [
   LEGAL_HUB_PATH,
   PRIVACY_PATH,
   TERMS_PATH,
+  DELETE_ACCOUNT_PATH,
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -10,8 +10,7 @@ const ADMIN_COOKIE = "admin_token";
 const CASE_SENSITIVE_REDIRECTS: Record<string, { pathname: string; hash?: string }> =
   {
     "/Eliminar-Cuenta": {
-      pathname: "/privacidad",
-      hash: "eliminacion-de-cuenta",
+      pathname: "/eliminar-cuenta",
     },
     "/Centro-Legal": { pathname: "/centro-legal" },
     "/Terminos-y-Condiciones": { pathname: "/terminos-y-condiciones" },

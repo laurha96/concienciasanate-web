@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
           "/privacidad",
           "/terminos-y-condiciones",
           "/centro-legal",
+          "/eliminar-cuenta",
         ],
         disallow: [
           "/admin",

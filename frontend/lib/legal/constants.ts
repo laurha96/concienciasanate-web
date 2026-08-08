@@ -47,12 +47,16 @@ export const LEGAL_CONTACTS = {
 export const LEGAL_HUB_PATH = "/centro-legal";
 export const PRIVACY_PATH = "/privacidad";
 export const TERMS_PATH = "/terminos-y-condiciones";
-/** Ruta histórica; redirige a la sección consolidada en Privacidad. */
+/** Página pública operativa de cierre (accesible sin login; útil para Google/soporte). */
 export const DELETE_ACCOUNT_PATH = "/eliminar-cuenta";
-export const DELETE_ACCOUNT_SECTION_PATH = `${PRIVACY_PATH}#eliminacion-de-cuenta`;
+/** Sección canónica en la Política de Privacidad. */
+export const ACCOUNT_CLOSURE_SECTION_ID = "cierre-y-supresion-de-datos";
+export const DELETE_ACCOUNT_SECTION_PATH = `${PRIVACY_PATH}#${ACCOUNT_CLOSURE_SECTION_ID}`;
+/** Ancla histórica conservada por compatibilidad. */
+export const LEGACY_DELETE_ACCOUNT_SECTION_PATH = `${PRIVACY_PATH}#eliminacion-de-cuenta`;
 
 /** Versión del corpus documental publicado en el sitio. */
-export const LEGAL_CORPUS_VERSION = "1.2.0";
+export const LEGAL_CORPUS_VERSION = "1.3.0";
 export const LEGAL_CORPUS_UPDATED_AT = "2026-08-08";
 
 export const THIRD_PARTY_SERVICES = [

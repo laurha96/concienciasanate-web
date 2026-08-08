@@ -65,11 +65,8 @@ const legalRedirects = [
     destination: "/privacidad#datos-personales-sensibles-y-clinicos",
     permanent: true,
   },
-  {
-    source: "/eliminar-cuenta",
-    destination: "/privacidad#eliminacion-de-cuenta",
-    permanent: true,
-  },
+  // /eliminar-cuenta permanece como página pública operativa (formulario).
+  // Anclas de privacidad: #cierre-y-supresion-de-datos (+ #eliminacion-de-cuenta legacy).
   {
     source: "/Aviso-Legal",
     destination: "/terminos-y-condiciones#aviso-legal",
