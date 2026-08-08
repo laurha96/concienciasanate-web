@@ -44,13 +44,16 @@ export const LEGAL_CONTACTS = {
   dpoTitle: "Responsable de Protección de Datos Personales",
 } as const;
 
-export const LEGAL_HUB_PATH = "/Centro-Legal";
+export const LEGAL_HUB_PATH = "/centro-legal";
 export const PRIVACY_PATH = "/privacidad";
+export const TERMS_PATH = "/terminos-y-condiciones";
+/** Ruta histórica; redirige a la sección consolidada en Privacidad. */
 export const DELETE_ACCOUNT_PATH = "/eliminar-cuenta";
+export const DELETE_ACCOUNT_SECTION_PATH = `${PRIVACY_PATH}#eliminacion-de-cuenta`;
 
 /** Versión del corpus documental publicado en el sitio. */
-export const LEGAL_CORPUS_VERSION = "1.1.0";
-export const LEGAL_CORPUS_UPDATED_AT = "2026-08-07";
+export const LEGAL_CORPUS_VERSION = "1.2.0";
+export const LEGAL_CORPUS_UPDATED_AT = "2026-08-08";
 
 export const THIRD_PARTY_SERVICES = [
   {

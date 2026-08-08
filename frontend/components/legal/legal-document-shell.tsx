@@ -90,7 +90,7 @@ export function LegalDocumentShell({ document }: { document: LegalDocument }) {
                 href={LEGAL_HUB_PATH}
                 className="inline-flex items-center rounded-full border border-border/70 bg-brand-surface/80 px-4 py-2 text-sm text-foreground transition hover:border-primary/30"
               >
-                Ver todos los documentos
+                Centro Legal
               </Link>
               <a
                 href="#indice-movil"

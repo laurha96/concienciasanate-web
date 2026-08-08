@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
-
-export const metadata: Metadata = buildLegalPageMetadata("cumplimiento");
-
-export default function CumplimientoPage() {
-  return <LegalPage documentId="cumplimiento" />;
+export default function CumplimientoLegacyPage() {
+  redirect("/terminos-y-condiciones#cumplimiento-legal-y-normativo");
 }

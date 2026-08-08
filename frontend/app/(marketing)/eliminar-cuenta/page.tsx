@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
-
-export const metadata: Metadata = buildLegalPageMetadata("eliminar-cuenta");
-
-export default function EliminarCuentaPage() {
-  return <LegalPage documentId="eliminar-cuenta" />;
+/** Ruta histórica pública; el procedimiento vive en Privacidad. */
+export default function EliminarCuentaLegacyPage() {
+  redirect("/privacidad#eliminacion-de-cuenta");
 }

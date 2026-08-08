@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { LegalPage, buildLegalPageMetadata } from "@/components/legal";
-
-export const metadata: Metadata = buildLegalPageMetadata("aviso-legal");
-
-export default function AvisoLegalPage() {
-  return <LegalPage documentId="aviso-legal" />;
+export default function AvisoLegalLegacyPage() {
+  redirect("/terminos-y-condiciones#aviso-legal");
 }

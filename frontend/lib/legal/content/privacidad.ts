@@ -2,102 +2,93 @@ import {
   LEGAL_CONTACTS,
   LEGAL_ENTITY,
   PRIVACY_PATH,
-  DELETE_ACCOUNT_PATH,
   THIRD_PARTY_SERVICES,
 } from "@/lib/legal/constants";
-import type { LegalDocument } from "@/lib/legal/types";
+import { embedSourceAsSection, mergeDefinitions } from "@/lib/legal/compose";
+import { cookiesDocument } from "@/lib/legal/content/cookies";
+import { cumplimientoDocument } from "@/lib/legal/content/cumplimiento";
+import { eliminarCuentaDocument } from "@/lib/legal/content/eliminar-cuenta";
+import { proteccionDatosDocument } from "@/lib/legal/content/proteccion-datos";
+import { seguridadDocument } from "@/lib/legal/content/seguridad";
+import type { LegalArticle, LegalDocument } from "@/lib/legal/types";
 
-export const privacidadDocument: LegalDocument = {
-  id: "privacidad",
-  path: PRIVACY_PATH,
-  title: "Política de Privacidad y Tratamiento de Datos Personales",
-  shortTitle: "Privacidad",
-  summary:
-    "Tratamiento de datos personales, clínicos y de Google en Conciencia Sánate y el ecosistema Elynthis, conforme a la Ley 1581 de 2012 y Limited Use de Google.",
-  description:
-    "Política de Privacidad de Conciencia Sánate y Elynthis: datos personales y clínicos, Google Sign-In, Google Calendar, Limited Use, inteligencia artificial, conservación, derechos del titular y eliminación de cuenta.",
-  version: "1.1.0",
-  updatedAt: "2026-08-07",
-  effectiveDate: "2026-08-07",
-  category: "privacy",
-  keywords: [
-    "política de privacidad",
-    "Ley 1581",
-    "Google API Services User Data Policy",
-    "Limited Use",
-    "Google Calendar",
-    "eliminación",
-    "inteligencia artificial",
-    "Elynthis",
-    "historia clínica",
-  ],
-  relatedIds: [
-    "proteccion-datos",
-    "cookies",
-    "consentimiento-datos",
-    "seguridad",
-    "eliminar-cuenta",
-    "cumplimiento",
-    "terminos",
-  ],
-  definitions: [
-    {
-      term: "Dato personal",
-      definition:
-        "Información vinculada o que pueda asociarse a una persona natural determinada o determinable.",
-    },
-    {
-      term: "Dato sensible",
-      definition:
-        "Información que afecta la intimidad del Titular o cuyo uso indebido puede generar discriminación; incluye datos de salud, biométricos y de vida sexual, entre otros.",
-    },
-    {
-      term: "Dato clínico",
-      definition:
-        "Información generada o recopilada durante la atención en salud, incluida la historia clínica, diagnósticos, notas, evoluciones, planes, prescripciones, resultados y documentos relacionados.",
-    },
-    {
-      term: "Titular",
-      definition: "Persona natural a quien pertenece la información.",
-    },
-    {
-      term: "Responsable",
-      definition:
-        "Persona natural o jurídica que decide sobre la base de datos o el tratamiento.",
-    },
-    {
-      term: "Encargado",
-      definition:
-        "Persona natural o jurídica que trata datos por cuenta del Responsable.",
-    },
-    {
-      term: "Tratamiento",
-      definition:
-        "Cualquier operación sobre datos personales, como recolección, almacenamiento, uso, consulta, circulación, transmisión, actualización, anonimización o supresión.",
-    },
-    {
-      term: "Datos de Google",
-      definition:
-        "Información recibida directamente o derivada de Google Sign-In, Google Calendar u otra API de Google autorizada por el Usuario.",
-    },
-    {
-      term: "Token OAuth",
-      definition:
-        "Credencial técnica que permite a Elynthis acceder a una funcionalidad de Google dentro de los permisos autorizados por el Usuario.",
-    },
-  ],
-  scope: [
+const cookiesSection = embedSourceAsSection({
+  source: cookiesDocument,
+  sectionId: "cookies-tecnologias-analitica-y-preferencias",
+  sectionNumber: "Artículo 9",
+  sectionTitle: "Cookies, tecnologías similares, analítica y preferencias",
+  numberPrefix: "9",
+  introBlocks: [
     {
       type: "p",
-      text: `Esta Política se aplica al tratamiento de datos personales realizado a través de ${LEGAL_ENTITY.siteUrl} y sus páginas públicas; Elynthis Clinical; Elynthis Clinical Lite; Elynthis Care; aplicaciones web y móviles asociadas; formularios de contacto, soporte y demostraciones; cuentas, autenticación y administración de usuarios; agenda, teleconsulta, documentos, consentimientos, facturación, RIPS e integraciones habilitadas; comunicaciones transaccionales y de seguridad; e integraciones opcionales con Google, Apple y otros proveedores expresamente informados.`,
+      text: "Esta sección describe el uso de cookies, SDK, balizas y tecnologías similares en Conciencia Sánate y el ecosistema Elynthis, incluyendo cookies esenciales, de preferencias, analíticas, de rendimiento y de seguridad, proveedores relacionados, consentimiento, retiro, configuración del navegador y consecuencias de desactivación.",
     },
     {
       type: "p",
-      text: "La Política aplica a visitantes, usuarios registrados, pacientes, profesionales de la salud, auxiliares, administradores de organizaciones, representantes legales, proveedores y personas que se comuniquen con Conciencia Sánate/Elynthis.",
+      text: "Los datos obtenidos mediante APIs de Google no se emplean para publicidad personalizada ni se incorporan a perfiles publicitarios.",
     },
   ],
-  articles: [
+});
+
+const seguridadSection = embedSourceAsSection({
+  source: seguridadDocument,
+  sectionId: "seguridad-de-la-informacion",
+  sectionNumber: "Artículo 11",
+  sectionTitle: "Seguridad de la información y protección técnica",
+  numberPrefix: "11",
+  introBlocks: [
     {
+      type: "p",
+      text: "Elynthis aplica controles técnicos y organizativos orientados a proteger la confidencialidad, integridad y disponibilidad de la información. ISO/IEC 27001, ISO/IEC 27701 e HIPAA se citan únicamente como referencias de buenas prácticas y no como certificaciones de Conciencia Sánate/Elynthis, salvo publicación expresa de un certificado vigente.",
+    },
+  ],
+});
+
+const eliminacionSection = embedSourceAsSection({
+  source: eliminarCuentaDocument,
+  sectionId: "eliminacion-de-cuenta",
+  sectionNumber: "Artículo 15",
+  sectionTitle:
+    "Eliminación de cuenta, supresión de datos y revocación de integraciones",
+  numberPrefix: "15",
+  introBlocks: [
+    {
+      type: "p",
+      text: "Esta sección es públicamente accesible sin autenticación y describe el procedimiento completo para solicitar la eliminación de cuenta y datos, incluida la revocación de integraciones de Google y la eliminación o invalidación de tokens OAuth, con las conservaciones legalmente exigidas.",
+    },
+  ],
+});
+
+const proteccionSection = embedSourceAsSection({
+  source: proteccionDatosDocument,
+  sectionId: "datos-personales-sensibles-y-clinicos",
+  sectionNumber: "Artículo 16",
+  sectionTitle: "Datos personales, sensibles y clínicos (protección reforzada)",
+  numberPrefix: "16",
+  introBlocks: [
+    {
+      type: "p",
+      text: "Esta sección consolida las garantías, definiciones y procedimientos de protección reforzada aplicables a datos personales, sensibles y clínicos tratados en el ecosistema Elynthis.",
+    },
+  ],
+});
+
+const cumplimientoPrivacySection = embedSourceAsSection({
+  source: cumplimientoDocument,
+  sectionId: "cumplimiento-privacidad-y-proteccion-de-datos",
+  sectionNumber: "Artículo 17",
+  sectionTitle: "Cumplimiento normativo en privacidad y protección de datos",
+  numberPrefix: "17",
+  introBlocks: [
+    {
+      type: "p",
+      text: "Se incorporan aquí las materias de cumplimiento relacionadas con la Ley 1581 de 2012, decretos reglamentarios, historia clínica, datos sensibles, seguridad, tratamiento, Google API Services User Data Policy, Limited Use, inteligencia artificial, conservación, eliminación, derechos de los Titulares y autoridades de protección de datos. El documento íntegro de cumplimiento contractual y sanitario también se publica dentro de los Términos y Condiciones.",
+    },
+  ],
+});
+
+const coreArticles: LegalArticle[] = [
+{
       id: "identificacion-responsable",
       number: "Artículo 1",
       title: "Identificación del Responsable y canales de contacto",
@@ -130,7 +121,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "marco-normativo",
       number: "Artículo 2",
       title: "Marco normativo y principios",
@@ -149,7 +140,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "datos-que-tratamos",
       number: "Artículo 3",
       title: "Datos que podemos tratar",
@@ -218,7 +209,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "finalidades",
       number: "Artículo 4",
       title: "Finalidades del tratamiento",
@@ -249,7 +240,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "autorizacion-bases",
       number: "Artículo 5",
       title: "Autorización y bases que permiten el tratamiento",
@@ -263,7 +254,7 @@ export const privacidadDocument: LegalDocument = {
             "Cumplimiento de obligaciones legales o regulatorias.",
             "Atención de requerimientos de autoridad competente.",
             "Protección de intereses vitales o atención de urgencias, cuando legalmente proceda.",
-            "Finalidades legítimas de seguridad y prevención de fraude compatibles con los derechos del Titular.",
+            "Tratamientos necesarios para seguridad y prevención de fraude, sustentados en la autorización del Titular, la ejecución de la relación contractual, el cumplimiento de obligaciones legales o una excepción expresamente prevista por la ley.",
             "Otras excepciones expresamente previstas por la ley.",
           ],
         },
@@ -273,7 +264,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "datos-sensibles-menores",
       number: "Artículo 6",
       title: "Datos sensibles, datos clínicos y menores de edad",
@@ -292,7 +283,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "google-apis",
       number: "Artículo 7",
       title: "Tratamiento de datos obtenidos mediante APIs de Google",
@@ -300,16 +291,16 @@ export const privacidadDocument: LegalDocument = {
         {
           type: "callout",
           tone: "info",
-          title: "9.1 Carácter opcional y consentimiento",
+          title: "7.1 Carácter opcional y consentimiento",
           text: "Google Sign-In y Google Calendar son integraciones diferenciadas. Antes de solicitar permisos de Google Calendar, Elynthis muestra una explicación clara de los datos que solicita, la finalidad, las acciones que podrá realizar y la forma de revocar el acceso. La conexión se inicia únicamente después de una acción afirmativa del Usuario. El Usuario puede utilizar Google Sign-In sin autorizar automáticamente Google Calendar.",
         },
         {
           type: "p",
-          text: "9.2 Datos de Google Sign-In. Cuando el Usuario elige “Continuar con Google”, Elynthis puede recibir, de acuerdo con los permisos openid, email y profile: identificador único de la cuenta de Google; nombre y apellidos; correo electrónico; y fotografía de perfil, cuando esté disponible. Estos datos se usan exclusivamente para autenticar, crear o vincular la cuenta, mostrar información básica de perfil, prevenir duplicados y proteger el acceso. Google Sign-In no concede por sí solo acceso a Gmail, Google Drive, contactos ni Google Calendar.",
+          text: "7.2 Datos de Google Sign-In. Cuando el Usuario elige “Continuar con Google”, Elynthis puede recibir, de acuerdo con los permisos openid, email y profile: identificador único de la cuenta de Google; nombre y apellidos; correo electrónico; y fotografía de perfil, cuando esté disponible. Estos datos se usan exclusivamente para autenticar, crear o vincular la cuenta, mostrar información básica de perfil, prevenir duplicados y proteger el acceso. Google Sign-In no concede por sí solo acceso a Gmail, Google Drive, contactos ni Google Calendar.",
         },
         {
           type: "p",
-          text: "9.3 Datos de Google Calendar. Cuando el Usuario conecta voluntariamente Google Calendar, Elynthis puede acceder, dentro de los permisos exhibidos por Google, a: identificador del calendario seleccionado; identificador y estado de eventos; título, descripción y ubicación; fecha y hora de inicio y finalización; zona horaria; recurrencia, recordatorios y disponibilidad; asistentes y sus correos únicamente cuando formen parte del evento que el Usuario crea, selecciona o sincroniza; enlace de videoconferencia o Google Meet cuando el Usuario lo solicite; y metadatos técnicos necesarios para crear, consultar, actualizar, cancelar o evitar duplicados.",
+          text: "7.3 Datos de Google Calendar. Cuando el Usuario conecta voluntariamente Google Calendar, Elynthis puede acceder, dentro de los permisos exhibidos por Google, a: identificador del calendario seleccionado; identificador y estado de eventos; título, descripción y ubicación; fecha y hora de inicio y finalización; zona horaria; recurrencia, recordatorios y disponibilidad; asistentes y sus correos únicamente cuando formen parte del evento que el Usuario crea, selecciona o sincroniza; enlace de videoconferencia o Google Meet cuando el Usuario lo solicite; y metadatos técnicos necesarios para crear, consultar, actualizar, cancelar o evitar duplicados.",
         },
         {
           type: "ul",
@@ -328,29 +319,29 @@ export const privacidadDocument: LegalDocument = {
         },
         {
           type: "p",
-          text: "9.4 Acciones realizadas por cuenta del Usuario. Elynthis solo crea, consulta, actualiza o elimina eventos de Google Calendar como consecuencia de una acción del Usuario o de una regla de sincronización que este haya activado y pueda desactivar. La aplicación no envía correos, modifica archivos ni actúa en otros servicios de Google mediante los permisos de Calendar.",
+          text: "7.4 Acciones realizadas por cuenta del Usuario. Elynthis solo crea, consulta, actualiza o elimina eventos de Google Calendar como consecuencia de una acción del Usuario o de una regla de sincronización que este haya activado y pueda desactivar. La aplicación no envía correos, modifica archivos ni actúa en otros servicios de Google mediante los permisos de Calendar.",
         },
         {
           type: "p",
-          text: "9.5 Almacenamiento y seguridad. Elynthis puede conservar el identificador de la cuenta de Google, el correo vinculado, el calendario seleccionado, identificadores de eventos, estados de sincronización y tokens OAuth mientras la integración permanezca activa. Los tokens OAuth deben almacenarse cifrados en reposo, disponibles únicamente en componentes de servidor autorizados y transmitirse mediante HTTPS/TLS. No se exponen en código cliente, URLs públicas, logs, herramientas analíticas ni mensajes de error. Elynthis evita incluir diagnósticos, notas clínicas u otra información sensible innecesaria en eventos de Calendar.",
+          text: "7.5 Almacenamiento y seguridad. Elynthis puede conservar el identificador de la cuenta de Google, el correo vinculado, el calendario seleccionado, identificadores de eventos, estados de sincronización y tokens OAuth mientras la integración permanezca activa. Los tokens OAuth deben almacenarse cifrados en reposo (obligación de diseño del ecosistema; la verificación del cifrado en reposo corresponde a Elynthis Clinical, fuera de este repositorio), disponibles únicamente en componentes de servidor autorizados y transmitirse mediante HTTPS/TLS. No se exponen en código cliente, URLs públicas, logs, herramientas analíticas ni mensajes de error. Elynthis evita incluir diagnósticos, notas clínicas u otra información sensible innecesaria en eventos de Calendar.",
         },
         {
           type: "p",
-          text: "9.6 Compartición, transferencias y acceso humano. Los datos obtenidos mediante APIs de Google no se venden, alquilan ni comparten con plataformas publicitarias, corredores de datos, revendedores de información o entidades que determinen solvencia o concedan crédito. El personal de Conciencia Sánate/Elynthis no accede al contenido de datos de Google salvo consentimiento explícito del Usuario para soporte, investigación de incidentes, datos agregados y anonimizados, u obligación legal.",
+          text: "7.6 Compartición, transferencias y acceso humano. Los datos obtenidos mediante APIs de Google no se venden, alquilan ni comparten con plataformas publicitarias, corredores de datos, revendedores de información o entidades que determinen solvencia o concedan crédito. El personal de Conciencia Sánate/Elynthis no accede al contenido de datos de Google salvo consentimiento explícito del Usuario para soporte, investigación de incidentes, datos agregados y anonimizados, u obligación legal.",
         },
         {
           type: "callout",
           tone: "legal",
-          title: "9.7 Limited Use y prohibición de entrenamiento de IA",
+          title: "7.7 Limited Use y prohibición de entrenamiento de IA",
           text: "El uso y la transferencia de información recibida de las APIs de Google se realizan conforme a la Google API Services User Data Policy, incluidos los requisitos de Limited Use, y cuando corresponda a la Google Workspace User Data and Developer Policy. Elynthis no utiliza, transfiere ni permite que datos obtenidos mediante Google Workspace APIs se empleen para desarrollar, mejorar o entrenar modelos generalizados o no personalizados de inteligencia artificial. Los datos de Google Sign-In o Google Calendar no se envían a OpenAI ni a otros proveedores de IA, ni se usan para publicidad, retargeting, perfiles comerciales, vigilancia o bases de datos comerciales.",
         },
         {
           type: "p",
-          text: "9.8 Desconexión, revocación y eliminación. El Usuario puede desconectar Google Calendar desde la configuración de integraciones de Elynthis. Al hacerlo se invalida o revoca el acceso, se eliminan los tokens OAuth de sistemas activos, se detienen nuevas sincronizaciones y se eliminan mapeos y datos derivados innecesarios, normalmente dentro de treinta (30) días calendario. La desconexión no elimina automáticamente los eventos ya creados en Google Calendar. También puede revocar el acceso en https://myaccount.google.com/connections o solicitar eliminación escribiendo a privacidad@concienciasanate.com.",
+          text: "7.8 Desconexión, revocación y eliminación. El Usuario puede desconectar Google Calendar desde la configuración de integraciones de Elynthis. Al hacerlo se invalida o revoca el acceso, se eliminan los tokens OAuth de sistemas activos, se detienen nuevas sincronizaciones y se eliminan mapeos y datos derivados innecesarios, normalmente dentro de treinta (30) días calendario. La desconexión no elimina automáticamente los eventos ya creados en Google Calendar. También puede revocar el acceso en https://myaccount.google.com/connections o solicitar eliminación escribiendo a privacidad@concienciasanate.com.",
         },
       ],
     },
-    {
+{
       id: "inteligencia-artificial",
       number: "Artículo 8",
       title: "Inteligencia artificial y decisiones automatizadas",
@@ -371,27 +362,8 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
-      id: "cookies-analitica",
-      number: "Artículo 9",
-      title: "Cookies, analítica y datos técnicos",
-      blocks: [
-        {
-          type: "ul",
-          items: [
-            "Esenciales: autenticación, seguridad, preferencias de sesión y funcionamiento.",
-            "De preferencias: idioma, zona horaria y configuración.",
-            "Analíticas o de rendimiento: únicamente cuando estén habilitadas y exista la base o autorización correspondiente.",
-            "De seguridad: prevención de abuso, limitación de tasa y protección de infraestructura.",
-          ],
-        },
-        {
-          type: "p",
-          text: "Las cookies no esenciales se gestionan mediante información y controles de consentimiento cuando sean exigibles. Los datos obtenidos mediante APIs de Google no se emplean para publicidad personalizada ni se incorporan a perfiles publicitarios. El detalle opera bajo la Política de Cookies.",
-        },
-      ],
-    },
-    {
+  ...cookiesSection.articles,
+{
       id: "encargados-proveedores",
       number: "Artículo 10",
       title: "Encargados, proveedores y transferencias internacionales",
@@ -411,40 +383,8 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
-      id: "seguridad-informacion",
-      number: "Artículo 11",
-      title: "Seguridad de la información",
-      blocks: [
-        {
-          type: "ul",
-          items: [
-            "HTTPS/TLS para datos en tránsito.",
-            "Cifrado en reposo de datos y secretos que lo requieran.",
-            "Almacenamiento cifrado y acceso restringido a tokens OAuth.",
-            "Autenticación, expiración de sesiones y controles por rol.",
-            "Segregación por organización y políticas de seguridad a nivel de datos.",
-            "Mínimo privilegio y necesidad de conocer.",
-            "Gestión de secretos fuera del código cliente.",
-            "Registros de auditoría y monitoreo de eventos de seguridad.",
-            "Respaldos, continuidad y procedimientos de recuperación.",
-            "Revisión de dependencias, cambios y vulnerabilidades.",
-            "Medidas para reducir la presencia de datos clínicos o secretos en logs.",
-            "Procedimientos de respuesta y notificación de incidentes.",
-          ],
-        },
-        {
-          type: "note",
-          title: "Marcos de referencia (no certificaciones)",
-          text: "Algunos controles pueden inspirarse en buenas prácticas de ISO/IEC 27001, ISO/IEC 27701 o salvaguardas técnicas HIPAA como referencia. Ello no constituye declaración de certificación formal por este documento.",
-        },
-        {
-          type: "p",
-          text: `Ningún sistema es absolutamente invulnerable. Los Usuarios deben proteger sus credenciales, dispositivos y sesiones, y reportar sospechas a ${LEGAL_CONTACTS.security}.`,
-        },
-      ],
-    },
-    {
+  ...seguridadSection.articles,
+{
       id: "conservacion-eliminacion",
       number: "Artículo 12",
       title: "Conservación y eliminación",
@@ -499,7 +439,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "derechos-titulares",
       number: "Artículo 13",
       title: "Derechos de los Titulares",
@@ -524,7 +464,7 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "procedimiento-consultas",
       number: "Artículo 14",
       title: "Procedimiento para consultas, reclamos, corrección y supresión",
@@ -547,28 +487,12 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
-      id: "eliminacion-cuenta",
-      number: "Artículo 15",
-      title: "Eliminación de cuenta y revocación de integraciones",
-      blocks: [
-        {
-          type: "p",
-          text: `El Usuario puede solicitar la eliminación desde la configuración de la cuenta, cuando la función esté disponible, o escribiendo a ${LEGAL_CONTACTS.privacy} o ${LEGAL_CONTACTS.support}.`,
-        },
-        {
-          type: "p",
-          text: "La eliminación comprende credenciales, sesiones, preferencias, tokens de integraciones voluntarias y otros datos no sujetos a conservación obligatoria. Las historias clínicas, consentimientos, registros de facturación, RIPS y evidencias legalmente exigidas pueden permanecer bloqueadas y protegidas durante el término correspondiente.",
-        },
-        {
-          type: "p",
-          text: `La información detallada está en ${LEGAL_ENTITY.siteUrl}${DELETE_ACCOUNT_PATH}.`,
-        },
-      ],
-    },
-    {
+  ...eliminacionSection.articles,
+  ...proteccionSection.articles,
+  ...cumplimientoPrivacySection.articles,
+{
       id: "comunicaciones",
-      number: "Artículo 16",
+      number: "Artículo 18",
       title: "Comunicaciones",
       blocks: [
         {
@@ -577,9 +501,9 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "incidentes",
-      number: "Artículo 17",
+      number: "Artículo 19",
       title: "Incidentes de seguridad",
       blocks: [
         {
@@ -588,9 +512,9 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "enlaces-terceros",
-      number: "Artículo 18",
+      number: "Artículo 20",
       title: "Enlaces y servicios de terceros",
       blocks: [
         {
@@ -599,31 +523,130 @@ export const privacidadDocument: LegalDocument = {
         },
       ],
     },
-    {
+{
       id: "cambios-politica",
-      number: "Artículo 19",
+      number: "Artículo 21",
       title: "Cambios de esta Política",
       blocks: [
         {
           type: "p",
-          text: "La Política puede actualizarse por cambios normativos, operativos, tecnológicos o de finalidades. La versión, fecha de actualización y entrada en vigor se publicarán en esta página. Si un cambio modifica sustancialmente el uso de datos personales o de Google, se informará de manera destacada y, cuando corresponda, se solicitará una nueva autorización.",
+          text: "La Política puede actualizarse por cambios normativos, operativos, tecnológicos o de finalidades. La versión, fecha de actualización y entrada en vigor se publicarán en esta página. La versión 1.2.0 reorganiza y consolida documentos legales previamente separados sin alterar, por ese solo hecho, las finalidades de tratamiento. Si un cambio modifica sustancialmente el uso de datos personales o de Google, se informará de manera destacada y, cuando corresponda, se solicitará una nueva autorización.",
         },
       ],
     },
-    {
+{
       id: "aceptacion-relacion",
-      number: "Artículo 20",
+      number: "Artículo 22",
       title: "Aceptación y relación con otros documentos",
       blocks: [
         {
           type: "p",
-          text: "Esta Política debe leerse junto con los Términos y Condiciones, la Política de Seguridad, la Política de Cookies, la Política de Datos Sensibles, la Política de Eliminación de Cuenta, los consentimientos clínicos y los acuerdos de tratamiento aplicables. Su publicación no sustituye la autorización de tratamiento de datos ni el consentimiento informado clínico cuando sean legalmente requeridos.",
+          text: "Esta Política debe leerse junto con los Términos y Condiciones y los consentimientos clínicos firmables cuando apliquen. La versión 1.2.0 consolida documentos previamente publicados de forma separada (Cookies, Seguridad, Protección de Datos, Eliminación de Cuenta y materias de cumplimiento relacionadas con privacidad), sin reducir derechos ni garantías ni modificar por sí sola las finalidades de tratamiento. Su publicación no sustituye la autorización de tratamiento de datos ni el consentimiento informado clínico cuando sean legalmente requeridos.",
         },
       ],
     },
+];
+
+// Renumber trailing articles after consolidation inserts (display numbers in embeds are local).
+// Core article numbers already set; articles after embed keep their labels for continuity with prior version where practical.
+
+export const privacidadDocument: LegalDocument = {
+  id: "privacidad",
+  path: PRIVACY_PATH,
+  title: "Política de Privacidad y Tratamiento de Datos Personales",
+  shortTitle: "Privacidad",
+  summary:
+    "Datos personales y clínicos, cookies, seguridad, Google, inteligencia artificial, conservación, eliminación de cuenta y derechos del Titular en Conciencia Sánate y Elynthis.",
+  description:
+    "Política de Privacidad de Conciencia Sánate y Elynthis: datos personales y clínicos, cookies, seguridad, Google Sign-In, Google Calendar, Limited Use, inteligencia artificial, conservación, derechos del titular y eliminación de cuenta.",
+  version: "1.2.0",
+  updatedAt: "2026-08-08",
+  effectiveDate: "2026-08-08",
+  category: "privacy",
+  keywords: [
+    "política de privacidad",
+    "Ley 1581",
+    "Google API Services User Data Policy",
+    "Limited Use",
+    "Google Calendar",
+    "eliminación de cuenta",
+    "cookies",
+    "seguridad de la información",
+    "inteligencia artificial",
+    "Elynthis",
+    "historia clínica",
   ],
-  annexes: [
+  relatedIds: ["terminos"],
+  definitions: mergeDefinitions(
+    [
+      {
+        term: "Dato personal",
+        definition:
+          "Información vinculada o que pueda asociarse a una persona natural determinada o determinable.",
+      },
+      {
+        term: "Dato sensible",
+        definition:
+          "Información que afecta la intimidad del Titular o cuyo uso indebido puede generar discriminación; incluye datos de salud, biométricos y de vida sexual, entre otros.",
+      },
+      {
+        term: "Dato clínico",
+        definition:
+          "Información generada o recopilada durante la atención en salud, incluida la historia clínica, diagnósticos, notas, evoluciones, planes, prescripciones, resultados y documentos relacionados.",
+      },
+      {
+        term: "Titular",
+        definition: "Persona natural a quien pertenece la información.",
+      },
+      {
+        term: "Responsable",
+        definition:
+          "Persona natural o jurídica que decide sobre la base de datos o el tratamiento.",
+      },
+      {
+        term: "Encargado",
+        definition:
+          "Persona natural o jurídica que trata datos por cuenta del Responsable.",
+      },
+      {
+        term: "Tratamiento",
+        definition:
+          "Cualquier operación sobre datos personales, como recolección, almacenamiento, uso, consulta, circulación, transmisión, actualización, anonimización o supresión.",
+      },
+      {
+        term: "Datos de Google",
+        definition:
+          "Información recibida directamente o derivada de Google Sign-In, Google Calendar u otra API de Google autorizada por el Usuario.",
+      },
+      {
+        term: "Token OAuth",
+        definition:
+          "Credencial técnica que permite a Elynthis acceder a una funcionalidad de Google dentro de los permisos autorizados por el Usuario.",
+      },
+    ],
+    cookiesSection.definitions,
+    seguridadSection.definitions,
+    eliminacionSection.definitions,
+    proteccionSection.definitions,
+    cumplimientoPrivacySection.definitions
+  ),
+  scope: [
     {
+      type: "p",
+      text: `Esta Política se aplica al tratamiento de datos personales realizado a través de ${LEGAL_ENTITY.siteUrl} y sus páginas públicas; Elynthis Clinical; Elynthis Clinical Lite; Elynthis Care; aplicaciones web y móviles asociadas; formularios de contacto, soporte y demostraciones; cuentas, autenticación y administración de usuarios; agenda, teleconsulta, documentos, consentimientos, facturación, RIPS e integraciones habilitadas; comunicaciones transaccionales y de seguridad; e integraciones opcionales con Google, Apple y otros proveedores expresamente informados.`,
+    },
+    {
+      type: "p",
+      text: "La Política aplica a visitantes, usuarios registrados, pacientes, profesionales de la salud, auxiliares, administradores de organizaciones, representantes legales, proveedores y personas que se comuniquen con Conciencia Sánate/Elynthis.",
+    },
+    {
+      type: "p",
+      text: "La versión 1.2.0 consolida en un único documento la Política de Cookies, la Política de Seguridad, la Política de Protección de Datos Sensibles, la Política de Eliminación de Cuenta y las materias de cumplimiento relacionadas con privacidad, sin reducir derechos ni garantías.",
+    },
+  ],
+  articles: coreArticles,
+  annexes: [
+{
       id: "referencias-normativas",
       number: "Anexo A",
       title: "Referencias normativas y de plataforma",
@@ -638,7 +661,7 @@ export const privacidadDocument: LegalDocument = {
             "Google Workspace User Data and Developer Policy: https://developers.google.com/workspace/workspace-api-user-data-developer-policy",
             "Gestión de conexiones de la Cuenta de Google: https://myaccount.google.com/connections",
             `Política canónica: ${LEGAL_ENTITY.siteUrl}${PRIVACY_PATH}`,
-            `Eliminación de cuenta: ${LEGAL_ENTITY.siteUrl}${DELETE_ACCOUNT_PATH}`,
+            `Eliminación de cuenta: ${LEGAL_ENTITY.siteUrl}${PRIVACY_PATH}#eliminacion-de-cuenta`,
           ],
         },
       ],
