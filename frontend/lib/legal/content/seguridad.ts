@@ -250,7 +250,7 @@ export const seguridadDocument: LegalDocument = {
             ["Identidad", "Auth Supabase / OAuth Google-Apple, sesiones"],
             ["Autorización", "Roles + RLS"],
             ["Red", "HTTPS/TLS + Cloudflare"],
-            ["Datos", "Minimización, cifrado, Retention legal"],
+            ["Datos", "Minimización, cifrado, Retención legal"],
             ["Operación", "Logs, backups, incident response"],
             ["Privacidad", "Alineación ISO 27701 como referencia"],
           ],

@@ -16,11 +16,24 @@ const nextConfig: NextConfig = {
     return [
       { source: "/auth/login", destination: "/login", permanent: true },
       { source: "/auth/register", destination: "/registro", permanent: true },
+      // Privacidad canónica: /privacidad
+      // (destinos con path distinto; no usan solo cambio de casing)
       {
-        source: "/privacidad",
-        destination: "/Politica-de-Privacidad",
+        source: "/Politica-de-Privacidad",
+        destination: "/privacidad",
         permanent: true,
       },
+      {
+        source: "/Politica-de-privacidad",
+        destination: "/privacidad",
+        permanent: true,
+      },
+      {
+        source: "/politica-de-privacidad",
+        destination: "/privacidad",
+        permanent: true,
+      },
+      // /Eliminar-Cuenta → /eliminar-cuenta se maneja en proxy.ts (case-sensitive)
       {
         source: "/terminos",
         destination: "/Terminos-&-Condiciones",

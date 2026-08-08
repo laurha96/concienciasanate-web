@@ -129,7 +129,7 @@ export const consentimientoDatosDocument: LegalDocument = {
       blocks: [
         {
           type: "p",
-          text: `Puedo conocer, actualizar, rectificar, suprimir y revocar esta autorización en los términos de ley, escribiendo a ${LEGAL_CONTACTS.privacy}, sin perjuicio de Retention legal de historia clínica.`,
+          text: `Puedo conocer, actualizar, rectificar, suprimir y revocar esta autorización en los términos de ley, escribiendo a ${LEGAL_CONTACTS.privacy}, sin perjuicio de Retención legal de historia clínica.`,
         },
       ],
     },

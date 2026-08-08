@@ -4,10 +4,15 @@ export const LEGAL_ENTITY = {
   softwareName: "Elynthis",
   siteUrl: "https://concienciasanate.com",
   siteUrlWww: "https://www.concienciasanate.com",
+  controllerName:
+    "Laura Rojas, titular y operadora de Conciencia Sánate y del ecosistema Elynthis",
+  domicile: "Bogotá D. C., Colombia",
+  noticeAddress: "CRA 29 31D 60 SUR, Bogotá, Colombia",
+  phone: "+1 3124462648",
   products: [
     "Elynthis Clinical",
+    "Elynthis Clinical Lite",
     "Elynthis Care",
-    "Elynthis Lite",
   ] as const,
   services: [
     "Psicología",
@@ -40,69 +45,61 @@ export const LEGAL_CONTACTS = {
 } as const;
 
 export const LEGAL_HUB_PATH = "/Centro-Legal";
+export const PRIVACY_PATH = "/privacidad";
+export const DELETE_ACCOUNT_PATH = "/eliminar-cuenta";
 
 /** Versión del corpus documental publicado en el sitio. */
-export const LEGAL_CORPUS_VERSION = "1.0.0";
-export const LEGAL_CORPUS_UPDATED_AT = "2026-08-04";
+export const LEGAL_CORPUS_VERSION = "1.1.0";
+export const LEGAL_CORPUS_UPDATED_AT = "2026-08-07";
 
 export const THIRD_PARTY_SERVICES = [
   {
-    name: "Google",
+    name: "Supabase",
     purpose:
-      "Autenticación OAuth, servicios de identidad, Google Calendar y, cuando aplique, analítica.",
-  },
-  {
-    name: "Apple",
-    purpose:
-      "Inicio de sesión con Apple, distribución de aplicaciones móviles y Apple Calendar.",
+      "Autenticación, base de datos PostgreSQL, almacenamiento, controles RLS y respaldos.",
   },
   {
     name: "Cloudflare",
     purpose:
-      "CDN, protección DDoS, WAF, DNS y cookies técnicas de seguridad/rendimiento.",
+      "DNS, CDN, protección DDoS, WAF, seguridad y rendimiento.",
   },
   {
-    name: "Supabase",
+    name: "Resend u otro proveedor transaccional",
+    purpose: "Envío de comunicaciones relacionadas con el servicio.",
+  },
+  {
+    name: "Google",
     purpose:
-      "Base de datos PostgreSQL, autenticación, almacenamiento de archivos, Row Level Security (RLS) y respaldos.",
+      "Google Sign-In (openid, email, profile), OAuth y sincronización opcional con Google Calendar.",
   },
   {
-    name: "Resend",
-    purpose: "Envío transaccional de correos electrónicos del ecosistema.",
-  },
-  {
-    name: "OpenAI",
+    name: "Apple",
     purpose:
-      "Procesamiento de asistencias de IA no diagnósticas, siempre bajo controles de privacidad y sin sustituir criterio clínico.",
+      "Inicio de sesión, distribución móvil o integración autorizada con servicios Apple.",
   },
   {
-    name: "Google Calendar",
-    purpose: "Sincronización opcional de agenda del profesional o del paciente.",
+    name: "Stripe u otro procesador de pagos",
+    purpose: "Procesamiento de pagos y administración de suscripciones.",
   },
   {
-    name: "Apple Calendar",
-    purpose: "Sincronización opcional de agenda en dispositivos Apple.",
+    name: "OpenAI u otro proveedor de IA expresamente habilitado",
+    purpose:
+      "Funciones asistivas no diagnósticas; excluye datos obtenidos mediante APIs de Google.",
   },
   {
-    name: "Stripe",
-    purpose: "Procesamiento de pagos y facturación de suscripciones cuando esté habilitado.",
+    name: "Proveedores de monitoreo de errores",
+    purpose:
+      "Detección de fallos y seguridad, aplicando minimización y evitando datos clínicos innecesarios.",
   },
 ] as const;
 
 export const NORMATIVE_REFERENCES = [
   "Constitución Política de Colombia",
-  "Ley 23 de 1981 (Ética Médica y reserva de la historia clínica)",
-  "Resolución 1995 de 1999 (Historia Clínica)",
-  "Resolución 839 de 2017 (modifica la Resolución 1995 de 1999)",
-  "Ley 1581 de 2012 (Protección de Datos Personales)",
-  "Decreto 1377 de 2013",
-  "Decreto 1074 de 2015",
-  "Ley 1266 de 2008 (Habeas Data)",
-  "Ley Estatutaria 1751 de 2015 (Derecho Fundamental a la Salud)",
-  "Decreto Único Reglamentario 780 de 2016",
-  "Ley 2015 de 2020 (Historia Clínica Electrónica Interoperable)",
-  "Resolución 866 de 2021 (Elementos de datos clínicos e interoperabilidad)",
-  "Resolución 1888 de 2025 (Resumen Digital de Atención — RDA e implementación de la IHCE)",
-  "Circulares vigentes del Ministerio de Salud sobre interoperabilidad de HCE",
-  "Guías de Gobierno Digital del MinTIC (cuando resulten aplicables)",
+  "Ley Estatutaria 1581 de 2012",
+  "Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015)",
+  "Ley 1266 de 2008 (cuando resulte aplicable)",
+  "Resolución 839 de 2017 (historia clínica / conservación)",
+  "Normas colombianas sobre historia clínica y atención en salud",
+  "Google API Services User Data Policy (Limited Use)",
+  "Google Workspace User Data and Developer Policy",
 ] as const;
